@@ -1,0 +1,142 @@
+<versions>
+	<latest id="2.2.1" url="https://github.com/kartoFlane/superluminal2/releases/latest" offer-selfpatch="false" />
+	<changelog>
+		<version id="2.2.1">
+			<change>Fixed a crash when saving a ship that was created with old FTL file format.</change>
+			<change>Several bug fixes.</change>
+		</version>
+		<version id="2.2">
+			<change>Added support for FTL 1.6.1+</change>
+			<change>Self-patching functionality should now work for non-Windows platforms (still broken for versions 2.1.2b and lower; you need to update manually)</change>
+			<change>Pirate ships from dlcPirateBlueprints.xml file can now be loaded in the editor</change>
+			<change>Editor now recognizes .rawclobber files</change>
+		</version>
+		<version id="2.1.2b">
+			<change>Updated GUI library version. Hopefully fixes the issues with Windows 10.</change>
+			<change>Self-patching functionality is broken for non-Windows platforms, you'll need to update the editor manually.</change>
+		</version>
+		<version id="2.1.2a">
+			<change>Fixed stations blocking placement of doors</change>
+		</version>
+		<version id="2.1.2">
+			<change>Added experimental self-patching functionality</change>
+			<change>The floor generation algorithm can now be customized</change>
+			<change>Added experimental feature that allows you to bundle your ship with a loaded mod when saving</change>
+		</version>
+		<version id="2.1.1a">
+			<change>Fixed a typo</change>
+			<change>Fixed a bug with systems sharing interior images</change>
+		</version>
+		<version id="2.1.1">
+			<change>Editor now recognizes .rawappend files</change>
+			<change>Enemy ships can now have weapon/drone loadout defined like player ships do</change>
+		</version>
+		<version id="2.1.0d">
+			<change>Fixed glow images being saved with incorrect name in rooms.xml</change>
+		</version>
+		<version id="2.1.0c">
+			<change>Fixed a crash related to missing glow images</change>
+			<change>ShipLoader now provides an explanation for when a ship can't be loaded</change>
+		</version>
+		<version id="2.1.0b">
+			<change>Fixed several crashes</change>
+			<change>Fixed several bugs related to glows and glow selection dialog</change>
+		</version>
+		<version id="2.1.0a">
+			<change>Fixed editor not loading default settings when it was ran for the first time</change>
+			<change>Fixed a crash when assigning activation glow to cloaking system</change>
+			<change>Fixed several bugs related to system/glow assignment</change>
+			<change>Added crash-save feature</change>
+			<change>Improvements to database browse search - search terms can now be partial</change>
+		</version>
+		<version id="2.1.0">
+			<change>Added zoom feature, View > Open Zoom Window</change>
+			<change>Added automated floor image generation, Edit > Generate Floor Image</change>
+			<change>Added manning glows' placement modification</change>
+			<change>Added image undo/redo</change>
+			<change>Many other changes, check changelog for details.</change>
+		</version>
+		<version id="2.0.6b beta">
+			<change>Fixed gib animation sometimes crashing the editor</change>
+			<change>Fixed gib linking via Ship Overview not working</change>
+		</version>
+		<version id="2.0.6a beta">
+			<change>Fixed a bug that would prevent gibs from being selectable via ShipOverview</change>
+			<change>Attempt to fix a crash related to door and gib linking</change>
+		</version>
+		<version id="2.0.6 beta">
+			<change>Improved stats display in weapon & drone selection dialogs</change>
+			<change>Doors and mounts can now be linekd via Ship Overview</change>
+			<change>Added artillery modification & display</change>
+			<change>Fixed Mac Command key in hotkeys</change>
+			<change>Numerous tweaks & fixes, more things are now undoable</change>
+		</version>
+		<version id="2.0.4 beta">
+			<change>Added mono-directional dragging</change>
+			<change>Added simulation of ship death animation (gib & mount animation)</change>
+			<change>Added support for Mac Command key in hotkeys (untested)</change>
+			<change>Added several new options</change>
+			<change>Several bug fixes and interface improvements</change>
+		</version>
+		<version id="2.0.3a beta">
+			<change>Fixed "Save As" thinking it was "Save"</change>
+			<change>Fixed Mac version's permissions</change>
+		</version>
+		<version id="2.0.3 beta">
+			<change>Added undo/redo system -- see changelog for currently undoable operations</change>
+			<change>Added "Unsaved Changes" warnings</change>
+			<change>Added .shp file loading</change>
+			<change>Gib angular velocity modification, mount-gib linking</change>
+			<change>Added search functionality to weapon/drone/augment selection dialogs</change>
+		</version>
+		<version id="2.0.1 beta">
+			<change>Fixed a bug that would cause shield image to not be exported</change>
+			<change>Added keybind modification via Settings window</change>
+			<change>Added automated database reloading when you've installed mods with SMM</change>
+			<change>Added drag-reordering of items in Ship Overview window</change>
+		</version>
+		<version id="2.0.0 beta9">
+			<change>Added gibs modification & saving</change>
+			<change>Added enemy window image for enemy ships instead of hangar</change>
+			<change>Reworked Overview Window slightly</change>
+			<change>Plethora of bug fixes, tweaks and improvements</change>
+		</version>
+		<version id="2.0.0 beta8">
+			<change>Numerous bug fixes</change>
+			<change>Added boarding AI modification</change>
+		</version>
+		<version id="2.0.0 beta7">
+			<change>Fixed some Linux-specific bugs</change>
+			<change>Disabled station editing on enemy ships</change>
+		</version>
+		<version id="2.0.0 beta6a">
+			<change>Fixed several bugs and crashes</change>
+			<change>Changed tooltips to stay until dismissed by the user</change>
+		</version>
+		<version id="2.0.0 beta5">
+			<change>Added crew modification</change>
+		</version>
+		<version id="2.0.0 beta4">
+			<change>Added fine ship offset modification</change>
+			<change>Added optimal offset calculation</change>
+			<change>Added hangar image background</change>
+			<change>Added enemy shields resizing</change>
+		</version>
+		<version id="2.0.0 beta3">
+			<change>Fixed several minor bugs</change>
+			<change>Weapon mounts can now display any weapon without actually changing the loadout</change>
+			<change>Added ship offset modification</change>
+			<change>Added help icons</change>
+			<change>A lot of minor tweaks and fixes</change>
+		</version>
+		<version id="2.0.0 beta2">
+			<change>Fixed several crashes</change>
+			<change>Fixed bugs with newly created rooms and mounts</change>
+			<change>Split images tab from properties tool into its own tool</change>
+			<change>Weapon/drone slots allow up to 8 slots, but display a warning when going over 4</change>
+		</version>
+		<version id="2.0.0 beta1">
+			<change>Beta release</change>
+		</version>
+	</changelog>
+</versions>

@@ -51,8 +51,8 @@ class NodeEditor(QtWidgets.QMainWindow):
         file_menu.addAction(save_action)
         
         create_ship_action = QtGui.QAction("Create New Ship", self)
-        save_action.triggered.connect(self.save_project)
-        file_menu.addAction(save_action)
+        create_ship_action.triggered.connect(self.opensuperluminal2)
+        file_menu.addAction(create_ship_action)
 
         # Layouts
         main_widget = QtWidgets.QWidget()
@@ -153,11 +153,11 @@ class NodeEditor(QtWidgets.QMainWindow):
         self.settings.setValue("splitterSize", self.splitter.saveState())
         QtWidgets.QWidget.closeEvent(self, event)
         
-    def opensuperliminal2():
+    def opensuperluminal2():
         import subprocess
 
         # Command to run
-        command = "bash shipcreator.exe"  # Replace this with your command
+        command = "bash shipbuilder\Superluminal Win-64 v2.2.1\superluminal2.exe"  # Replace this with your command
         
         # Run the command
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
