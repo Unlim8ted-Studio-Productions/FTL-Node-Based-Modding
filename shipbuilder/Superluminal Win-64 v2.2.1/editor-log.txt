@@ -1,0 +1,6 @@
+18:35:56.403 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Superluminal v2.2.1
+18:35:56.403 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Windows 11 10.0
+18:35:56.403 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Java HotSpot(TM) Client VM, 1.8.0_361, x86
+18:35:56.419 [main] DEBUG com.kartoflane.superluminal2.Superluminal - SWT v4626
+18:35:56.419 [main] ERROR com.kartoflane.superluminal2.Superluminal - Failed to retrieve display - wrong version of the editor has been downloaded.
+18:35:56.419 [main] ERROR com.kartoflane.superluminal2.Superluminal - You should download version for Windows 32-bit
