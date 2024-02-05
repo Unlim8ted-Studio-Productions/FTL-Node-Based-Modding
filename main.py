@@ -50,7 +50,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         save_action.triggered.connect(self.save_project)
         file_menu.addAction(save_action)
         
-        create_ship_action = QtGui.QAction("Create New Ship")
+        create_ship_action = QtGui.QAction("Create New Ship", self)
         create_ship_action.triggered.connect(self.opensuperluminal2)
         file_menu.addAction(create_ship_action)
 
@@ -153,7 +153,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         self.settings.setValue("splitterSize", self.splitter.saveState())
         QtWidgets.QWidget.closeEvent(self, event)
         
-    def opensuperluminal2():
+    def opensuperluminal2(fix):
         import subprocess
 
         # Command to run
