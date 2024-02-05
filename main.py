@@ -157,7 +157,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         import subprocess
 
         # Command to run
-        command = "bash shipbuilder\Superluminal Win-64 v2.2.1\superluminal2.exe"  # Replace this with your command
+        command = "bash shipbuilder\\Superluminal Win-64 v2.2.1\superluminal2.exe"  # Replace this with your command
         
         # Run the command
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
