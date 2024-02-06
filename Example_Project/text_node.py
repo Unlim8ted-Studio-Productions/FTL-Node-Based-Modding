@@ -23,7 +23,7 @@ class text_Node(Node):
         self.widget.setFixedWidth(100)
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        self.scaler_line = TextLineEdit()
+        self.scaler_line = QtWidgets.QTextEdit()
         layout.addWidget(self.scaler_line)
         self.widget.setLayout(layout)
 

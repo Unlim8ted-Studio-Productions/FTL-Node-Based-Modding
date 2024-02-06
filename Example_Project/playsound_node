@@ -13,5 +13,5 @@ class playsound_Node(Node):
         self.add_pin(name="Ex In", is_output=False, execution=True)
         self.add_pin(name="Ex Out", is_output=True, execution=True)
 
-        self.add_pin(name="PlaySound Output", is_output=True)
+        self.add_pin(name="AudioFile", is_output=False)
         self.build()
