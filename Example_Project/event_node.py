@@ -13,9 +13,7 @@ class event_Node(Node):
         self.type_text = "container"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="name", is_output=False)
-        self.add_pin(name="is unique", is_output=False)
-
+        self.add_pin(name="event_contain", is_output=True)
 
         self.build()
 
@@ -25,7 +23,11 @@ class event_Node(Node):
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.scaler_line = TextLineEdit()
+        self.namelabel = QtWidgets.QLabel("name:")
+        layout.addWidget(self.namelabel)
         layout.addWidget(self.scaler_line)
+        self.label = QtWidgets.QLabel("is unique:")
+        layout.addWidget(self.label)
         self.isunique = checkbox()
         layout.addWidget(self.isunique)
         self.widget.setLayout(layout)

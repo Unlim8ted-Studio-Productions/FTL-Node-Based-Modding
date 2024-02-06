@@ -11,7 +11,13 @@ class choice_Node(Node):
         self.add_pin(name="Ex In", is_output=False, execution=True)
         self.add_pin(name="Ex Out", is_output=True, execution=True)
 
-        self.add_pin(name="Choice Output", is_output=True)
+        self.add_pin(name="Choice Output0", is_output=True)
+        self.add_pin(name="Choice Output1", is_output=True)
+        self.add_pin(name="Choice Output2", is_output=True)
+        self.add_pin(name="Choice Output3", is_output=True)
+        self.add_pin(name="Choice Output4", is_output=True)
+        self.add_pin(name="Choice Output5", is_output=True)
+        self.add_pin(name="Choice Output6", is_output=True)
         self.build()
 
 

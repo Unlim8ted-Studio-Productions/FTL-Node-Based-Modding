@@ -34,6 +34,7 @@ class NodeEditor(QtCore.QObject):
         self.port = None
         self.scene = None
         self._last_selected = None
+        self.selection_rect = None
 
     def install(self, scene):
         """
