@@ -36,6 +36,10 @@ class NodeEditor(QtWidgets.QMainWindow):
         save_action = QtGui.QAction("Save Project", self)
         save_action.triggered.connect(self.save_project)
         file_menu.addAction(save_action)
+                
+        create_ship_action = QtGui.QAction("Create New Ship", self)
+        create_ship_action.triggered.connect(self.opensuperluminal2)
+        file_menu.addAction(create_ship_action)
 
         create_node_action = QtGui.QAction("Create Node", self)
         create_node_action.triggered.connect(self.create_node)
@@ -54,10 +58,12 @@ class NodeEditor(QtWidgets.QMainWindow):
         left_widget = QtWidgets.QWidget()
         self.splitter = QtWidgets.QSplitter()
         self.node_widget = NodeWidget(self)
+        self.inspector_panel = NodeInspector()
 
         # Add Widgets to layouts
         self.splitter.addWidget(left_widget)
         self.splitter.addWidget(self.node_widget)
+        self.splitter.addWidget(self.inspector_panel)
         left_widget.setLayout(left_layout)
         left_layout.addWidget(self.node_list)
         main_layout.addWidget(self.splitter)
@@ -233,6 +239,27 @@ class FileInputNode(QtWidgets.QWidget):
         super().__init__(parent)
         self.name = name
         # Add necessary widgets and layout for file input node
+
+
+class NodeInspector(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Node Inspector")
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
+        self.node = None
+
+    def inspect_node(self, node):
+        self.clear_inspector()
+        self.node = node
+        # Add inspector widgets based on the type of node
+
+    def clear_inspector(self):
+        self.node = None
+        for i in reversed(range(self.layout.count())):
+            widget = self.layout.itemAt(i).widget()
+            if widget:
+                widget.deleteLater()
 
 
 if __name__ == "__main__":
