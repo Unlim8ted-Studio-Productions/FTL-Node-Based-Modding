@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets
 
 from node_editor.node import Node
-from Example_Project.common_widgets import TextLineEdit
+from nodes.common_widgets import TextLineEdit
 
 
 class loadimage_Node(Node):

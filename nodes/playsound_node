@@ -1,5 +1,5 @@
 from node_editor.node import Node
-from Example_Project.common_widgets import FloatLineEdit
+from nodes.common_widgets import FloatLineEdit
 
 
 class playsound_Node(Node):

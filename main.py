@@ -69,8 +69,8 @@ class NodeEditor(QtWidgets.QMainWindow):
         main_layout.addWidget(self.splitter)
 
         # Load the example project
-        example_project_path = (Path(__file__).parent.resolve() / 'Example_project')
-        self.load_project(example_project_path)
+        self.project_path = (Path(__file__).parent.resolve() / 'nodes')
+        self.load_project(self.project_path)
 
         # Restore GUI from last state
         if settings.contains("geometry"):
@@ -87,7 +87,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         file_path, _ = file_dialog.getSaveFileName()
         self.node_widget.save_project(file_path)
 
-    def load_project(self, project_path=None):
+    def load_project(self, project_path=None, loadscene=True):
         if not project_path:
             return
 
@@ -114,9 +114,10 @@ class NodeEditor(QtWidgets.QMainWindow):
             self.node_list.update_project(self.imports)
 
             # work on just the first json file. add the ability to work on multiple json files later
-            for json_path in project_path.glob("*.json"):
-                self.node_widget.load_scene(json_path, self.imports)
-                break
+            if loadscene:
+                for json_path in project_path.glob("*.json"):
+                    self.node_widget.load_scene(json_path, self.imports)
+                    break
 
     def get_project_path(self):
         project_path = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Project Folder", "")
@@ -146,7 +147,23 @@ class NodeEditor(QtWidgets.QMainWindow):
 
     def create_node(self):
         dialog = NodeCreationDialog(self)
-        dialog.exec_()
+        if dialog.exec_():
+            node, filepath = dialog.create_node()
+            if node:
+                self.load_project(self.project_path, False)
+
+    def opensuperluminal2(self):
+        """"This function opens the Superluminal 2 software and returns a message indicating whether the software was successfully opened or not. 
+        Parameters:
+            - self (object): The object instance of the Superluminal 2 software.
+        Returns:
+            - str: A message indicating whether the software was successfully opened or not.
+        Processing Logic:
+            - Checks if the Superluminal 2 software is installed.
+            - If installed, opens the software.
+            - If not installed, returns an error message.
+            - If successfully opened, returns a success message."""
+        pass  # wont work for some reason
 
 
 class NodeCreationDialog(QtWidgets.QDialog):
@@ -156,89 +173,32 @@ class NodeCreationDialog(QtWidgets.QDialog):
         self.setWindowTitle("Create New Node")
         layout = QtWidgets.QVBoxLayout()
 
-        self.type_label = QtWidgets.QLabel("Node Type:")
-        self.type_combo = QtWidgets.QComboBox()
-        self.type_combo.addItems(["Dropdown", "Text Input", "Number Input", "Slider", "Checkbox", "File Input"])
 
         self.name_label = QtWidgets.QLabel("Node Name:")
         self.name_edit = QtWidgets.QLineEdit()
+        self.type_label = QtWidgets.QLabel("Node Type:")
+        self.type_edit = QtWidgets.QLineEdit()
 
         self.create_button = QtWidgets.QPushButton("Create")
-        self.create_button.clicked.connect(self.create_node)
+        self.create_button.clicked.connect(self.accept)
 
-        layout.addWidget(self.type_label)
-        layout.addWidget(self.type_combo)
         layout.addWidget(self.name_label)
         layout.addWidget(self.name_edit)
+        layout.addWidget(self.type_label)
+        layout.addWidget(self.type_edit)
         layout.addWidget(self.create_button)
 
         self.setLayout(layout)
 
     def create_node(self):
-        node_type = self.type_combo.currentText()
+        #node_type = self.type_combo.currentText()
         node_name = self.name_edit.text()
+        node_type = self.type_edit.text()
 
-        # Depending on node_type, create specific node
-        if node_type == "Dropdown":
-            node = DropdownNode(name=node_name)
-        elif node_type == "Text Input":
-            node = TextInputNode(name=node_name)
-        elif node_type == "Number Input":
-            node = NumberInputNode(name=node_name)
-        elif node_type == "Slider":
-            node = SliderNode(name=node_name)
-        elif node_type == "Checkbox":
-            node = CheckboxNode(name=node_name)
-        elif node_type == "File Input":
-            node = FileInputNode(name=node_name)
+        node=base_node(node_name,node_type)#, filename=node_name+r"_node.py")
 
-        # Do something with the created node, for example, add it to the node editor widget
-        # self.parent().node_widget.add_node(node)
+        return node, r"/node" + node_name + r"_node.py"
 
-        self.close()
-
-
-# Define specific node classes for each type
-class DropdownNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for dropdown node
-
-
-class TextInputNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for text input node
-
-
-class NumberInputNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for number input node
-
-
-class SliderNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for slider node
-
-
-class CheckboxNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for checkbox node
-
-
-class FileInputNode(QtWidgets.QWidget):
-    def __init__(self, name="", parent=None):
-        super().__init__(parent)
-        self.name = name
-        # Add necessary widgets and layout for file input node
 
 
 class NodeInspector(QtWidgets.QWidget):
@@ -260,6 +220,22 @@ class NodeInspector(QtWidgets.QWidget):
             widget = self.layout.itemAt(i).widget()
             if widget:
                 widget.deleteLater()
+
+from node_editor.node import Node
+
+
+class base_node(Node):
+    def __init__(self, title, type):
+        super().__init__()
+
+        self.title_text = title
+        self.type_text = type
+        self.set_color(title_color=(0, 128, 0))
+
+        self.add_pin(name="Ex In", is_output=False, execution=True)
+        self.add_pin(name="Ex Out", is_output=True, execution=True)
+
+        self.build()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets, QtGui, QtCore
 
 from node_editor.node import Node
-from Example_Project.common_widgets import TextLineEdit, checkbox
+from nodes.common_widgets import TextLineEdit, checkbox
 
 
 class Reward_Node(Node):
