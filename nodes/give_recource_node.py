@@ -11,8 +11,8 @@ class Reward_Node(Node):
         self.title_text = "Reward"
         self.type_text = "container"
         self.set_color(title_color=(0, 128, 0))
-        self.add_pin(name="Input", is_output=False)
-        self.add_pin(name="Output", is_output=True)
+        self.add_pin(name="Input", is_output=False, execution=True)
+        self.add_pin(name="Output", is_output=True, execution=True)
 
         self.reward_types = ["Scrap", "Fuel", "Drone Parts", "Missiles"]
 

@@ -12,7 +12,7 @@ class loadimage_Node(Node):
         self.type_text = "image"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="img location", is_output=True)
+        self.add_pin(name="img location", is_output=True, execution=True)
 
         self.build()
 

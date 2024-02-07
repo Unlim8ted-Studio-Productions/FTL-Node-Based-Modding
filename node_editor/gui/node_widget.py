@@ -114,7 +114,11 @@ class NodeWidget(QtWidgets.QWidget):
         # TODO possibly an ordered dict so things stay in order (better for git changes, and manual editing)
         # Maybe connections will need a uuid for each so they can be sorted and kept in order.
         scene = {"nodes": [], "connections": []}
+        pins = []
 
+        for item in self.scene.items():
+            if isinstance(item, Pin):
+                pins.append(item)
         # Need the nodes, and connections of ports to nodes
         for item in self.scene.items():
             # Connections
@@ -125,6 +129,12 @@ class NodeWidget(QtWidgets.QWidget):
                 end_id = str(nodes[1])
                 start_pin = item.start_pin
                 end_pin = item.end_pin
+
+                for p in pins:
+                    if p == start_pin:
+                        start_pin = p.name
+                    if p == end_pin:
+                        end_pin = p.name
                 # print(f"Node ids {start_id, end_id}")
                 # print(f"connected ports {item.start_pin.name(), item.end_pin.name()}")
 
@@ -138,8 +148,6 @@ class NodeWidget(QtWidgets.QWidget):
                 continue
 
             # Pins
-            if isinstance(item, Pin):
-                continue
 
             # Nodes
             if isinstance(item, Node):

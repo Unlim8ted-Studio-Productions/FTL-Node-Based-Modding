@@ -12,14 +12,14 @@ class loadsound_Node(Node):
         self.type_text = "Audio"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="Audio", is_output=True)
+        self.add_pin(name="Audio", is_output=True, execution=True)
 
         self.build()
 
     def init_widget(self):
         self.widget = QtWidgets.QWidget()
         self.widget.setFixedWidth(100)
-        layout = QtWidgets.QVBoxLayout()        # Create a button to open the file dialog
+        layout = QtWidgets.QVBoxLayout()  # Create a button to open the file dialog
         self.open_button = QtWidgets.QPushButton("Open File")
         self.open_button.clicked.connect(self.open_file_dialog)
 
@@ -31,11 +31,11 @@ class loadsound_Node(Node):
         layout.addWidget(self.open_button)
         layout.addWidget(self.file_path_textedit)
         self.widget.setLayout(layout)
-        
+
         proxy = QtWidgets.QGraphicsProxyWidget()
         proxy.setWidget(self.widget)
         proxy.setParentItem(self)
-        
+
         super().init_widget()
 
     def open_file_dialog(self):

@@ -13,7 +13,7 @@ class event_Node(Node):
         self.type_text = "container"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="event_contain", is_output=True)
+        self.add_pin(name="event_contain", is_output=True, execution=True)
 
         self.build()
 

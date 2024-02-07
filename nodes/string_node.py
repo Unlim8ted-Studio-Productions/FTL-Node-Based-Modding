@@ -12,7 +12,7 @@ class string_Node(Node):
         self.type_text = "string"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="string", is_output=True)
+        self.add_pin(name="string", is_output=True, execution=True)
 
         self.build()
 
