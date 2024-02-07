@@ -12,8 +12,8 @@ class loadship_Node(Node):
         self.title_text = "Load Ship"
         self.type_text = "ship"
         self.set_color(title_color=(255, 165, 0))
-
-        self.add_pin(name="continue", is_output=True, execution=True)
+        self.add_pin(name="Ex In", is_output=False, execution=True)
+        self.add_pin(name="Ex Out", is_output=True, execution=True)
 
         self.build()
 
