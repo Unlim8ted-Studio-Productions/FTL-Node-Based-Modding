@@ -34,7 +34,7 @@ class Connection(Connection_Graphics):
         Returns:
         tuple: A tuple of the two Node objects connected by this Connection.
         """
-        return (self.start_pin.node(), self.end_pin.node())
+        return (self.start_pin, self.end_pin)
 
     def update_start_and_end_pos(self):
         """

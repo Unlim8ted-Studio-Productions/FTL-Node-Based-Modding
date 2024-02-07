@@ -47,7 +47,9 @@ class NodeWidget(QtWidgets.QWidget):
         """
         super().__init__(parent)
 
-        self.node_lookup = {}  # A dictionary of nodes, by uuids for faster looking up. Refactor this in the future
+        self.node_lookup = (
+            {}
+        )  # A dictionary of nodes, by uuids for faster looking up. Refactor this in the future
         main_layout = QtWidgets.QVBoxLayout()
         main_layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(main_layout)
@@ -119,10 +121,10 @@ class NodeWidget(QtWidgets.QWidget):
             if isinstance(item, Connection):
                 # print(f"Name: {item}")
                 nodes = item.nodes()
-                start_id = str(nodes[0].uuid)
-                end_id = str(nodes[1].uuid)
-                start_pin = item.start_pin.name()
-                end_pin = item.end_pin.name()
+                start_id = str(nodes[0])
+                end_id = str(nodes[1])
+                start_pin = item.start_pin
+                end_pin = item.end_pin
                 # print(f"Node ids {start_id, end_id}")
                 # print(f"connected ports {item.start_pin.name(), item.end_pin.name()}")
 
