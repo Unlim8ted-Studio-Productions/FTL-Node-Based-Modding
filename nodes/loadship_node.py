@@ -5,15 +5,15 @@ from node_editor.node import Node
 from nodes.common_widgets import TextLineEdit, checkbox
 
 
-class event_Node(Node):
+class loadship_Node(Node):
     def __init__(self):
         super().__init__()
 
         self.title_text = "Load Ship"
-        self.type_text = "container"
+        self.type_text = "ship"
         self.set_color(title_color=(255, 165, 0))
 
-        self.add_pin(name="event_contain", is_output=True, execution=True)
+        self.add_pin(name="continue", is_output=True, execution=True)
 
         self.build()
 
