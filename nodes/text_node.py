@@ -14,16 +14,15 @@ class text_Node(Node):
 
         self.add_pin(name="Ex In", is_output=False, execution=True)
         self.add_pin(name="Ex Out", is_output=True, execution=True)
-        
 
         self.build()
-        
+
     def init_widget(self):
         self.widget = QtWidgets.QWidget()
         self.widget.setFixedWidth(100)
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        self.scaler_line = QtWidgets.QTextEdit()
+        self.scaler_line = TextLineEdit()
         layout.addWidget(self.scaler_line)
         self.widget.setLayout(layout)
 
