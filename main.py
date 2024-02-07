@@ -1,4 +1,5 @@
 from PySide6 import QtWidgets, QtGui, QtCore
+from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
 from node_editor.gui.node_widget import NodeWidget
 import logging
