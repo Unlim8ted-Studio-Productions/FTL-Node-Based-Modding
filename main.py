@@ -37,7 +37,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         save_action = QtGui.QAction("Save Project", self)
         save_action.triggered.connect(self.save_project)
         file_menu.addAction(save_action)
-                
+
         create_ship_action = QtGui.QAction("Create New Ship", self)
         create_ship_action.triggered.connect(self.opensuperluminal2)
         file_menu.addAction(create_ship_action)
@@ -70,7 +70,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         main_layout.addWidget(self.splitter)
 
         # Load the example project
-        self.project_path = (Path(__file__).parent.resolve() / 'nodes')
+        self.project_path = Path(__file__).parent.resolve() / "nodes"
         self.load_project(self.project_path)
 
         # Restore GUI from last state
@@ -81,6 +81,7 @@ class NodeEditor(QtWidgets.QMainWindow):
             self.splitter.restoreState(s)
 
     def save_project(self):
+        print(self.node_widget.scene.items())
         file_dialog = QtWidgets.QFileDialog()
         file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
         file_dialog.setDefaultSuffix("json")
@@ -99,15 +100,15 @@ class NodeEditor(QtWidgets.QMainWindow):
             self.imports = {}
 
             for file in project_path.glob("*.py"):
-                if not file.stem.endswith('_node'):
-                    print('file:', file.stem)
+                if not file.stem.endswith("_node"):
+                    print("file:", file.stem)
                     continue
                 spec = importlib.util.spec_from_file_location(file.stem, file)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
 
                 for name, obj in inspect.getmembers(module):
-                    if not name.endswith('_Node'):
+                    if not name.endswith("_Node"):
                         continue
                     if inspect.isclass(obj):
                         self.imports[obj.__name__] = {"class": obj, "module": module}
@@ -121,7 +122,9 @@ class NodeEditor(QtWidgets.QMainWindow):
                     break
 
     def get_project_path(self):
-        project_path = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Project Folder", "")
+        project_path = QtWidgets.QFileDialog.getExistingDirectory(
+            None, "Select Project Folder", ""
+        )
         if not project_path:
             return
 
@@ -154,7 +157,7 @@ class NodeEditor(QtWidgets.QMainWindow):
                 self.load_project(self.project_path, False)
 
     def opensuperluminal2(self):
-        """"This function opens the Superluminal 2 software and returns a message indicating whether the software was successfully opened or not. 
+        """ "This function opens the Superluminal 2 software and returns a message indicating whether the software was successfully opened or not.
         Parameters:
             - self (object): The object instance of the Superluminal 2 software.
         Returns:
@@ -174,7 +177,6 @@ class NodeCreationDialog(QtWidgets.QDialog):
         self.setWindowTitle("Create New Node")
         layout = QtWidgets.QVBoxLayout()
 
-
         self.name_label = QtWidgets.QLabel("Node Name:")
         self.name_edit = QtWidgets.QLineEdit()
         self.type_label = QtWidgets.QLabel("Node Type:")
@@ -192,14 +194,13 @@ class NodeCreationDialog(QtWidgets.QDialog):
         self.setLayout(layout)
 
     def create_node(self):
-        #node_type = self.type_combo.currentText()
+        # node_type = self.type_combo.currentText()
         node_name = self.name_edit.text()
         node_type = self.type_edit.text()
 
-        node=base_node(node_name,node_type)#, filename=node_name+r"_node.py")
+        node = base_node(node_name, node_type)  # , filename=node_name+r"_node.py")
 
         return node, r"/node" + node_name + r"_node.py"
-
 
 
 class NodeInspector(QtWidgets.QWidget):
@@ -221,6 +222,7 @@ class NodeInspector(QtWidgets.QWidget):
             widget = self.layout.itemAt(i).widget()
             if widget:
                 widget.deleteLater()
+
 
 from node_editor.node import Node
 

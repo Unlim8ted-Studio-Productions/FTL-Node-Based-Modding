@@ -127,8 +127,8 @@ class NodeWidget(QtWidgets.QWidget):
                 nodes = item.nodes()
                 start_id = str(nodes[0])
                 end_id = str(nodes[1])
-                start_pin = item.start_pin
-                end_pin = item.end_pin
+                start_pin = item.start_pin.__name__
+                end_pin = item.end_pin.__name__
 
                 for p in pins:
                     if p == start_pin:
@@ -163,7 +163,7 @@ class NodeWidget(QtWidgets.QWidget):
 
                 node = {"type": obj_type, "x": x, "y": y, "uuid": node_id}
                 scene["nodes"].append(node)
-                print(item._pins[0].connection)
+                # print(item._pins[0].connection)
 
         # Write the items_info dictionary to a JSON file
         with open(json_path, "w") as f:
