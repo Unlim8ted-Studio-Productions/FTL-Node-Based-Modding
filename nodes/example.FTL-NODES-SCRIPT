@@ -1,66 +1,93 @@
 {
     "nodes": [
         {
-            "type": "Scaler_Node",
-            "x": 4733,
-            "y": 5122,
-            "uuid": "fb254b28-ef69-4fc1-8619-ed4fd0581689"
+            "type": "Reward_Node",
+            "x": 5734,
+            "y": 4725,
+            "uuid": "468cf1dc-4d15-46a9-958f-1b27b7353820",
+            "internal-data": {
+                "amount": 20,
+                "index": 0
+            }
         },
         {
-            "type": "Print_Node",
-            "x": 5178,
-            "y": 4946,
-            "uuid": "4d4c8ab7-4047-4d3c-a00d-afec8d2d2ab4"
+            "type": "text_Node",
+            "x": 5551,
+            "y": 4751,
+            "uuid": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "internal-data": {
+                "text": "They give you some supplies to help you on your quest"
+            }
         },
         {
-            "type": "Scaler_Node",
-            "x": 4740,
-            "y": 5013,
-            "uuid": "99788e6a-af8c-4b31-bdc3-b7c275743bb2"
-        },
-        {
-            "type": "Button_Node",
-            "x": 4734,
-            "y": 4894,
-            "uuid": "32fa39d4-d90b-46ea-bcec-bbb52f12e217"
-        },
-        {
-            "type": "Add_Node",
-            "x": 4974,
+            "type": "loadship_Node",
+            "x": 5699,
             "y": 4947,
-            "uuid": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b"
+            "uuid": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
+            "internal-data": {
+                "text": "enemy-zoltan",
+                "ishostile": true
+            }
+        },
+        {
+            "type": "loadsound_Node",
+            "x": 5348,
+            "y": 5098,
+            "uuid": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
+            "internal-data": {
+                "filepath": ""
+            }
+        },
+        {
+            "type": "playsound_Node",
+            "x": 5514,
+            "y": 4927,
+            "uuid": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 5353,
+            "y": 4952,
+            "uuid": "11e6b28e-0473-487f-8480-0069fd412c47",
+            "internal-data": {
+                "text": "attack!"
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 5380,
+            "y": 4778,
+            "uuid": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
+            "internal-data": {
+                "text": "Tell them about your mission and ask for supplies"
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 5163,
+            "y": 4897,
+            "uuid": "468e8af6-e832-490c-8f96-5c1562b46d96",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 4973,
+            "y": 4869,
+            "uuid": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
+            "internal-data": {
+                "text": "A zoltan ship hails you"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 4792,
+            "y": 4897,
+            "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "internal-data": {
+                "text": "example",
+                "isunique": true
+            }
         }
     ],
-    "connections": [
-        {
-            "start_id": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b",
-            "end_id": "4d4c8ab7-4047-4d3c-a00d-afec8d2d2ab4",
-            "start_pin": "output",
-            "end_pin": "input"
-        },
-        {
-            "start_id": "fb254b28-ef69-4fc1-8619-ed4fd0581689",
-            "end_id": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b",
-            "start_pin": "value",
-            "end_pin": "input B"
-        },
-        {
-            "start_id": "99788e6a-af8c-4b31-bdc3-b7c275743bb2",
-            "end_id": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b",
-            "start_pin": "value",
-            "end_pin": "input A"
-        },
-        {
-            "start_id": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b",
-            "end_id": "4d4c8ab7-4047-4d3c-a00d-afec8d2d2ab4",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In"
-        },
-        {
-            "start_id": "32fa39d4-d90b-46ea-bcec-bbb52f12e217",
-            "end_id": "0a3b1313-e73c-4f3a-b878-7a7a8a76518b",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In"
-        }
-    ]
-}
+    "connections": []

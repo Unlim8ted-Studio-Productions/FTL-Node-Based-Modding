@@ -117,8 +117,8 @@ class NodeEditor(QtWidgets.QMainWindow):
                         continue
                     if inspect.isclass(obj):
                         self.imports[obj.__name__] = {"class": obj, "module": module}
-
-            self.node_list.update_project(self.imports)
+            if not loadfile:
+                self.node_list.update_project(self.imports)
 
             # work on just the first json file. add the ability to work on multiple json files later
             if loadscene:
