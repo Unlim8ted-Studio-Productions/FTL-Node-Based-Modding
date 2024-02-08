@@ -115,7 +115,6 @@ class NodeWidget(QtWidgets.QWidget):
             connection.update_start_and_end_pos()
 
     def save_project(self, json_path):
-        from collections import OrderedDict
 
         # TODO possibly an ordered dict so things stay in order (better for git changes, and manual editing)
         # Maybe connections will need a uuid for each so they can be sorted and kept in order.
@@ -140,8 +139,8 @@ class NodeWidget(QtWidgets.QWidget):
                 #        start_id = i[1]
                 #    if i[0] == nodes[1]:
                 #        end_id = i[1]
-                start_id = nodes[0].parent.uuid
-                end_id = nodes[1].parent.uuid
+                start_id = str(nodes[0].parent.uuid)
+                end_id = str(nodes[1].parent.uuid)
                 start_pin = item.start_pin
                 end_pin = item.end_pin
 

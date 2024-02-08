@@ -64,13 +64,6 @@
             }
         },
         {
-            "type": "choice_Node",
-            "x": 5163,
-            "y": 4897,
-            "uuid": "468e8af6-e832-490c-8f96-5c1562b46d96",
-            "internal-data": {}
-        },
-        {
             "type": "text_Node",
             "x": 4973,
             "y": 4869,
@@ -81,14 +74,76 @@
         },
         {
             "type": "event_Node",
-            "x": 4792,
-            "y": 4897,
+            "x": 4817,
+            "y": 4913,
             "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
             "internal-data": {
                 "text": "example",
                 "isunique": true
             }
+        },
+        {
+            "type": "choice_Node",
+            "x": 5155,
+            "y": 4866,
+            "uuid": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "internal-data": {}
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "end_id": "11e6b28e-0473-487f-8480-0069fd412c47",
+            "start_pin": "Choice Output1",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "end_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
+            "start_pin": "Choice Output0",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
+            "end_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "end_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
+            "start_pin": "event_contain",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
+            "end_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "11e6b28e-0473-487f-8480-0069fd412c47",
+            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
+            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "start_pin": "Audio",
+            "end_pin": "AudioFile"
+        },
+        {
+            "start_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "end_id": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
+            "start_pin": "Ex Out",
+            "end_pin": "Input"
+        }
+    ]
 }
