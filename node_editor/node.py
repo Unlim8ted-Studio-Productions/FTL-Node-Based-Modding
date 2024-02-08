@@ -12,6 +12,16 @@ class Node(Node_Graphics):
 
     # Override me
     def init_widget(self):
+        """"Initializes the widget."
+        Parameters:
+            - self (object): The widget object.
+        Returns:
+            - None: The function does not return anything.
+        Processing Logic:
+            - Does not perform any operations.
+            - Simply initializes the widget.
+            - No parameters are required.
+            - No return value is expected."""
         pass
 
     def compute(self):

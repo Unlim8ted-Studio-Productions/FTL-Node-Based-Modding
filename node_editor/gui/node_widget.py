@@ -115,20 +115,29 @@ class NodeWidget(QtWidgets.QWidget):
         # Maybe connections will need a uuid for each so they can be sorted and kept in order.
         scene = {"nodes": [], "connections": []}
         pins = []
-
+        #nodess = []
         for item in self.scene.items():
             if isinstance(item, Pin):
                 pins.append(item)
+            #if isinstance(item, Node):      
+            #    node_id = str(item.uuid)
+            #    nodess.append((item, node_id))
+
         # Need the nodes, and connections of ports to nodes
         for item in self.scene.items():
             # Connections
             if isinstance(item, Connection):
                 # print(f"Name: {item}")
                 nodes = item.nodes()
-                start_id = str(nodes[0])
-                end_id = str(nodes[1])
-                start_pin = item.start_pin.__name__
-                end_pin = item.end_pin.__name__
+                #for i in nodess:
+                #    if i[0] == nodes[0]:
+                #        start_id = i[1]
+                #    if i[0] == nodes[1]:
+                #        end_id = i[1]
+                start_id = nodes[0].parent.uuid
+                end_id = nodes[1].parent.uuid
+                start_pin = item.start_pin
+                end_pin = item.end_pin
 
                 for p in pins:
                     if p == start_pin:
