@@ -31,7 +31,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         self.menuBar().addMenu(file_menu)
 
         load_action = QtGui.QAction("Load Project", self)
-        load_action.triggered.connect(self.get_project_path)
+        load_action.triggered.connect(self.loadproject)
         file_menu.addAction(load_action)
 
         save_action = QtGui.QAction("Save Project", self)
@@ -45,6 +45,10 @@ class NodeEditor(QtWidgets.QMainWindow):
         create_node_action = QtGui.QAction("Create Node", self)
         create_node_action.triggered.connect(self.create_node)
         file_menu.addAction(create_node_action)
+        
+        compilea = QtGui.QAction("Compile to xml format", self)
+        compilea.triggered.connect(None)
+        file_menu.addAction(compilea)
 
         # Layouts
         main_widget = QtWidgets.QWidget()
@@ -71,7 +75,8 @@ class NodeEditor(QtWidgets.QMainWindow):
 
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
-        self.load_project(self.project_path)
+        
+        self.load_project(self.project_path, loadscene=False)
 
         # Restore GUI from last state
         if settings.contains("geometry"):
@@ -84,12 +89,12 @@ class NodeEditor(QtWidgets.QMainWindow):
         print(self.node_widget.scene.items())
         file_dialog = QtWidgets.QFileDialog()
         file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
-        file_dialog.setDefaultSuffix("json")
-        file_dialog.setNameFilter("JSON files (*.json)")
-        file_path, _ = file_dialog.getSaveFileName()
+        file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
+        file_dialog.setNameFilter("FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
+        file_path, _ = file_dialog.getSaveFileName(caption="Save project", dir=str(self.project_path.absolute()), filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
         self.node_widget.save_project(file_path)
 
-    def load_project(self, project_path=None, loadscene=True):
+    def load_project(self, project_path=None, loadscene=True, loadfile=None):
         if not project_path:
             return
 
@@ -120,6 +125,9 @@ class NodeEditor(QtWidgets.QMainWindow):
                 for json_path in project_path.glob("*.json"):
                     self.node_widget.load_scene(json_path, self.imports)
                     break
+            elif loadfile:
+                self.node_widget.load_scene(loadfile, self.imports)
+
 
     def get_project_path(self):
         project_path = QtWidgets.QFileDialog.getExistingDirectory(
@@ -128,7 +136,17 @@ class NodeEditor(QtWidgets.QMainWindow):
         if not project_path:
             return
 
-        self.load_project(project_path)
+        #self.load_project(project_path)
+        
+    def loadproject(self):
+        file_dialog = QtWidgets.QFileDialog()
+        #file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
+        #file_dialog.setDirectory()
+        file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
+        #file_dialog.setNameFilter()
+        file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", dir=str(self.project_path.absolute()), filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
+        
+        self.load_project(self.project_path, loadscene=False, loadfile = file_path)
 
     def closeEvent(self, event):
         """

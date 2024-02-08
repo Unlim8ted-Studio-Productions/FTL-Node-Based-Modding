@@ -90,6 +90,12 @@ class NodeWidget(QtWidgets.QWidget):
                 node_item.setPos(node["x"], node["y"])
 
                 self.node_lookup[node["uuid"]] = node_item
+                node_item.internaldata = node["internal-data"]
+                try:
+                    node_item.setinternaldata()
+                except:
+                    None
+                
 
         # Add the connections
         for c in data["connections"]:
@@ -167,10 +173,13 @@ class NodeWidget(QtWidgets.QWidget):
 
                 obj_type = type(item).__name__
                 # print(f"node type: {obj_type}")
-
+                try:
+                    item.setdata()
+                except:
+                    None
                 node_id = str(item.uuid)
 
-                node = {"type": obj_type, "x": x, "y": y, "uuid": node_id}
+                node = {"type": obj_type, "x": x, "y": y, "uuid": node_id, "internal-data": item.internaldata}
                 scene["nodes"].append(node)
                 # print(item._pins[0].connection)
 

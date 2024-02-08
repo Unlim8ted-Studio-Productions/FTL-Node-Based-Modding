@@ -11,7 +11,7 @@ class text_Node(Node):
         self.title_text = "Text"
         self.type_text = "XML Nodes"
         self.set_color(title_color=(255, 0, 0))
-        self.internaldata = []
+        self.internaldata = {}
         self.add_pin(name="Ex In", is_output=False, execution=True)
         self.add_pin(name="Ex Out", is_output=True, execution=True)
 
@@ -22,12 +22,20 @@ class text_Node(Node):
         self.widget.setFixedWidth(100)
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        self.scaler_line = TextLineEdit()
+        self.scaler_line = TextLineEdit()#o=self)
         layout.addWidget(self.scaler_line)
         self.widget.setLayout(layout)
-
+    
         proxy = QtWidgets.QGraphicsProxyWidget()
         proxy.setWidget(self.widget)
         proxy.setParentItem(self)
+        
 
         super().init_widget()
+        
+    def setinternaldata(self):
+        self.scaler_line.setText(self.internaldata["text"])
+        
+    def setdata(self):
+        self.internaldata["text"] = self.scaler_line.text()
+         

@@ -17,9 +17,9 @@ class checkbox(QtWidgets.QCheckBox):
 
 
 class TextLineEdit(QtWidgets.QLineEdit):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None):#, o=None):
         super().__init__(parent)
-
+        #o.setdata()
     def keyPressEvent(self, event):
         super().keyPressEvent(event)
 

@@ -9,6 +9,7 @@ from node_editor.common import Node_Status
 class Node(Node_Graphics):
     def __init__(self):
         super().__init__()
+        self.internaldata = {}
 
     # Override me
     def init_widget(self):
