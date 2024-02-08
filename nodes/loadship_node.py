@@ -37,3 +37,12 @@ class loadship_Node(Node):
         proxy.setParentItem(self)
 
         super().init_widget()
+        
+    def setinternaldata(self):
+        self.scaler_line.setText(self.internaldata["text"])
+        self.isunique.setChecked(self.internaldata["ishostile"])
+        
+    def setdata(self):
+        self.internaldata["text"] = self.scaler_line.text()
+        self.internaldata["ishostile"] = self.isunique.isChecked()
+         

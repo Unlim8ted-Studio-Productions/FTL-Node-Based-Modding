@@ -24,7 +24,7 @@ class loadsound_Node(Node):
         self.open_button.clicked.connect(self.open_file_dialog)
 
         # Create a text edit widget to display the selected file path
-        self.file_path_textedit = ()
+        self.file_path_textedit = TextLineEdit()
         self.file_path_textedit.setReadOnly(True)
 
         # Create a layout to organize the widgets
@@ -38,13 +38,26 @@ class loadsound_Node(Node):
 
         super().init_widget()
 
+    def open_file(self, selected_files = None):
+
+        if selected_files:
+            file_path = selected_files[0]
+            self.file_path_textedit.setPlainText(file_path)
+                
     def open_file_dialog(self):
         file_dialog = QtWidgets.QFileDialog(self)
         file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
-        file_dialog.setNameFilter("All Files (*.*)")
+        file_dialog.setNameFilter("OGG Files (*.ogg*)")
 
         if file_dialog.exec_():
             selected_files = file_dialog.selectedFiles()
             if selected_files:
                 file_path = selected_files[0]
                 self.file_path_textedit.setPlainText(file_path)
+    def setinternaldata(self):
+        self.open_file(self.internaldata["filepath"])
+        
+    def setdata(self):
+        self.internaldata["filepath"] = self.file_path_textedit.text()
+         
+         #TODO: in future copy selected audio to audio folder and have dropdown on node with audio files in audio folder

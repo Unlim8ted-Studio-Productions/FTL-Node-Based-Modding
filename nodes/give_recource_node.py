@@ -63,5 +63,15 @@ class Reward_Node(Node):
         amount = node_dict.get("amount", 0)
         self.amount_input.setValue(amount)
 
+    def setinternaldata(self):
+        self.amount_input.setValue(self.internaldata["amount"])
+        self.reward_type_dropdown.setValue(self.internaldata["index"])
+        
+    def setdata(self):
+        
+        self.internaldata["amount"] = self.amount_input.value()
+        self.internaldata["index"] = self.reward_type_dropdown.currentIndex()
+
+         
 
 # Usage: self.register_node_class(RewardNode)

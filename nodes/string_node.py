@@ -30,3 +30,9 @@ class string_Node(Node):
         proxy.setParentItem(self)
 
         super().init_widget()
+    def setinternaldata(self):
+        self.scaler_line.setText(self.internaldata["text"])
+        
+    def setdata(self):
+        self.internaldata["text"] = self.scaler_line.text()
+         
