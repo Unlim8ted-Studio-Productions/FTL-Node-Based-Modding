@@ -48,9 +48,6 @@ class NodeEditor(QtWidgets.QMainWindow):
         create_node_action.triggered.connect(self.create_node)
         file_menu.addAction(create_node_action)
         
-        compilea = QtGui.QAction("Compile to xml format", self)
-        compilea.triggered.connect(self.compile_to_ftl())
-        file_menu.addAction(compilea)
 
         # Layouts
         main_widget = QtWidgets.QWidget()
@@ -74,6 +71,10 @@ class NodeEditor(QtWidgets.QMainWindow):
         left_widget.setLayout(left_layout)
         left_layout.addWidget(self.node_list)
         main_layout.addWidget(self.splitter)
+
+        compilea = QtGui.QAction("Compile to xml format", self)
+        compilea.triggered.connect(self.compile_to_ftl())
+        file_menu.addAction(compilea)
 
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
