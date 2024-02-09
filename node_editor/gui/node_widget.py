@@ -114,7 +114,7 @@ class NodeWidget(QtWidgets.QWidget):
                 connection.set_end_pin(end_pin)
             connection.update_start_and_end_pos()
 
-    def save_project(self, json_path):
+    def save_project(self, json_path = None):
 
         # TODO possibly an ordered dict so things stay in order (better for git changes, and manual editing)
         # Maybe connections will need a uuid for each so they can be sorted and kept in order.
@@ -183,5 +183,8 @@ class NodeWidget(QtWidgets.QWidget):
                 # print(item._pins[0].connection)
 
         # Write the items_info dictionary to a JSON file
-        with open(json_path, "w") as f:
-            json.dump(scene, f, indent=4)
+        if json_path:
+            with open(json_path, "w") as f:
+                json.dump(scene, f, indent=4)
+        else:
+            return scene

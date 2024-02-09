@@ -1,3 +1,5 @@
+import json
+import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
 from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
@@ -47,7 +49,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         file_menu.addAction(create_node_action)
         
         compilea = QtGui.QAction("Compile to xml format", self)
-        compilea.triggered.connect(None)
+        compilea.triggered.connect(self.compile_to_ftl())
         file_menu.addAction(compilea)
 
         # Layouts
@@ -84,6 +86,12 @@ class NodeEditor(QtWidgets.QMainWindow):
 
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
+
+    def compile_to_ftl(self):
+        scene = self.node_widget.save_project()
+        path = tempfile.mktemp()
+        with open(path, "w") as f:
+            json.dump(scene, f, indent=4)
 
     def save_project(self):
         print(self.node_widget.scene.items())
