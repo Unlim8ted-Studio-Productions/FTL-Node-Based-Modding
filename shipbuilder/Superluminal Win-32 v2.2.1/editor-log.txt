@@ -1,0 +1,13 @@
+16:27:43.623 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Superluminal v2.2.1
+16:27:43.623 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Windows 11 10.0
+16:27:43.623 [main] DEBUG com.kartoflane.superluminal2.Superluminal - Java HotSpot(TM) Client VM, 1.8.0_361, x86
+16:27:43.623 [main] DEBUG com.kartoflane.superluminal2.Superluminal - SWT v4626
+16:27:43.686 [main] TRACE com.kartoflane.superluminal2.Superluminal - Loading properties from config file...
+16:27:43.717 [main] TRACE com.kartoflane.superluminal2.Superluminal - No FTL dats path previously set.
+16:27:43.889 [main] DEBUG com.kartoflane.superluminal2.Superluminal - FTL dats path was not located automatically. Prompting user for location.
+16:27:48.040 [main] DEBUG com.kartoflane.superluminal2.Superluminal - No FTL dats path found - creating empty Database.
+16:27:48.072 [main] INFO  com.kartoflane.superluminal2.Superluminal - Running...
+16:27:48.072 [SwingWorker-pool-2-thread-1] INFO  com.kartoflane.superluminal2.core.UpdateCheckWorker - Checking for updates...
+16:27:48.779 [main] INFO  com.kartoflane.superluminal2.core.UpdateCheckWorker - Program is up to date.
+16:27:49.656 [main] INFO  com.kartoflane.superluminal2.Superluminal - Exiting...
+16:27:49.703 [main] INFO  com.kartoflane.superluminal2.Superluminal - Bye

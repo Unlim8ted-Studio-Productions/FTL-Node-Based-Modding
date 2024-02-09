@@ -150,7 +150,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
         #self.load_project(project_path)
         
-    def loadproject(self):
+    def loadproject(self, returnname = False):
         file_dialog = QtWidgets.QFileDialog()
         #file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
         #file_dialog.setDirectory()
@@ -159,6 +159,9 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", dir=str(self.project_path.absolute()), filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
         
         self.load_project(self.project_path, loadscene=False, loadfile = file_path)
+        
+        if returnname:
+            return Path(file_path).name
 
     def closeEvent(self, event):
         """
@@ -271,6 +274,106 @@ class base_node(Node):
         self.build()
 
 
+class NodeTabWidget(QtWidgets.QTabWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setTabsClosable(True)
+        self.tabCloseRequested.connect(self.close_tab)
+
+        self.plus_button = QtWidgets.QPushButton("+")
+        self.plus_button.clicked.connect(self.add_new_tab)
+        self.setCornerWidget(self.plus_button, QtCore.Qt.TopLeftCorner)
+
+    def close_tab(self, index):
+        widget = self.widget(index)
+        if widget:
+            widget.deleteLater()
+            self.removeTab(index)
+
+    def add_new_tab(self):
+        dialog = NewTabDialog(self)
+        result = dialog.exec_()
+        if result == QtWidgets.QDialog.Accepted:
+            tab_type = dialog.get_tab_type()
+            if tab_type == "Existing Scene":
+                file_dialog = QtWidgets.QFileDialog()
+                #file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)", dir=str(launcher1.project_path.absolute()))
+                new_tab = NodeEditorTab()
+                name = new_tab.loadproject(True)
+                self.addTab(new_tab, name)
+                self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "New Scene":
+                new_tab = NodeEditorTab()
+                self.addTab(new_tab, "New Project")
+                self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "Ship Creator":
+                new_tab = ShipBuilderWindow()
+                self.addTab(new_tab, "Ship Creator")
+                self.setCurrentIndex(self.indexOf(new_tab))
+
+
+class NewTabDialog(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("New Tab Options")
+        layout = QtWidgets.QVBoxLayout()
+
+        self.radio_existing = QtWidgets.QRadioButton("Load Existing Scene")
+        self.radio_new = QtWidgets.QRadioButton("Create New Scene")
+        self.radio_ship_builder = QtWidgets.QRadioButton("Ship Creator")
+        self.radio_existing.setChecked(True)
+
+        button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
+        button_box.accepted.connect(self.accept)
+        button_box.rejected.connect(self.reject)
+
+        layout.addWidget(self.radio_existing)
+        layout.addWidget(self.radio_new)
+        layout.addWidget(self.radio_ship_builder)
+        layout.addWidget(button_box)
+        self.setLayout(layout)
+
+    def get_tab_type(self):
+        if self.radio_existing.isChecked():
+            return "Existing Scene"
+        elif self.radio_new.isChecked():
+            return "New Scene"
+        if self.radio_ship_builder.isChecked():
+            return "Ship Creator"
+
+class ShipBuilderWindow(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Ship Builder")
+        self.layout = QtWidgets.QVBoxLayout()
+
+        self.embedded_window = EmbeddedWindow()
+        self.layout.addWidget(self.embedded_window)
+
+        self.setLayout(self.layout)
+
+
+class EmbeddedWindow(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.layout = QtWidgets.QVBoxLayout()
+
+        self.process = QtCore.QProcess()
+
+        if sys.platform.startswith("win"):
+            exe_path = str(launcher1.project_path.absolute()).replace('node', '') + 'shipbuilder\Superluminal Win-32 v2.2.1\superluminal2.exe'
+        elif sys.platform.startswith("linux"):
+            exe_path = "path/to/your/exe_linux"
+        elif sys.platform.startswith("darwin"):
+            exe_path = "path/to/your/exe_mac"
+
+        self.process.start(exe_path)
+
+        if not self.process.waitForStarted():
+            print("Failed to start process")
+
+        self.setLayout(self.layout)
+
 if __name__ == "__main__":
     import qdarktheme
 
@@ -278,11 +381,9 @@ if __name__ == "__main__":
     app.setWindowIcon(QtGui.QIcon("resources\\app.ico"))
     qdarktheme.setup_theme()
 
-    tab_widget = QtWidgets.QTabWidget()
+    tab_widget = NodeTabWidget()
 
     launcher1 = NodeEditorTab()
-    launcher2 = NodeEditorTab()
-
     tab_widget.addTab(launcher1, "Project 1")
 
     tab_widget.show()

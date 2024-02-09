@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<keybinds>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="q">POINTER_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="w">CREATE_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="e">IMAGES_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="r">PROPERTIES_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="o">OVERVIEW_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="a">ROOM_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="s">DOOR_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="d">MOUNT_TOOL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="f">STATION_TOOL</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="f">SEARCH</bind>
+	<bind shift="true" ctrl="false" alt="false" cmd="false" char="d">DELETE</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char=" ">PIN</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="n">NEW_SHIP</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="l">LOAD_SHIP</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="s">SAVE_SHIP</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="">SAVE_SHIP_AS</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="w">CLOSE_SHIP</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="">LOAD_LEGACY</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="m">MANAGE_MOD</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="o">SETTINGS</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="z">UNDO</bind>
+	<bind shift="false" ctrl="true" alt="false" cmd="false" char="y">REDO</bind>
+	<bind shift="true" ctrl="false" alt="false" cmd="false" char="c">CLOAK</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="">ANIMATE</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="">OPEN_ZOOM</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="g">TOGGLE_GRID</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="h">TOGGLE_HANGAR</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="1">SHOW_ANCHOR</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="2">SHOW_MOUNTS</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="3">SHOW_ROOMS</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="4">SHOW_DOORS</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="5">SHOW_STATIONS</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="6">SHOW_HULL</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="7">SHOW_FLOOR</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="8">SHOW_SHIELD</bind>
+	<bind shift="false" ctrl="false" alt="false" cmd="false" char="9">SHOW_GIBS</bind>
+</keybinds>
+
