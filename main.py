@@ -1,3 +1,4 @@
+import subprocess
 import sys
 import json
 import tempfile
@@ -10,6 +11,8 @@ import os
 from pathlib import Path
 import importlib
 import inspect
+import win32gui
+import win32process
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -357,22 +360,41 @@ class EmbeddedWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout = QtWidgets.QVBoxLayout()
-
-        self.process = QtCore.QProcess()
-
-        if sys.platform.startswith("win"):
-            exe_path = str(launcher1.project_path.absolute()).replace('node', '') + 'shipbuilder\Superluminal Win-32 v2.2.1\superluminal2.exe'
-        elif sys.platform.startswith("linux"):
-            exe_path = "path/to/your/exe_linux"
-        elif sys.platform.startswith("darwin"):
-            exe_path = "path/to/your/exe_mac"
-
-        self.process.start(exe_path)
-
-        if not self.process.waitForStarted():
-            print("Failed to start process")
-
         self.setLayout(self.layout)
+
+        self.process = None
+        self.embed_process()
+
+    def embed_process(self):
+        exe_path = 'shipbuilder\Superluminal Win-32 v2.2.1\superluminal2.exe'
+        self.process = subprocess.Popen(exe_path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+        # Wait for the process to start and get its window handle
+        #self.process.wait(3)  # Adjust the timeout as needed
+        hwnd = self.find_hwnd(self.process.pid)
+        if hwnd:
+            self.embed_window(hwnd)
+        else:
+            print("Failed to get window handle")
+
+    def embed_window(self, hwnd):
+        native_window = QtGui.QWindow.fromWinId(int(hwnd))
+        if native_window:
+            widget_container = QtWidgets.QWidget.createWindowContainer(native_window)
+            self.layout.addWidget(widget_container)
+            
+    def find_hwnd(self, process_id):
+        def callback(hwnd, hwnds):
+            if win32gui.IsWindowVisible(hwnd) and win32gui.IsWindowEnabled(hwnd):
+                _, pid = win32process.GetWindowThreadProcessId(hwnd)
+                if pid == process_id:
+                    hwnds.append(hwnd)
+            return True
+
+        hwnds = []
+        win32gui.EnumWindows(callback, hwnds)
+        return hwnds[0] if hwnds else None
+
 
 if __name__ == "__main__":
     import qdarktheme
