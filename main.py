@@ -95,10 +95,10 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         scene = self.node_widget.save_project()
         path = tempfile.mktemp()
         jsonv = []
-        with open(path, "w") as f:
+        with open(path, "w+") as f:
             json.dump(scene, f, indent=4)
             jsonv = f.readlines()
-            os.remove(f)
+        os.remove(path)
         # TODO: make it compile the json save version of the scene to ftl xml append 
 
     def save_project(self):
