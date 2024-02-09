@@ -1,3 +1,4 @@
+import sys
 import json
 import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
@@ -13,7 +14,7 @@ import inspect
 logging.basicConfig(level=logging.DEBUG)
 
 
-class NodeEditor(QtWidgets.QMainWindow):
+class NodeEditorTab(QtWidgets.QMainWindow):
     OnProjectPathUpdate = QtCore.Signal(Path)
 
     def __init__(self, parent=None):
@@ -47,7 +48,6 @@ class NodeEditor(QtWidgets.QMainWindow):
         create_node_action = QtGui.QAction("Create Node", self)
         create_node_action.triggered.connect(self.create_node)
         file_menu.addAction(create_node_action)
-        
 
         # Layouts
         main_widget = QtWidgets.QWidget()
@@ -73,7 +73,7 @@ class NodeEditor(QtWidgets.QMainWindow):
         main_layout.addWidget(self.splitter)
 
         compilea = QtGui.QAction("Compile to xml format", self)
-        compilea.triggered.connect(self.compile_to_ftl())
+        compilea.triggered.connect(self.compile_to_ftl)
         file_menu.addAction(compilea)
 
         # Load the example project
@@ -91,8 +91,12 @@ class NodeEditor(QtWidgets.QMainWindow):
     def compile_to_ftl(self):
         scene = self.node_widget.save_project()
         path = tempfile.mktemp()
+        jsonv = []
         with open(path, "w") as f:
             json.dump(scene, f, indent=4)
+            jsonv = f.readlines()
+            os.remove(f)
+        # TODO: make it compile the json save version of the scene to ftl xml append 
 
     def save_project(self):
         print(self.node_widget.scene.items())
@@ -136,7 +140,6 @@ class NodeEditor(QtWidgets.QMainWindow):
                     break
             elif loadfile:
                 self.node_widget.load_scene(loadfile, self.imports)
-
 
     def get_project_path(self):
         project_path = QtWidgets.QFileDialog.getExistingDirectory(
@@ -269,14 +272,18 @@ class base_node(Node):
 
 
 if __name__ == "__main__":
-    import sys
-
     import qdarktheme
 
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon("resources\\app.ico"))
     qdarktheme.setup_theme()
 
-    launcher = NodeEditor()
-    launcher.show()
+    tab_widget = QtWidgets.QTabWidget()
+
+    launcher1 = NodeEditorTab()
+    launcher2 = NodeEditorTab()
+
+    tab_widget.addTab(launcher1, "Project 1")
+
+    tab_widget.show()
     sys.exit(app.exec())
