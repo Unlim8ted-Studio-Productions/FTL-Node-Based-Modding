@@ -57,7 +57,9 @@ class NodeEditor(QtCore.QObject):
         :rtype: QGraphicsItem
         """
 
-        items = self.scene.items(QtCore.QRectF(position - QtCore.QPointF(1, 1), QtCore.QSizeF(3, 3)))
+        items = self.scene.items(
+            QtCore.QRectF(position - QtCore.QPointF(1, 1), QtCore.QSizeF(3, 3))
+        )
         return items[0] if items else None
 
     def eventFilter(self, watched, event):
@@ -74,7 +76,7 @@ class NodeEditor(QtCore.QObject):
         if type(event) == QtWidgets.QWidgetItem:
             return False
 
-        if event.type() == QtCore.QEvent.GraphicsSceneMousePress:
+        if event.type() == QtCore.QEvent.Type.GraphicsSceneMousePress:
             if event.button() == QtCore.Qt.LeftButton:
                 item = self.item_at(event.scenePos())
 
@@ -107,26 +109,26 @@ class NodeEditor(QtCore.QObject):
                 else:
                     self._last_selected = None
 
-            elif event.button() == QtCore.Qt.RightButton:
+            elif event.button() == QtCore.Qt.MouseButton.RightButton:
                 # context menu
                 pass
 
-        elif event.type() == QtCore.QEvent.KeyPress:
-            if event.key() == QtCore.Qt.Key_Delete:
+        elif event.type() == QtCore.QEvent.Type.KeyPress:
+            if event.key() == QtCore.Qt.Key.Key_Delete:
                 for item in self.scene.selectedItems():
                     if isinstance(item, (Connection, Node)):
                         item.delete()
 
                 return True
 
-        elif event.type() == QtCore.QEvent.GraphicsSceneMouseMove:
+        elif event.type() == QtCore.QEvent.Type.GraphicsSceneMouseMove:
             if self.connection:
                 self.connection.end_pos = event.scenePos()
                 self.connection.update_path()
                 return True
 
-        elif event.type() == QtCore.QEvent.GraphicsSceneMouseRelease:
-            if self.connection and event.button() == QtCore.Qt.LeftButton:
+        elif event.type() == QtCore.QEvent.Type.GraphicsSceneMouseRelease:
+            if self.connection and event.button() == QtCore.Qt.MouseButton.LeftButton:
                 item = self.item_at(event.scenePos())
 
                 # connecting a port

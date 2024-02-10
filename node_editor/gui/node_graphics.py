@@ -49,7 +49,9 @@ class Node_Graphics(QtWidgets.QGraphicsItem):
 
     def set_color(self, title_color=(123, 33, 177), background_color=(20, 20, 20, 200)):
         self.title_color = QtGui.QColor(title_color[0], title_color[1], title_color[2])
-        self.node_color = QtGui.QColor(background_color[0], background_color[1], background_color[2])
+        self.node_color = QtGui.QColor(
+            background_color[0], background_color[1], background_color[2]
+        )
 
     def paint(self, painter, option=None, widget=None):
         """
@@ -127,7 +129,9 @@ class Node_Graphics(QtWidgets.QGraphicsItem):
         }
 
         title_type_dim = {
-            "w": QtGui.QFontMetrics(title_type_font).horizontalAdvance(f"{self.type_text}"),
+            "w": QtGui.QFontMetrics(title_type_font).horizontalAdvance(
+                f"{self.type_text}"
+            ),
             "h": QtGui.QFontMetrics(title_type_font).height(),
         }
 
@@ -161,12 +165,18 @@ class Node_Graphics(QtWidgets.QGraphicsItem):
         # total_height += self.vertical_margin
 
         # Draw the background rectangle
-        self.size = QtCore.QRectF(-total_width / 2, -total_height / 2, total_width, total_height)
-        self.path.addRoundedRect(-total_width / 2, -total_height / 2, total_width, total_height + 10, 5, 5)
+        self.size = QtCore.QRectF(
+            -total_width / 2, -total_height / 2, total_width, total_height
+        )
+        self.path.addRoundedRect(
+            -total_width / 2, -total_height / 2, total_width, total_height + 10, 5, 5
+        )
 
         # Draw the status rectangle
         self.status_path.setFillRule(Qt.WindingFill)
-        self.status_path.addRoundedRect(total_width / 2 - 12, -total_height / 2 + 2, 10, 10, 2, 2)
+        self.status_path.addRoundedRect(
+            total_width / 2 - 12, -total_height / 2 + 2, 10, 10, 2, 2
+        )
         # self.status_path.addRect(total_width / 2 - 10, -total_height / 2, 5, 5)
         # self.status_path.addRect(total_width / 2 - 10, -total_height / 2 + 15, 5, 5)
         # self.status_path.addRect(total_width / 2 - 5, -total_height / 2 + 15, 5, 5)
@@ -174,9 +184,15 @@ class Node_Graphics(QtWidgets.QGraphicsItem):
         # The color on the title
         self.title_bg_path = QtGui.QPainterPath()  # The title background path
         self.title_bg_path.setFillRule(Qt.WindingFill)
-        self.title_bg_path.addRoundedRect(-total_width / 2, -total_height / 2, total_width, bg_height, 5, 5)
-        self.title_bg_path.addRect(-total_width / 2, -total_height / 2 + bg_height - 10, 10, 10)  # bottom left corner
-        self.title_bg_path.addRect(total_width / 2 - 10, -total_height / 2 + bg_height - 10, 10, 10)  # bottom right corner
+        self.title_bg_path.addRoundedRect(
+            -total_width / 2, -total_height / 2, total_width, bg_height, 5, 5
+        )
+        self.title_bg_path.addRect(
+            -total_width / 2, -total_height / 2 + bg_height - 10, 10, 10
+        )  # bottom left corner
+        self.title_bg_path.addRect(
+            total_width / 2 - 10, -total_height / 2 + bg_height - 10, 10, 10
+        )  # bottom right corner
 
         # Draw the title
         self.title_path.addText(
@@ -227,4 +243,7 @@ class Node_Graphics(QtWidgets.QGraphicsItem):
         self._height = total_height
 
         # move the widget to the bottom
-        self.widget.move(-self.widget.size().width() / 2, total_height / 2 - self.widget.size().height() + 5)
+        self.widget.move(
+            -self.widget.size().width() / 2,
+            total_height / 2 - self.widget.size().height() + 5,
+        )

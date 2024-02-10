@@ -95,7 +95,6 @@ class NodeWidget(QtWidgets.QWidget):
                     node_item.setinternaldata()
                 except:
                     None
-                
 
         # Add the connections
         for c in data["connections"]:
@@ -114,17 +113,17 @@ class NodeWidget(QtWidgets.QWidget):
                 connection.set_end_pin(end_pin)
             connection.update_start_and_end_pos()
 
-    def save_project(self, json_path = None):
+    def save_project(self, json_path=None):
 
         # TODO possibly an ordered dict so things stay in order (better for git changes, and manual editing)
         # Maybe connections will need a uuid for each so they can be sorted and kept in order.
         scene = {"nodes": [], "connections": []}
         pins = []
-        #nodess = []
+        # nodess = []
         for item in self.scene.items():
             if isinstance(item, Pin):
                 pins.append(item)
-            #if isinstance(item, Node):      
+            # if isinstance(item, Node):
             #    node_id = str(item.uuid)
             #    nodess.append((item, node_id))
 
@@ -134,7 +133,7 @@ class NodeWidget(QtWidgets.QWidget):
             if isinstance(item, Connection):
                 # print(f"Name: {item}")
                 nodes = item.nodes()
-                #for i in nodess:
+                # for i in nodess:
                 #    if i[0] == nodes[0]:
                 #        start_id = i[1]
                 #    if i[0] == nodes[1]:
@@ -178,7 +177,13 @@ class NodeWidget(QtWidgets.QWidget):
                     None
                 node_id = str(item.uuid)
 
-                node = {"type": obj_type, "x": x, "y": y, "uuid": node_id, "internal-data": item.internaldata}
+                node = {
+                    "type": obj_type,
+                    "x": x,
+                    "y": y,
+                    "uuid": node_id,
+                    "internal-data": item.internaldata,
+                }
                 scene["nodes"].append(node)
                 # print(item._pins[0].connection)
 

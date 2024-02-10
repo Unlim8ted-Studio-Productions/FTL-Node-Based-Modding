@@ -74,8 +74,8 @@
         },
         {
             "type": "event_Node",
-            "x": 4817,
-            "y": 4913,
+            "x": 4814,
+            "y": 4920,
             "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
             "internal-data": {
                 "text": "example",

@@ -1,3 +1,4 @@
+import os
 import random
 import subprocess
 import sys
@@ -35,6 +36,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtGui import QPixmap, QPainter, QPen, QIcon, QColor
 from PySide6.QtCore import Qt, QRect
 import win32process
+from PySide6.QtGui import QKeySequence
+from PySide6.QtGui import QShortcut
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -87,7 +90,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         left_widget = QtWidgets.QWidget()
         self.splitter = QtWidgets.QSplitter()
         self.node_widget = NodeWidget(self)
-        self.inspector_panel = NodeInspector()
+        self.inspector_panel = NodeInspector(self.node_widget.save_project())
 
         # Add Widgets to layouts
         self.splitter.addWidget(left_widget)
@@ -101,8 +104,11 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         compilea.triggered.connect(self.compile_to_ftl)
         file_menu.addAction(compilea)
 
+        self.shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
+        self.shortcut.activated.connect(self.saveevent)
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
+        self.scenes_path = Path(__file__).parent.resolve() / "scenes"
 
         self.load_project(self.project_path, loadscene=False)
 
@@ -112,6 +118,18 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
+
+    def setsimulationloc(
+        self,
+    ):
+        self.inspector_panel.scene = self.node_widget.save_project()
+        node = self.node_widget.node_editor._last_selected
+        if node != None:
+            self.inspector_panel.node = node
+
+    def saveevent(self):
+        self.save_project()
+        self.setsimulationloc()
 
     def compile_to_ftl(self):
         scene = self.node_widget.save_project()
@@ -128,16 +146,24 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # TODO: somehow convert {'nodes': [{'type': 'choice_Node', 'x': 5155, 'y': 4866, 'uuid': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'internal-data': {}}, {'type': 'event_Node', 'x': 4817, 'y': 4913, 'uuid': '23e4b45c-461f-4a65-a112-5af01b77df81', 'internal-data': {'text': 'example', 'isunique': True}}, {'type': 'text_Node', 'x': 4973, 'y': 4869, 'uuid': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'internal-data': {'text': 'A zoltan ship hails you'}}, {'type': 'text_Node', 'x': 5380, 'y': 4778, 'uuid': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'internal-data': {'text': 'Tell them about your mission and ask for supplies'}}, {'type': 'text_Node', 'x': 5353, 'y': 4952, 'uuid': '11e6b28e-0473-487f-8480-0069fd412c47', 'internal-data': {'text': 'attack!'}}, {'type': 'playsound_Node', 'x': 5514, 'y': 4927, 'uuid': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'internal-data': {}}, {'type': 'loadsound_Node', 'x': 5348, 'y': 5098, 'uuid': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'internal-data': {'filepath': ''}}, {'type': 'loadship_Node', 'x': 5699, 'y': 4947, 'uuid': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'internal-data': {'text': 'enemy-zoltan', 'ishostile': True}}, {'type': 'text_Node', 'x': 5551, 'y': 4751, 'uuid': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'internal-data': {'text': 'They give you some supplies to help you on your quest'}}, {'type': 'Reward_Node', 'x': 5734, 'y': 4725, 'uuid': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'internal-data': {'amount': 20, 'index': 0}}], 'connections': [{'start_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'end_id': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'start_pin': 'Ex Out', 'end_pin': 'Input'}, {'start_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'end_id': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Audio', 'end_pin': 'AudioFile'}, {'start_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'end_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '23e4b45c-461f-4a65-a112-5af01b77df81', 'end_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'start_pin': 'event_contain', 'end_pin': 'Ex In'}, {'start_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'end_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'start_pin': 'Choice Output0', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'start_pin': 'Choice Output1', 'end_pin': 'Ex In'}]} to ftl xml format
 
     def save_project(self):
-        print(self.node_widget.scene.items())
-        file_dialog = QtWidgets.QFileDialog()
-        file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
-        file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
-        file_dialog.setNameFilter("FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
-        file_path, _ = file_dialog.getSaveFileName(
-            caption="Save project",
-            dir=str(self.project_path.absolute()),
-            filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)",
-        )
+        path = r"scenes\\" + tab_widget.tabText(tab_widget.currentIndex())
+        if os.path.exists(Path(path)):
+            dialogue = False
+            file_path = path
+        else:
+            dialogue = True
+
+        if dialogue:
+            # print(self.node_widget.scene.items())
+            file_dialog = QtWidgets.QFileDialog()
+            file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
+            file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
+            file_dialog.setNameFilter("FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
+            file_path, _ = file_dialog.getSaveFileName(
+                caption="Save project",
+                dir=str(self.scenes_path.absolute()),
+                filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)",
+            )
         self.node_widget.save_project(file_path)
 
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
@@ -191,11 +217,13 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # file_dialog.setNameFilter()
         file_path, _ = file_dialog.getOpenFileName(
             caption="Select project to load or click cancel",
-            dir=str(self.project_path.absolute()),
+            dir=str(self.scenes_path.absolute()),
             filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)",
         )
 
         self.load_project(self.project_path, loadscene=False, loadfile=file_path)
+
+        tab_widget.setTabText(tab_widget.currentIndex(), Path(file_path).name)
 
         if returnname:
             return Path(file_path).name
@@ -274,24 +302,78 @@ class NodeCreationDialog(QtWidgets.QDialog):
 
 
 class NodeInspector(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, scene, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Node Inspector")
         self.layout = QtWidgets.QVBoxLayout()
         self.setLayout(self.layout)
         self.node = None
+        self.current_state = {}  # To keep track of simulation state
+        self.scene = self.parse_scene(scene)
+        self.connections = scene["connections"]
 
-    def inspect_node(self, node):
+    def parse_scene(self, scene):
+        node_map = {}
+        for node in scene["nodes"]:
+            node_map[node["uuid"]] = node
+        return node_map
+
+    def find_next_node(self, current_node_id, output_pin):
+        for connection in self.connections:
+            if (
+                connection["start_id"] == current_node_id
+                and connection["start_pin"] == output_pin
+            ):
+                return self.scene[connection["end_id"]]
+        return None
+
+    def inspect_node(self, node_uuid):
+        node = self.scene[node_uuid]
         self.clear_inspector()
         self.node = node
-        # Add inspector widgets based on the type of node
+        # Based on node type, create interactive UI elements
+        if node["type"] == "choice_Node":
+            self.create_choice_ui(node)
+        elif node["type"] == "event_Node":
+            self.create_event_ui(node)
+        elif node["type"] == "text_Node":
+            self.create_text_ui(node)
+        # Add other node types as needed
 
     def clear_inspector(self):
-        self.node = None
         for i in reversed(range(self.layout.count())):
             widget = self.layout.itemAt(i).widget()
             if widget:
                 widget.deleteLater()
+
+    def create_choice_ui(self, choice_node):
+        # Simplified for this example; choices need to be defined properly
+        label = QtWidgets.QLabel("Make a choice:")
+        self.layout.addWidget(label)
+        # Assume two choices for simplicity
+        for i in range(2):
+            btn = QtWidgets.QPushButton(f"Choice {i}")
+            btn.clicked.connect(
+                lambda _, choice=i: self.make_choice(choice_node, choice)
+            )
+            self.layout.addWidget(btn)
+
+    def create_event_ui(self, event_node):
+        label = QtWidgets.QLabel(event_node["internal-data"]["text"])
+        self.layout.addWidget(label)
+        # Add any additional UI elements for event nodes
+
+    def create_text_ui(self, text_node):
+        label = QtWidgets.QLabel(text_node["internal-data"]["text"])
+        self.layout.addWidget(label)
+
+    def make_choice(self, choice_node, choice_index):
+        # Simplified for demonstration
+        next_node = self.find_next_node(
+            choice_node["uuid"], f"Choice Output{choice_index}"
+        )
+        if next_node:
+            self.inspect_node(next_node["uuid"])
+        # This would need to fetch the next node object based on ID or reference
 
 
 class base_node(Node):
@@ -430,12 +512,12 @@ class ImageCreatorWidget(QWidget):
         self.currentTool = tool
 
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             self.lastPoint = self.view.mapToScene(event.pos())
             self.drawing = True
 
     def mouseMoveEvent(self, event):
-        if (event.buttons() & Qt.LeftButton) & self.drawing:
+        if (event.buttons() & Qt.MouseButton.LeftButton) & self.drawing:
             currentPoint = self.view.mapToScene(event.pos())
             if self.currentTool == "Pen":
                 self.drawLineTo(currentPoint)
@@ -444,7 +526,7 @@ class ImageCreatorWidget(QWidget):
             self.lastPoint = currentPoint
 
     def mouseReleaseEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             self.drawing = False
 
     def drawLineTo(self, endPoint):
