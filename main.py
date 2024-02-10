@@ -33,7 +33,16 @@ from PySide6.QtWidgets import (
     QWidget,
     QComboBox,
 )
-from PySide6.QtGui import QKeyEvent, QPixmap, QPainter, QPen, QIcon, QColor
+from PySide6.QtGui import (
+    QKeyEvent,
+    QPixmap,
+    QPainter,
+    QPen,
+    QIcon,
+    QColor,
+    QPalette,
+    QBrush,
+)
 from PySide6.QtCore import Qt, QRect, QTimer
 import win32process
 from PySide6.QtGui import QKeySequence
@@ -317,6 +326,16 @@ class NodeInspector(QtWidgets.QWidget):
         self.scene = self.parse_scene(scene)
         self.sr = None
         self.connections = scene["connections"]
+        self.backgroundImage = QPixmap("simulator backround.png")
+
+        # Create a palette
+        palette = QPalette()
+
+        # Set the palette's brush to use the background image
+        palette.setBrush(QPalette.Window, QBrush(self.backgroundImage))
+
+        # Apply the palette to the main window
+        self.setPalette(palette)
 
     def parse_scene(self, scene):
         node_map = {}
