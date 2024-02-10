@@ -111,126 +111,6 @@ class NodeEditorTab(QtWidgets.QMainWindow):
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
 
-    def find_order(self, nodes, connections):
-        # Create a graph and in-degree dictionary
-        graph = defaultdict(list)
-        in_degree = {node["uuid"]: 0 for node in nodes}
-
-        # Populate the graph and in-degree count based on connections
-        for conn in connections:
-            start = conn["start_id"]
-            end = conn["end_id"]
-            graph[start].append(end)
-            in_degree[end] += 1
-
-        # Queue for nodes with no incoming edges
-        queue = deque([node for node in in_degree if in_degree[node] == 0])
-        order = []  # To store the order of nodes
-
-        # Process nodes with no incoming edges
-        while queue:
-            node = queue.popleft()
-            order.append(node)
-            for adjacent in graph[node]:
-                in_degree[adjacent] -= 1
-                if in_degree[adjacent] == 0:
-                    queue.append(adjacent)
-
-        # Check for cycle (if not all nodes are processed)
-        if len(order) != len(nodes):
-            return "Cycle detected, ordering not possible."
-        else:
-            # Replace UUIDs with either custom identifiers or a readable form
-            readable_order = [
-                (node["uuid"], node.get("internal-data", {}).get("text", "No text"))
-                for node in nodes
-                if node["uuid"] in order
-            ]
-            return readable_order
-
-    def convert_json_to_xml(self, json_data):
-        event = Element(
-            "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
-        )
-
-        for node in json_data["nodes"]:
-            if node["type"] == "event_Node":
-                event_text = node["internal-data"]["text"]
-                text_element = SubElement(event, "text")
-                text_element.text = event_text
-
-            elif node["type"] == "choice_Node":
-                choice_element = SubElement(event, "choice")
-                choice_text = None
-
-                for connection in json_data["connections"]:
-                    if connection["start_id"] == node["uuid"]:
-                        for node in json_data["nodes"]:
-                            if node["uuid"] == connection["end_id"]:
-                                choice_text = node["internal-data"]["text"]
-                                text_element = SubElement(choice_element, "text")
-                                text_element.text = choice_text
-                                break
-
-                if choice_text:
-                    event_element = SubElement(choice_element, "event")
-                    # find the connected nodes for this choice
-                    for connection in json_data["connections"]:
-                        if connection["start_id"] == node["uuid"]:
-                            for node in json_data["nodes"]:
-                                if node["uuid"] == connection["end_id"]:
-                                    self.convert_node_to_xml(
-                                        node, event_element, json_data
-                                    )
-                                    break
-                            break
-
-        return tostring(event, encoding="unicode")
-
-    def convert_node_to_xml(self, node, parent_element, json_data):
-        if node["type"] == "text_Node":
-            text_element = SubElement(parent_element, "text")
-            text_element.text = node["internal-data"]["text"]
-
-        if node["type"] == "giveweapon_Node":
-            text_element = SubElement(parent_element, "weapon")
-            text_element.text = node["internal-data"]["text"]
-
-        if node["type"] == "giveaugument_Node":
-            text_element = SubElement(parent_element, "augument")
-            text_element.text = node["internal-data"]["text"]
-
-        elif node["type"] == "playsound_Node":
-            playsound_element = SubElement(parent_element, "playsound_Node")
-
-        elif node["type"] == "loadship_Node":
-            ship_element = SubElement(
-                parent_element,
-                "ship",
-                {
-                    "name": node["internal-data"]["text"],
-                    "auto_blueprint": node["internal-data"]["text"],
-                },
-            )
-            SubElement(
-                parent_element,
-                "ship",
-                {
-                    "load": node["internal-data"]["text"],
-                    "hostile": str(node["internal-data"]["ishostile"]),
-                },
-            )
-
-        elif node["type"] == "Reward_Node":
-            reward_element = SubElement(
-                parent_element,
-                "Reward_Node",
-                {
-                    "amount": str(node["internal-data"]["amount"]),
-                    "index": str(node["internal-data"]["index"]),
-                },
-            )
-
     def compile_to_ftl(self):
         scene = self.node_widget.save_project()
         # path = tempfile.mktemp()
@@ -241,7 +121,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # os.remove(path)
         # print(scene)
         # ordered_node_uuids = self.find_order(scene["nodes"], scene["connections"])
-        print(self.convert_json_to_xml(scene))
+        print(JsonToXmlConverter.convert_json_to_xml(JsonToXmlConverter, scene))
         # TODO: somehow convert {'nodes': [{'type': 'choice_Node', 'x': 5155, 'y': 4866, 'uuid': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'internal-data': {}}, {'type': 'event_Node', 'x': 4817, 'y': 4913, 'uuid': '23e4b45c-461f-4a65-a112-5af01b77df81', 'internal-data': {'text': 'example', 'isunique': True}}, {'type': 'text_Node', 'x': 4973, 'y': 4869, 'uuid': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'internal-data': {'text': 'A zoltan ship hails you'}}, {'type': 'text_Node', 'x': 5380, 'y': 4778, 'uuid': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'internal-data': {'text': 'Tell them about your mission and ask for supplies'}}, {'type': 'text_Node', 'x': 5353, 'y': 4952, 'uuid': '11e6b28e-0473-487f-8480-0069fd412c47', 'internal-data': {'text': 'attack!'}}, {'type': 'playsound_Node', 'x': 5514, 'y': 4927, 'uuid': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'internal-data': {}}, {'type': 'loadsound_Node', 'x': 5348, 'y': 5098, 'uuid': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'internal-data': {'filepath': ''}}, {'type': 'loadship_Node', 'x': 5699, 'y': 4947, 'uuid': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'internal-data': {'text': 'enemy-zoltan', 'ishostile': True}}, {'type': 'text_Node', 'x': 5551, 'y': 4751, 'uuid': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'internal-data': {'text': 'They give you some supplies to help you on your quest'}}, {'type': 'Reward_Node', 'x': 5734, 'y': 4725, 'uuid': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'internal-data': {'amount': 20, 'index': 0}}], 'connections': [{'start_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'end_id': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'start_pin': 'Ex Out', 'end_pin': 'Input'}, {'start_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'end_id': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Audio', 'end_pin': 'AudioFile'}, {'start_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'end_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '23e4b45c-461f-4a65-a112-5af01b77df81', 'end_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'start_pin': 'event_contain', 'end_pin': 'Ex In'}, {'start_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'end_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'start_pin': 'Choice Output0', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'start_pin': 'Choice Output1', 'end_pin': 'Ex In'}]} to ftl xml format
 
     def save_project(self):
@@ -750,6 +630,94 @@ class EmbeddedWindow(QtWidgets.QWidget):
         hwnds = []
         win32gui.EnumWindows(callback, hwnds)
         return hwnds[0] if hwnds else None
+
+
+class JsonToXmlConverter:
+    def convert_json_to_xml(self, json_data):
+        # Initialize the root event element with the first connection's start_id as its name
+        # Note: Assumption here is that the first connection's start_id points to the initial event node
+        event = Element(
+            "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
+        )
+
+        # Create a mapping of node UUID to node data for efficient access
+        uuid_to_node = {node["uuid"]: node for node in json_data["nodes"]}
+
+        # Process each node based on its type
+        for node in json_data["nodes"]:
+            self.process_node(node, event, json_data, uuid_to_node)
+
+        # Convert the ElementTree to a string
+        return tostring(event, encoding="unicode").decode()
+
+    def process_node(self, node, parent_element, json_data, uuid_to_node):
+        # Depending on the node type, handle accordingly
+        if node["type"] == "event_Node":
+            # For event nodes, add a text sub-element
+            text_element = SubElement(parent_element, "text")
+            text_element.text = node["internal-data"]["text"]
+
+        elif node["type"] == "choice_Node":
+            # For choice nodes, add a choice sub-element and process connected nodes
+            choice_element = SubElement(parent_element, "choice")
+            self.process_choice_node(node, choice_element, json_data, uuid_to_node)
+
+        elif node["type"] in [
+            "text_Node",
+            "giveweapon_Node",
+            "giveaugument_Node",
+            "playsound_Node",
+            "loadship_Node",
+            "Reward_Node",
+        ]:
+            # Directly convert other known node types
+            self.convert_node_to_xml(node, parent_element)
+
+    def process_choice_node(self, choice_node, parent_element, json_data, uuid_to_node):
+        # Process the connections to find the next nodes after the choice
+        for connection in json_data["connections"]:
+            if connection["start_id"] == choice_node["uuid"]:
+                target_node_uuid = connection["end_id"]
+                target_node = uuid_to_node.get(target_node_uuid)
+                if target_node:
+                    self.convert_node_to_xml(target_node, parent_element)
+
+    def convert_node_to_xml(self, node, parent_element):
+        # Convert a node to its corresponding XML element based on its type
+        if node["type"] == "text_Node":
+            SubElement(parent_element, "text", {"text": node["internal-data"]["text"]})
+        elif node["type"] == "giveweapon_Node":
+            SubElement(
+                parent_element, "weapon", {"name": node["internal-data"]["text"]}
+            )
+        elif node["type"] == "giveaugument_Node":
+            SubElement(
+                parent_element, "augument", {"name": node["internal-data"]["text"]}
+            )
+        elif node["type"] == "playsound_Node":
+            SubElement(
+                parent_element,
+                "playsound",
+                {"file": node.get("internal-data", {}).get("filepath", "default.wav")},
+            )
+        elif node["type"] == "loadship_Node":
+            SubElement(
+                parent_element,
+                "ship",
+                {
+                    "name": node["internal-data"]["text"],
+                    "hostile": str(node["internal-data"]["ishostile"]),
+                },
+            )
+        elif node["type"] == "Reward_Node":
+            SubElement(
+                parent_element,
+                "reward",
+                {
+                    "amount": str(node["internal-data"]["amount"]),
+                    "index": str(node["internal-data"]["index"]),
+                },
+            )
 
 
 if __name__ == "__main__":
