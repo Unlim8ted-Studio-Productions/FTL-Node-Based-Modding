@@ -1,6 +1,7 @@
 import random
 import subprocess
 import sys
+from collections import defaultdict, deque
 
 # import json
 # import tempfile
@@ -110,6 +111,43 @@ class NodeEditorTab(QtWidgets.QMainWindow):
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
 
+    def find_order(self, nodes, connections):
+        # Create a graph and in-degree dictionary
+        graph = defaultdict(list)
+        in_degree = {node["uuid"]: 0 for node in nodes}
+
+        # Populate the graph and in-degree count based on connections
+        for conn in connections:
+            start = conn["start_id"]
+            end = conn["end_id"]
+            graph[start].append(end)
+            in_degree[end] += 1
+
+        # Queue for nodes with no incoming edges
+        queue = deque([node for node in in_degree if in_degree[node] == 0])
+        order = []  # To store the order of nodes
+
+        # Process nodes with no incoming edges
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for adjacent in graph[node]:
+                in_degree[adjacent] -= 1
+                if in_degree[adjacent] == 0:
+                    queue.append(adjacent)
+
+        # Check for cycle (if not all nodes are processed)
+        if len(order) != len(nodes):
+            return "Cycle detected, ordering not possible."
+        else:
+            # Replace UUIDs with either custom identifiers or a readable form
+            readable_order = [
+                (node["uuid"], node.get("internal-data", {}).get("text", "No text"))
+                for node in nodes
+                if node["uuid"] in order
+            ]
+            return readable_order
+
     def convert_json_to_xml(self, json_data):
         event = Element(
             "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
@@ -193,11 +231,6 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                 },
             )
 
-        elif node["type"] == "quest_Node":
-            reward_element = SubElement(
-                parent_element, "Quest", {"Beacon": str(node["internal-data"]["index"])}
-            )
-
     def compile_to_ftl(self):
         scene = self.node_widget.save_project()
         # path = tempfile.mktemp()
@@ -207,7 +240,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         #    jsonv = f.readlines()
         # os.remove(path)
         # print(scene)
-
+        # ordered_node_uuids = self.find_order(scene["nodes"], scene["connections"])
         print(self.convert_json_to_xml(scene))
         # TODO: somehow convert {'nodes': [{'type': 'choice_Node', 'x': 5155, 'y': 4866, 'uuid': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'internal-data': {}}, {'type': 'event_Node', 'x': 4817, 'y': 4913, 'uuid': '23e4b45c-461f-4a65-a112-5af01b77df81', 'internal-data': {'text': 'example', 'isunique': True}}, {'type': 'text_Node', 'x': 4973, 'y': 4869, 'uuid': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'internal-data': {'text': 'A zoltan ship hails you'}}, {'type': 'text_Node', 'x': 5380, 'y': 4778, 'uuid': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'internal-data': {'text': 'Tell them about your mission and ask for supplies'}}, {'type': 'text_Node', 'x': 5353, 'y': 4952, 'uuid': '11e6b28e-0473-487f-8480-0069fd412c47', 'internal-data': {'text': 'attack!'}}, {'type': 'playsound_Node', 'x': 5514, 'y': 4927, 'uuid': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'internal-data': {}}, {'type': 'loadsound_Node', 'x': 5348, 'y': 5098, 'uuid': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'internal-data': {'filepath': ''}}, {'type': 'loadship_Node', 'x': 5699, 'y': 4947, 'uuid': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'internal-data': {'text': 'enemy-zoltan', 'ishostile': True}}, {'type': 'text_Node', 'x': 5551, 'y': 4751, 'uuid': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'internal-data': {'text': 'They give you some supplies to help you on your quest'}}, {'type': 'Reward_Node', 'x': 5734, 'y': 4725, 'uuid': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'internal-data': {'amount': 20, 'index': 0}}], 'connections': [{'start_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'end_id': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'start_pin': 'Ex Out', 'end_pin': 'Input'}, {'start_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'end_id': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Audio', 'end_pin': 'AudioFile'}, {'start_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'end_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '23e4b45c-461f-4a65-a112-5af01b77df81', 'end_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'start_pin': 'event_contain', 'end_pin': 'Ex In'}, {'start_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'end_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'start_pin': 'Choice Output0', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'start_pin': 'Choice Output1', 'end_pin': 'Ex In'}]} to ftl xml format
 
