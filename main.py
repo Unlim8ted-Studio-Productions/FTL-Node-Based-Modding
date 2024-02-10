@@ -121,8 +121,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # os.remove(path)
         # print(scene)
         # ordered_node_uuids = self.find_order(scene["nodes"], scene["connections"])
-        jsnonconverter = JsonToXmlConverter()
-        print(jsnonconverter.convert_json_to_xml(scene))
+        jsnonconverter = JsonToXmlConverter(scene)
+        print(jsnonconverter.convert_json_to_xml())
         # TODO: somehow convert {'nodes': [{'type': 'choice_Node', 'x': 5155, 'y': 4866, 'uuid': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'internal-data': {}}, {'type': 'event_Node', 'x': 4817, 'y': 4913, 'uuid': '23e4b45c-461f-4a65-a112-5af01b77df81', 'internal-data': {'text': 'example', 'isunique': True}}, {'type': 'text_Node', 'x': 4973, 'y': 4869, 'uuid': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'internal-data': {'text': 'A zoltan ship hails you'}}, {'type': 'text_Node', 'x': 5380, 'y': 4778, 'uuid': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'internal-data': {'text': 'Tell them about your mission and ask for supplies'}}, {'type': 'text_Node', 'x': 5353, 'y': 4952, 'uuid': '11e6b28e-0473-487f-8480-0069fd412c47', 'internal-data': {'text': 'attack!'}}, {'type': 'playsound_Node', 'x': 5514, 'y': 4927, 'uuid': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'internal-data': {}}, {'type': 'loadsound_Node', 'x': 5348, 'y': 5098, 'uuid': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'internal-data': {'filepath': ''}}, {'type': 'loadship_Node', 'x': 5699, 'y': 4947, 'uuid': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'internal-data': {'text': 'enemy-zoltan', 'ishostile': True}}, {'type': 'text_Node', 'x': 5551, 'y': 4751, 'uuid': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'internal-data': {'text': 'They give you some supplies to help you on your quest'}}, {'type': 'Reward_Node', 'x': 5734, 'y': 4725, 'uuid': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'internal-data': {'amount': 20, 'index': 0}}], 'connections': [{'start_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'end_id': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'start_pin': 'Ex Out', 'end_pin': 'Input'}, {'start_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'end_id': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Audio', 'end_pin': 'AudioFile'}, {'start_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'end_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '23e4b45c-461f-4a65-a112-5af01b77df81', 'end_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'start_pin': 'event_contain', 'end_pin': 'Ex In'}, {'start_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'end_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'start_pin': 'Choice Output0', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'start_pin': 'Choice Output1', 'end_pin': 'Ex In'}]} to ftl xml format
 
     def save_project(self):
@@ -634,85 +634,54 @@ class EmbeddedWindow(QtWidgets.QWidget):
 
 
 class JsonToXmlConverter:
-    def convert_json_to_xml(self, json_data):
-        # Initialize the root event element
-        event = Element(
-            "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
-        )
+    def __init__(self, json_data):
+        self.json_data = json_data
+        self.uuid_to_node = {node["uuid"]: node for node in json_data["nodes"]}
+        self.sorted_nodes = self.sort_nodes_by_connections()
 
-        # Create a mapping of node UUID to node data for efficient access
-        uuid_to_node = {node["uuid"]: node for node in json_data["nodes"]}
+    def sort_nodes_by_connections(self):
+        # Build a graph and a reverse graph from the connections to facilitate topological sorting
+        graph = {node["uuid"]: [] for node in self.json_data["nodes"]}
+        in_degree = {node["uuid"]: 0 for node in self.json_data["nodes"]}
+        for conn in self.json_data["connections"]:
+            graph[conn["start_id"]].append(conn["end_id"])
+            in_degree[conn["end_id"]] += 1
 
-        # Process each node based on its type
-        for node in json_data["nodes"]:
-            self.process_node(
-                node=node,
-                parent_element=event,
-                json_data=json_data,
-                uuid_to_node=uuid_to_node,
+        # Perform topological sort
+        queue = deque([node for node in in_degree if in_degree[node] == 0])
+        sorted_nodes = []
+        while queue:
+            node_id = queue.popleft()
+            sorted_nodes.append(node_id)
+            for child_id in graph[node_id]:
+                in_degree[child_id] -= 1
+                if in_degree[child_id] == 0:
+                    queue.append(child_id)
+
+        # Check if there's a cycle
+        if len(sorted_nodes) != len(self.json_data["nodes"]):
+            raise Exception(
+                "The graph contains a cycle, which prevents topological sorting."
             )
 
-        return tostring(event, encoding="unicode")
+        return [self.uuid_to_node[node_id] for node_id in sorted_nodes]
 
-    def process_node(self, node, parent_element, json_data, uuid_to_node):
-        if node["type"] == "event_Node":
-            text_element = SubElement(parent_element, "text")
-            text_element.text = node["internal-data"]["text"]
+    def convert_json_to_xml(self):
+        root = Element("FTL")
+        for node in self.sorted_nodes:
+            self.process_node(node, root)
+        return tostring(root, encoding="utf-8").decode("utf-8")
 
-        elif node["type"] == "choice_Node":
-            choice_element = SubElement(parent_element, "choice")
-            self.process_choice_node(node, choice_element, json_data, uuid_to_node)
-
-        else:
-            # For other node types, use a generic conversion method
-            self.convert_node_to_xml(node, parent_element)
-
-    def process_choice_node(self, choice_node, parent_element, json_data, uuid_to_node):
-        for connection in json_data["connections"]:
-            if connection["start_id"] == choice_node["uuid"]:
-                target_node_uuid = connection["end_id"]
-                target_node = uuid_to_node.get(target_node_uuid)
-                if target_node:
-                    self.process_node(
-                        target_node, parent_element, json_data, uuid_to_node
-                    )
-
-    def convert_node_to_xml(self, node, parent_element):
+    def process_node(self, node, parent_element):
         node_type = node["type"]
-        if node_type == "text_Node":
-            SubElement(parent_element, "text", {"text": node["internal-data"]["text"]})
-        elif node_type == "giveweapon_Node":
+        # Process node based on its type. Add more conditions as necessary for your data structure.
+        if node_type == "event_Node":
+            SubElement(parent_element, "event", {"name": node["internal-data"]["text"]})
+        elif node_type == "text_Node":
             SubElement(
-                parent_element, "weapon", {"name": node["internal-data"]["text"]}
+                parent_element, "text", {"content": node["internal-data"]["text"]}
             )
-        elif node_type == "giveaugument_Node":
-            SubElement(
-                parent_element, "augument", {"name": node["internal-data"]["text"]}
-            )
-        elif node_type == "playsound_Node":
-            SubElement(
-                parent_element,
-                "playsound",
-                {"file": node.get("internal-data", {}).get("filepath", "default.wav")},
-            )
-        elif node_type == "loadship_Node":
-            SubElement(
-                parent_element,
-                "ship",
-                {
-                    "name": node["internal-data"]["text"],
-                    "hostile": str(node["internal-data"]["ishostile"]),
-                },
-            )
-        elif node_type == "Reward_Node":
-            SubElement(
-                parent_element,
-                "reward",
-                {
-                    "amount": str(node["internal-data"]["amount"]),
-                    "index": str(node["internal-data"]["index"]),
-                },
-            )
+        # Implement additional node type processing as required.
 
 
 if __name__ == "__main__":
