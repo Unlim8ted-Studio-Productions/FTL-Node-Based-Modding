@@ -15,6 +15,7 @@ Lesser General Lesser Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
+
 import ctypes
 import sys
 from itertools import product
@@ -22,9 +23,22 @@ import numpy as np
 
 from PySide6 import QtCore
 from PySide6.QtGui import QColor, QImage, QPainter, QMouseEvent, QImageReader, QPixmap
-from PySide6.QtWidgets import QListWidget, QListWidgetItem, \
-    QSlider, QLabel, QDockWidget, QStyle, QColorDialog, QPushButton, QSizePolicy, QComboBox, QSpinBox, \
-    QDialog, QDialogButtonBox, QVBoxLayout
+from PySide6.QtWidgets import (
+    QListWidget,
+    QListWidgetItem,
+    QSlider,
+    QLabel,
+    QDockWidget,
+    QStyle,
+    QColorDialog,
+    QPushButton,
+    QSizePolicy,
+    QComboBox,
+    QSpinBox,
+    QDialog,
+    QDialogButtonBox,
+    QVBoxLayout,
+)
 from PySide6.QtCore import Qt, QObject, QRect
 
 from bLUeCore.rollingStats import movingVariance
@@ -35,12 +49,12 @@ from version import BLUE_VERSION
 
 
 def compat(v, version):
-    if BLUE_VERSION[:2] == 'V2' and version[:2] == 'V6':
-        v = v.replace('\\x12shiboken6.Shiboken', '\\x13shiboken2.shiboken2')
-        v = v.replace('PySide6', 'PySide2')
-    elif BLUE_VERSION[:2] == 'V6' and version[:2] != 'V6':
-        v = v.replace('shiboken2.shiboken2', 'shiboken6.Shiboken')
-        v = v.replace('PySide2', 'PySide6')
+    if BLUE_VERSION[:2] == "V2" and version[:2] == "V6":
+        v = v.replace("\\x12shiboken6.Shiboken", "\\x13shiboken2.shiboken2")
+        v = v.replace("PySide6", "PySide2")
+    elif BLUE_VERSION[:2] == "V6" and version[:2] != "V6":
+        v = v.replace("shiboken2.shiboken2", "shiboken6.Shiboken")
+        v = v.replace("PySide2", "PySide6")
     return v
 
 
@@ -57,15 +71,17 @@ def imagej_description_metadata(description):
     """
 
     if not hasattr(description, "splitlines"):
-        raise ValueError('invalid ImageJ description')
+        raise ValueError("invalid ImageJ description")
 
     def _bool(val):
-        return {'true': True, 'false': False}[val.lower()]
+        return {"true": True, "false": False}[val.lower()]
 
     result = {}
     for line in description.splitlines():
         try:
-            key, val = line.split('=', 1)  # stop at first match, so char '=' is allowed in tag text
+            key, val = line.split(
+                "=", 1
+            )  # stop at first match, so char '=' is allowed in tag text
         except ValueError:
             continue
         key = key.strip()
@@ -78,8 +94,8 @@ def imagej_description_metadata(description):
                 pass
         result[key] = val
 
-    if 'ImageJ' not in result:
-        raise ValueError('not an ImageJ image description')
+    if "ImageJ" not in result:
+        raise ValueError("not an ImageJ image description")
     return result
 
 
@@ -107,7 +123,9 @@ def shift2D(arr, tr, fill=0):
     r3 = QRect(-tr[1], -tr[0], s[1], s[0])
     r4, r5 = r1 & r2, r1 & r3
     if r4.isValid() and r5.isValid():
-        result[r4.top():r4.bottom(), r4.left():r4.right()] = arr[r5.top():r5.bottom(), r5.left():r5.right()]
+        result[r4.top() : r4.bottom(), r4.left() : r4.right()] = arr[
+            r5.top() : r5.bottom(), r5.left() : r5.right()
+        ]
     return result
 
 
@@ -182,7 +200,7 @@ class colorInfoView(QDockWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.label = QLabel()
-        self.label.setWindowTitle('Info')
+        self.label.setWindowTitle("Info")
         self.setWidget(self.label)
         self.setWindowTitle(self.label.windowTitle())
         self.setFocusPolicy(Qt.ClickFocus)
@@ -205,20 +223,57 @@ class colorInfoView(QDockWidget):
         :param clrC: output color
         :type clrC: QColor
         """
-        r0 = 'R ' + "".join([str(w).ljust(4) if type(w) is int else w
-                             for w in (clrI.red(), clrC.red(), '|C ', clrI.cyan(),
-                                       clrC.cyan(), '|H ', clrI.hue(), clrC.hue())])
-        r1 = 'G ' + "".join([str(w).ljust(4) if type(w) is int else w
-                             for w in (clrI.green(), clrC.green(), '|M ',
-                                       clrI.magenta(), clrC.magenta(), '|S ',
-                                       clrI.saturation() , clrC.saturation())])
-        r2 = 'B ' + "".join([str(w).ljust(4) if type(w) is int else w
-                             for w in (clrI.blue(), clrC.blue(), '|Y ',
-                                       clrI.yellow(), clrC.yellow(), '|V ',
-                                       clrI.value(), clrC.value())])
-        r3 = "".join((' ',) * 10) + '|K ' + "".join([str(w).ljust(4) for w in
-                                                     (clrI.black() , clrC.black())])
-        self.label.setText('\n'.join((r0, r1, r2, r3)))
+        r0 = "R " + "".join(
+            [
+                str(w).ljust(4) if type(w) is int else w
+                for w in (
+                    clrI.red(),
+                    clrC.red(),
+                    "|C ",
+                    clrI.cyan(),
+                    clrC.cyan(),
+                    "|H ",
+                    clrI.hue(),
+                    clrC.hue(),
+                )
+            ]
+        )
+        r1 = "G " + "".join(
+            [
+                str(w).ljust(4) if type(w) is int else w
+                for w in (
+                    clrI.green(),
+                    clrC.green(),
+                    "|M ",
+                    clrI.magenta(),
+                    clrC.magenta(),
+                    "|S ",
+                    clrI.saturation(),
+                    clrC.saturation(),
+                )
+            ]
+        )
+        r2 = "B " + "".join(
+            [
+                str(w).ljust(4) if type(w) is int else w
+                for w in (
+                    clrI.blue(),
+                    clrC.blue(),
+                    "|Y ",
+                    clrI.yellow(),
+                    clrC.yellow(),
+                    "|V ",
+                    clrI.value(),
+                    clrC.value(),
+                )
+            ]
+        )
+        r3 = (
+            "".join((" ",) * 10)
+            + "|K "
+            + "".join([str(w).ljust(4) for w in (clrI.black(), clrC.black())])
+        )
+        self.label.setText("\n".join((r0, r1, r2, r3)))
 
 
 def hideConsole():
@@ -246,7 +301,7 @@ class virtualCursor(object):
     Brush outline class
     """
 
-    def __init__(self, pixmap=None, size = 64, posX=0, posY=0, visible=False):
+    def __init__(self, pixmap=None, size=64, posX=0, posY=0, visible=False):
         if pixmap:
             self.pixmap = pixmap
         else:
@@ -273,15 +328,19 @@ def multiply(matr_a, matr_b):
 
 def inversion(m):
     """
-   :param m:
-   :type m:
-   :return:
-   :rtype:
+    :param m:
+    :type m:
+    :return:
+    :rtype:
     """
     m1, m2, m3, m4, m5, m6, m7, m8, m9 = m.ravel()
-    inv = np.array([[m5 * m9 - m6 * m8, m3 * m8 - m2 * m9, m2 * m6 - m3 * m5],
-                    [m6 * m7 - m4 * m9, m1 * m9 - m3 * m7, m3 * m4 - m1 * m6],
-                    [m4 * m8 - m5 * m7, m2 * m7 - m1 * m8, m1 * m5 - m2 * m4]])
+    inv = np.array(
+        [
+            [m5 * m9 - m6 * m8, m3 * m8 - m2 * m9, m2 * m6 - m3 * m5],
+            [m6 * m7 - m4 * m9, m1 * m9 - m3 * m7, m3 * m4 - m1 * m6],
+            [m4 * m8 - m5 * m7, m2 * m7 - m1 * m8, m1 * m5 - m2 * m4],
+        ]
+    )
     return inv / multiply(inv[0], m[:, 0])
 
 
@@ -317,8 +376,8 @@ class UDict(object):
     def dictionaries(self):
         """
 
-       :return:
-       :rtype: tuple of dictionaries
+        :return:
+        :rtype: tuple of dictionaries
         """
         return self.__dictionaries
 
@@ -340,7 +399,8 @@ class QbLUeColorDialog(QColorDialog):
             &nbsp;<b>Ctrl+Alt+Click : </b> Pick color from active layer.<br>
             &nbsp;<b>Ctrl+Shift+Click : </b> Pick color from active layer input.<br><br>
             <b>Current Layer mask is ignored</b>.<br>
-            """)
+            """
+        )
 
     def accept(self):
         # triggered by OK button
@@ -356,10 +416,10 @@ class QbLUeColorDialog(QColorDialog):
 class QbLUeComboBox(QComboBox):
 
     def __getstate__(self):
-        return {'text': self.currentText()}
+        return {"text": self.currentText()}
 
     def __setstate__(self, state):
-        ind = self.findText(state['text'])
+        ind = self.findText(state["text"])
         if ind != -1:
             self.setCurrentIndex(ind)
 
@@ -367,10 +427,10 @@ class QbLUeComboBox(QComboBox):
 class QbLUeSpinBox(QSpinBox):
 
     def __getstate__(self):
-        return {'value': self.value()}
+        return {"value": self.value()}
 
     def __setstate__(self, state):
-        self.setValue(state['value'])
+        self.setValue(state["value"])
 
 
 class QbLUeSlider(QSlider):
@@ -380,6 +440,7 @@ class QbLUeSlider(QSlider):
     when clicking the handle and to update value
     with a single jump when clicking the groove.
     """
+
     bLueSliderDefaultColorStylesheet = """QSlider::groove:horizontal:enabled { 
                                                                 background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 blue, stop:1 red);
                                                                 }
@@ -423,10 +484,10 @@ class QbLUeSlider(QSlider):
         self.setMaximumSize(16777215, 10)
 
     def __getstate__(self):
-        return {'value': self.value()}
+        return {"value": self.value()}
 
     def __setstate__(self, state):
-        self.setValue(state['value'])
+        self.setValue(state["value"])
 
     def mousePressEvent(self, event):
         """
@@ -436,13 +497,17 @@ class QbLUeSlider(QSlider):
         :param event:
         :type event:
         """
-        pressVal = QStyle.sliderValueFromPosition(self.minimum(),
-                                                  self.maximum(),
-                                                  int(event.position().x()),
-                                                  self.width(),
-                                                  upsideDown=False)
-        if abs(pressVal - self.value()) > (
-                self.maximum() - self.minimum()) * 20 / self.width():  # handle width should be near 20
+        pressVal = QStyle.sliderValueFromPosition(
+            self.minimum(),
+            self.maximum(),
+            int(event.position().x()),
+            self.width(),
+            upsideDown=False,
+        )
+        if (
+            abs(pressVal - self.value())
+            > (self.maximum() - self.minimum()) * 20 / self.width()
+        ):  # handle width should be near 20
             self.setValue(pressVal)
         else:
             super().mousePressEvent(event)
@@ -452,6 +517,7 @@ class QbLUeLabel(QLabel):
     """
     Emits a signal when double-clicked
     """
+
     doubleClicked = QtCore.Signal()
 
     def mouseDoubleClickEvent(self, e):
@@ -462,6 +528,7 @@ class QbLUePushButton(QPushButton):
     """
     Form PushButtons (specific style sheet)
     """
+
     pass
 
 
@@ -495,7 +562,7 @@ class historyList(list):
         :param item:
         :type item: any type
         """
-        if self.current == - 1:
+        if self.current == -1:
             super().insert(0, item)
         if len(self) > self.size:
             self.pop()
@@ -545,7 +612,12 @@ class historyList(list):
 
 
 class optionsWidgetItem(QListWidgetItem):
-    def __init__(self, *args, intName='', **kwargs, ):
+    def __init__(
+        self,
+        *args,
+        intName="",
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self._internalName = intName
 
@@ -582,24 +654,32 @@ class optionsWidget(QListWidget):
     Passing a signal or function to the parameter changed enables to trigger an action when,
     and only when, clicking an item induces a change in checkbox states.
     """
+
     # ad hoc signal triggered when item clicked AND change in checkbox states (see method select)
     userCheckStateChanged = QtCore.Signal(QListWidgetItem)
 
-    def __init__(self, options=None, optionNames=None, exclusive=True, changed=None, parent=None,
-                 flow=QListWidget.Flow.TopToBottom):
+    def __init__(
+        self,
+        options=None,
+        optionNames=None,
+        exclusive=True,
+        changed=None,
+        parent=None,
+        flow=QListWidget.Flow.TopToBottom,
+    ):
         """
-       :param options: list of options
-       :type options: list of str
-       :param optionNames: list of displayed names corresponding to options
-       :type optionNames: list of str
-       :param exclusive:
-       :type exclusive: bool
-       :param changed: signal or slot for itemclicked signal
-       :type changed: signal or function (0 or 1 parameter of type QListWidgetItem)
-       :param parent:
-       :type parent: QObject
-       :param flow:  which direction the items layout should flow
-       :type flow: QListView.Flow
+        :param options: list of options
+        :type options: list of str
+        :param optionNames: list of displayed names corresponding to options
+        :type optionNames: list of str
+        :param exclusive:
+        :type exclusive: bool
+        :param changed: signal or slot for itemclicked signal
+        :type changed: signal or function (0 or 1 parameter of type QListWidgetItem)
+        :param parent:
+        :type parent: QObject
+        :param flow:  which direction the items layout should flow
+        :type flow: QListView.Flow
         """
         super().__init__(parent)
 
@@ -623,7 +703,7 @@ class optionsWidget(QListWidget):
             listItem.setCheckState(Qt.Unchecked)
             self.addItem(listItem)
             self.items[intName] = listItem
-            self.options[intName] = (listItem.checkState() == Qt.Checked)
+            self.options[intName] = listItem.checkState() == Qt.Checked
         self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         if flow == QListWidget.Flow.TopToBottom:
             self.setMinimumHeight(self.sizeHintForRow(0) * len(options))
@@ -649,8 +729,8 @@ class optionsWidget(QListWidget):
     def __setstate__(self, state):
         """
 
-       :param state:
-       :type state: dict
+        :param state:
+        :type state: dict
         """
         for itemName in state:
             item = self.items.get(itemName, None)
@@ -715,7 +795,9 @@ class optionsWidget(QListWidget):
         """
         item = self.items[name]
         if not checked and self.exclusive:
-            raise ValueError('For mutually exclusive options, unchecking is not possible. Please check another item')
+            raise ValueError(
+                "For mutually exclusive options, unchecking is not possible. Please check another item"
+            )
         item.setCheckState(Qt.Checked if checked else Qt.Unchecked)
         self.select(item, callOnSelect=callOnSelect)
 
@@ -733,13 +815,18 @@ class optionsWidget(QListWidget):
 
     @property
     def checkedItems(self):
-        return [self.item(i) for i in range(self.count()) if self.item(i).checkState() == Qt.Checked]
+        return [
+            self.item(i)
+            for i in range(self.count())
+            if self.item(i).checkState() == Qt.Checked
+        ]
 
 
 class bLUeDialogCombo(QDialog):
     """
     Dialog form with a  combo box and 2 buttons Ok and Cancel
     """
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.cb = QComboBox()
@@ -766,6 +853,7 @@ class bLUeDialogCombo(QDialog):
 
     def selectionchange(self, i):
         self.onChange()
+
 
 def checkeredImage(format=QImage.Format_ARGB32):
     """
@@ -839,10 +927,10 @@ def clip(image, mask, inverted=False):
 def QImageFromFile(filename):
     """
 
-   :param filename:
-   :type filename: str
-   :return:
-   :rtype: QImage
+    :param filename:
+    :type filename: str
+    :return:
+    :rtype: QImage
     """
     reader = QImageReader(filename)
     reader.setAutoTransform(True)  # handle orientation tag
@@ -861,10 +949,10 @@ def getDisplayProfileWin(handle):
     :rtype: str
     """
 
-    if sys.platform == 'win32':
-        libhandle = ctypes.WinDLL('gdi32')
+    if sys.platform == "win32":
+        libhandle = ctypes.WinDLL("gdi32")
         buf = ctypes.create_unicode_buffer("", 0)
-        size = ctypes.wintypes.DWORD()
+        size = ctypes.windll.DWORD()
         res = libhandle.GetICMProfileW(handle, ctypes.byref(size), buf)
         buf = ctypes.create_unicode_buffer("", size.value)
         res = libhandle.GetICMProfileW(handle, ctypes.byref(size), buf)
@@ -885,8 +973,8 @@ def enumDisplayProfilesWin(handle):
     :rtype: list of str
     """
 
-    if sys.platform == 'win32':
-        libhandle = ctypes.WinDLL('gdi32')
+    if sys.platform == "win32":
+        libhandle = ctypes.WinDLL("gdi32")
         profile_path_list = []
 
         # EnumICMProfilesW callback
@@ -904,7 +992,7 @@ def enumDisplayProfilesWin(handle):
         raise OSError
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     a = np.ones(100, dtype=int).reshape(10, 10)
     # b=strides_2d(a, (11,11))
     m = movingVariance(a, 7)
