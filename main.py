@@ -637,6 +637,7 @@ class JsonToXmlConverter:
     def __init__(self, json_data):
         self.json_data = json_data
         self.uuid_to_node = {node["uuid"]: node for node in json_data["nodes"]}
+        self.sort_nodes_by_connections()
         # Prepare choice outputs mapping from the JSON data
         self.choice_outputs = defaultdict(list)
         self.prepare_choice_outputs()
@@ -646,6 +647,32 @@ class JsonToXmlConverter:
             start_node = self.uuid_to_node.get(conn["start_id"])
             if start_node and start_node["type"] == "choice_Node":
                 self.choice_outputs[start_node["uuid"]].append(conn)
+
+    def sort_nodes_by_connections(self):
+        graph = {node["uuid"]: [] for node in self.json_data["nodes"]}
+        in_degree = {node["uuid"]: 0 for node in self.json_data["nodes"]}
+        for conn in self.json_data["connections"]:
+            graph[conn["start_id"]].append(conn["end_id"])
+            in_degree[conn["end_id"]] += 1
+
+        queue = deque([node for node in in_degree if in_degree[node] == 0])
+        sorted_nodes = []
+        while queue:
+            node_id = queue.popleft()
+            sorted_nodes.append(node_id)
+            for child_id in graph[node_id]:
+                in_degree[child_id] -= 1
+                if in_degree[child_id] == 0:
+                    queue.append(child_id)
+
+        if len(sorted_nodes) != len(self.json_data["nodes"]):
+            raise Exception(
+                "The graph contains a cycle, which prevents topological sorting."
+            )
+
+        self.json_data["nodes"] = [
+            self.uuid_to_node[node_id] for node_id in sorted_nodes
+        ]
 
     def convert_json_to_xml(self):
         root = Element("FTL")
