@@ -6,10 +6,12 @@ from collections import defaultdict, deque
 # import json
 # import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
-from node_editor.connection import Connection
+
+# from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
 from node_editor.gui.node_widget import NodeWidget
 import logging
+from node_editor.node import Node
 
 # import os
 from pathlib import Path
@@ -292,9 +294,6 @@ class NodeInspector(QtWidgets.QWidget):
                 widget.deleteLater()
 
 
-from node_editor.node import Node
-
-
 class base_node(Node):
     def __init__(self, title, type):
         super().__init__()
@@ -489,6 +488,45 @@ class AudioCreatorWidget(QtWidgets.QWidget):
         # Add widgets for audio creation here
 
 
+class SimulationEngine:
+    def __init__(self, node_graph):
+        self.node_graph = node_graph
+        self.current_node = None
+        self.state = {}
+
+    def start(self, start_node_id):
+        self.current_node = self.node_graph[start_node_id]
+        self.process_node(self.current_node)
+
+    def process_node(self, node):
+        if node.type == "choice_Node":
+            self.present_choices(node)
+        elif node.type == "event_Node":
+            self.handle_event(node)
+        # Add logic for other node types
+
+    def present_choices(self, choice_node):
+        # Present choices to the user and wait for input
+        # For this example, let's assume a simple console input
+        print("Choose an option:")
+        for index, option in enumerate(choice_node.choices):
+            print(f"{index}: {option.description}")
+        choice = int(input())
+        self.make_choice(choice_node, choice)
+
+    def make_choice(self, choice_node, choice_index):
+        # Update state based on choice and move to the next node
+        choice = choice_node.choices[choice_index]
+        self.state.update(choice.effects)
+        self.current_node = choice.next_node
+        self.process_node(self.current_node)
+
+    def handle_event(self, event_node):
+        # Handle event node logic
+        print(f"Event: {event_node.description}")
+        # Move to the next node based on event logic
+
+
 class NodeTabWidget(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -530,8 +568,12 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 self.addTab(new_tab, "Image Creator")
                 self.setCurrentIndex(self.indexOf(new_tab))
             elif tab_type == "Audio Creator":
-                new_tab = AudioCreatorWindow()
+                new_tab = AudioCreatorWindow(launcher1.node_widget.scene)
                 self.addTab(new_tab, "Audio Creator")
+                self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "Simulation Tab":
+                new_tab = SimulationEngine()
+                self.addTab(new_tab, "Simulation Tab")
                 self.setCurrentIndex(self.indexOf(new_tab))
 
 
@@ -546,6 +588,7 @@ class NewTabDialog(QtWidgets.QDialog):
         self.radio_ship_builder = QtWidgets.QRadioButton("Ship Creator")
         self.imagecreator = QtWidgets.QRadioButton("Image Creator")
         self.audiocreator = QtWidgets.QRadioButton("Audio Creator")
+        self.simulator = QtWidgets.QRadioButton("Simulation Tab")
         self.radio_existing.setChecked(True)
 
         button_box = QtWidgets.QDialogButtonBox(
@@ -573,6 +616,8 @@ class NewTabDialog(QtWidgets.QDialog):
             return "Image Creator"
         if self.audiocreator.isChecked():
             return "Audio Creator"
+        if self.simulator.isChecked():
+            return "Simulation Tab"
 
 
 class ShipBuilderWindow(QtWidgets.QWidget):
