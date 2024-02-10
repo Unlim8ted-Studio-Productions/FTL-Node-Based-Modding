@@ -132,6 +132,14 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         if node['type'] == 'text_Node':
             text_element = SubElement(parent_element, 'text')
             text_element.text = node['internal-data']['text']
+            
+        if node['type'] == 'giveweapon_Node':
+            text_element = SubElement(parent_element, 'weapon')
+            text_element.text = node['internal-data']['text']
+        
+        if node['type'] == 'giveaugument_Node':
+            text_element = SubElement(parent_element, 'augument')
+            text_element.text = node['internal-data']['text']
         
         elif node['type'] == 'playsound_Node':
             playsound_element = SubElement(parent_element, 'playsound_Node')
@@ -142,6 +150,9 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         
         elif node['type'] == 'Reward_Node':
             reward_element = SubElement(parent_element, 'Reward_Node', {'amount': str(node['internal-data']['amount']), 'index': str(node['internal-data']['index'])})
+            
+        elif node['type'] == 'quest_Node':
+            reward_element = SubElement(parent_element, 'Quest', {'Beacon': str(node['internal-data']['index'])})
 
 
 
@@ -334,6 +345,48 @@ class base_node(Node):
         self.build()
 
 
+class ImageCreatorWindow(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Image Creator")
+        self.layout = QtWidgets.QVBoxLayout()
+
+        self.image_creator_widget = ImageCreatorWidget()
+        self.layout.addWidget(self.image_creator_widget)
+
+        self.setLayout(self.layout)
+
+
+class ImageCreatorWidget(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
+
+        # Add widgets for image creation here
+
+
+class AudioCreatorWindow(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Audio Creator")
+        self.layout = QtWidgets.QVBoxLayout()
+
+        self.audio_creator_widget = AudioCreatorWidget()
+        self.layout.addWidget(self.audio_creator_widget)
+
+        self.setLayout(self.layout)
+
+
+class AudioCreatorWidget(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.layout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.layout)
+
+        # Add widgets for audio creation here
+
+
 class NodeTabWidget(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -357,7 +410,7 @@ class NodeTabWidget(QtWidgets.QTabWidget):
             tab_type = dialog.get_tab_type()
             if tab_type == "Existing Scene":
                 file_dialog = QtWidgets.QFileDialog()
-                #file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)", dir=str(launcher1.project_path.absolute()))
+                # file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)", dir=str(launcher1.project_path.absolute()))
                 new_tab = NodeEditorTab()
                 name = new_tab.loadproject(True)
                 self.addTab(new_tab, name)
@@ -370,6 +423,15 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 new_tab = ShipBuilderWindow()
                 self.addTab(new_tab, "Ship Creator")
                 self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "Image Creator":
+                new_tab = ImageCreatorWindow()
+                self.addTab(new_tab, "Image Creator")
+                self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "Audio Creator":
+                new_tab = AudioCreatorWindow()
+                self.addTab(new_tab, "Audio Creator")
+                self.setCurrentIndex(self.indexOf(new_tab))
+
 
 
 class NewTabDialog(QtWidgets.QDialog):
