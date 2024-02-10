@@ -1,18 +1,36 @@
+import random
 import subprocess
 import sys
-import json
-import tempfile
+
+# import json
+# import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
 from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
 from node_editor.gui.node_widget import NodeWidget
 import logging
-import os
+
+# import os
 from pathlib import Path
 import importlib
 import inspect
 from xml.etree.ElementTree import Element, SubElement, tostring
 import win32gui
+from PySide6.QtWidgets import (
+    QLabel,
+    QPushButton,
+    QVBoxLayout,
+    QSlider,
+    QColorDialog,
+    QInputDialog,
+    QHBoxLayout,
+    QGraphicsScene,
+    QGraphicsView,
+    QWidget,
+    QComboBox,
+)
+from PySide6.QtGui import QPixmap, QPainter, QPen, QIcon, QColor
+from PySide6.QtCore import Qt, QRect
 import win32process
 
 logging.basicConfig(level=logging.DEBUG)
@@ -82,7 +100,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
-        
+
         self.load_project(self.project_path, loadscene=False)
 
         # Restore GUI from last state
@@ -92,80 +110,104 @@ class NodeEditorTab(QtWidgets.QMainWindow):
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
 
-    
     def convert_json_to_xml(self, json_data):
-        event = Element('event', {'name': json_data['connections'][0]['start_id'], 'unique': 'true'})
-        
-        for node in json_data['nodes']:
-            if node['type'] == 'event_Node':
-                event_text = node['internal-data']['text']
-                text_element = SubElement(event, 'text')
+        event = Element(
+            "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
+        )
+
+        for node in json_data["nodes"]:
+            if node["type"] == "event_Node":
+                event_text = node["internal-data"]["text"]
+                text_element = SubElement(event, "text")
                 text_element.text = event_text
-            
-            elif node['type'] == 'choice_Node':
-                choice_element = SubElement(event, 'choice')
+
+            elif node["type"] == "choice_Node":
+                choice_element = SubElement(event, "choice")
                 choice_text = None
-                
-                for connection in json_data['connections']:
-                    if connection['start_id'] == node['uuid']:
-                        for node in json_data['nodes']:
-                            if node['uuid'] == connection['end_id']:
-                                choice_text = node['internal-data']['text']
-                                text_element = SubElement(choice_element, 'text')
+
+                for connection in json_data["connections"]:
+                    if connection["start_id"] == node["uuid"]:
+                        for node in json_data["nodes"]:
+                            if node["uuid"] == connection["end_id"]:
+                                choice_text = node["internal-data"]["text"]
+                                text_element = SubElement(choice_element, "text")
                                 text_element.text = choice_text
                                 break
-                            
+
                 if choice_text:
-                    event_element = SubElement(choice_element, 'event')
+                    event_element = SubElement(choice_element, "event")
                     # find the connected nodes for this choice
-                    for connection in json_data['connections']:
-                        if connection['start_id'] == node['uuid']:
-                            for node in json_data['nodes']:
-                                if node['uuid'] == connection['end_id']:
-                                    self.convert_node_to_xml(node, event_element, json_data)
+                    for connection in json_data["connections"]:
+                        if connection["start_id"] == node["uuid"]:
+                            for node in json_data["nodes"]:
+                                if node["uuid"] == connection["end_id"]:
+                                    self.convert_node_to_xml(
+                                        node, event_element, json_data
+                                    )
                                     break
                             break
-                        
-        return tostring(event, encoding='unicode')
-    
+
+        return tostring(event, encoding="unicode")
+
     def convert_node_to_xml(self, node, parent_element, json_data):
-        if node['type'] == 'text_Node':
-            text_element = SubElement(parent_element, 'text')
-            text_element.text = node['internal-data']['text']
-            
-        if node['type'] == 'giveweapon_Node':
-            text_element = SubElement(parent_element, 'weapon')
-            text_element.text = node['internal-data']['text']
-        
-        if node['type'] == 'giveaugument_Node':
-            text_element = SubElement(parent_element, 'augument')
-            text_element.text = node['internal-data']['text']
-        
-        elif node['type'] == 'playsound_Node':
-            playsound_element = SubElement(parent_element, 'playsound_Node')
-        
-        elif node['type'] == 'loadship_Node':
-            ship_element = SubElement(parent_element, 'ship', {'name': node['internal-data']['text'], 'auto_blueprint': node['internal-data']['text']})
-            SubElement(parent_element, 'ship', {'load': node['internal-data']['text'], 'hostile': str(node['internal-data']['ishostile'])})
-        
-        elif node['type'] == 'Reward_Node':
-            reward_element = SubElement(parent_element, 'Reward_Node', {'amount': str(node['internal-data']['amount']), 'index': str(node['internal-data']['index'])})
-            
-        elif node['type'] == 'quest_Node':
-            reward_element = SubElement(parent_element, 'Quest', {'Beacon': str(node['internal-data']['index'])})
+        if node["type"] == "text_Node":
+            text_element = SubElement(parent_element, "text")
+            text_element.text = node["internal-data"]["text"]
 
+        if node["type"] == "giveweapon_Node":
+            text_element = SubElement(parent_element, "weapon")
+            text_element.text = node["internal-data"]["text"]
 
+        if node["type"] == "giveaugument_Node":
+            text_element = SubElement(parent_element, "augument")
+            text_element.text = node["internal-data"]["text"]
+
+        elif node["type"] == "playsound_Node":
+            playsound_element = SubElement(parent_element, "playsound_Node")
+
+        elif node["type"] == "loadship_Node":
+            ship_element = SubElement(
+                parent_element,
+                "ship",
+                {
+                    "name": node["internal-data"]["text"],
+                    "auto_blueprint": node["internal-data"]["text"],
+                },
+            )
+            SubElement(
+                parent_element,
+                "ship",
+                {
+                    "load": node["internal-data"]["text"],
+                    "hostile": str(node["internal-data"]["ishostile"]),
+                },
+            )
+
+        elif node["type"] == "Reward_Node":
+            reward_element = SubElement(
+                parent_element,
+                "Reward_Node",
+                {
+                    "amount": str(node["internal-data"]["amount"]),
+                    "index": str(node["internal-data"]["index"]),
+                },
+            )
+
+        elif node["type"] == "quest_Node":
+            reward_element = SubElement(
+                parent_element, "Quest", {"Beacon": str(node["internal-data"]["index"])}
+            )
 
     def compile_to_ftl(self):
         scene = self.node_widget.save_project()
-        #path = tempfile.mktemp()
-        #jsonv = []
-        #with open(path, "w+") as f:
+        # path = tempfile.mktemp()
+        # jsonv = []
+        # with open(path, "w+") as f:
         #    json.dump(scene, f, indent=4)
         #    jsonv = f.readlines()
-        #os.remove(path)
-       # print(scene)
-       
+        # os.remove(path)
+        # print(scene)
+
         print(self.convert_json_to_xml(scene))
         # TODO: somehow convert {'nodes': [{'type': 'choice_Node', 'x': 5155, 'y': 4866, 'uuid': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'internal-data': {}}, {'type': 'event_Node', 'x': 4817, 'y': 4913, 'uuid': '23e4b45c-461f-4a65-a112-5af01b77df81', 'internal-data': {'text': 'example', 'isunique': True}}, {'type': 'text_Node', 'x': 4973, 'y': 4869, 'uuid': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'internal-data': {'text': 'A zoltan ship hails you'}}, {'type': 'text_Node', 'x': 5380, 'y': 4778, 'uuid': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'internal-data': {'text': 'Tell them about your mission and ask for supplies'}}, {'type': 'text_Node', 'x': 5353, 'y': 4952, 'uuid': '11e6b28e-0473-487f-8480-0069fd412c47', 'internal-data': {'text': 'attack!'}}, {'type': 'playsound_Node', 'x': 5514, 'y': 4927, 'uuid': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'internal-data': {}}, {'type': 'loadsound_Node', 'x': 5348, 'y': 5098, 'uuid': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'internal-data': {'filepath': ''}}, {'type': 'loadship_Node', 'x': 5699, 'y': 4947, 'uuid': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'internal-data': {'text': 'enemy-zoltan', 'ishostile': True}}, {'type': 'text_Node', 'x': 5551, 'y': 4751, 'uuid': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'internal-data': {'text': 'They give you some supplies to help you on your quest'}}, {'type': 'Reward_Node', 'x': 5734, 'y': 4725, 'uuid': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'internal-data': {'amount': 20, 'index': 0}}], 'connections': [{'start_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'end_id': '468cf1dc-4d15-46a9-958f-1b27b7353820', 'start_pin': 'Ex Out', 'end_pin': 'Input'}, {'start_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'end_id': 'b73ad069-3b0f-49ee-aca9-9af33beee56c', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': 'bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Audio', 'end_pin': 'AudioFile'}, {'start_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'end_id': 'a3e094c7-a188-443e-8a72-b4dd6199f1eb', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'end_id': '4142a167-4f62-469a-967a-6814ca3c4fc3', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '23e4b45c-461f-4a65-a112-5af01b77df81', 'end_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'start_pin': 'event_contain', 'end_pin': 'Ex In'}, {'start_id': 'a0e8222a-ff19-498f-8c29-93e2f4257e2b', 'end_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'start_pin': 'Ex Out', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '70ca10c1-dbe8-4673-9e5c-3dce08666aa6', 'start_pin': 'Choice Output0', 'end_pin': 'Ex In'}, {'start_id': '2228cbfa-8029-478c-9d62-dc4685a866ae', 'end_id': '11e6b28e-0473-487f-8480-0069fd412c47', 'start_pin': 'Choice Output1', 'end_pin': 'Ex In'}]} to ftl xml format
 
@@ -175,7 +217,11 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
         file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
         file_dialog.setNameFilter("FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
-        file_path, _ = file_dialog.getSaveFileName(caption="Save project", dir=str(self.project_path.absolute()), filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
+        file_path, _ = file_dialog.getSaveFileName(
+            caption="Save project",
+            dir=str(self.project_path.absolute()),
+            filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)",
+        )
         self.node_widget.save_project(file_path)
 
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
@@ -219,18 +265,22 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         if not project_path:
             return
 
-        #self.load_project(project_path)
-        
-    def loadproject(self, returnname = False):
+        # self.load_project(project_path)
+
+    def loadproject(self, returnname=False):
         file_dialog = QtWidgets.QFileDialog()
-        #file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
-        #file_dialog.setDirectory()
+        # file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
+        # file_dialog.setDirectory()
         file_dialog.setDefaultSuffix("FTL-NODE-SCRIPT")
-        #file_dialog.setNameFilter()
-        file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", dir=str(self.project_path.absolute()), filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)")
-        
-        self.load_project(self.project_path, loadscene=False, loadfile = file_path)
-        
+        # file_dialog.setNameFilter()
+        file_path, _ = file_dialog.getOpenFileName(
+            caption="Select project to load or click cancel",
+            dir=str(self.project_path.absolute()),
+            filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)",
+        )
+
+        self.load_project(self.project_path, loadscene=False, loadfile=file_path)
+
         if returnname:
             return Path(file_path).name
 
@@ -357,13 +407,151 @@ class ImageCreatorWindow(QtWidgets.QWidget):
         self.setLayout(self.layout)
 
 
-class ImageCreatorWidget(QtWidgets.QWidget):
+class ImageCreatorWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.layout = QtWidgets.QVBoxLayout()
-        self.setLayout(self.layout)
+        self.setupUI()
+        self.setupConnections()
 
-        # Add widgets for image creation here
+    def setupUI(self):
+        self.mainLayout = QHBoxLayout(self)
+        self.leftLayout = QVBoxLayout()
+        self.rightLayout = QVBoxLayout()
+
+        # Initialize QGraphicsScene and QGraphicsView for image display
+        self.scene = QGraphicsScene(self)
+        self.view = QGraphicsView(self.scene)
+        self.mainLayout.addWidget(self.view, 1)  # Add view with a stretch factor
+
+        # Left layout components
+        self.newImageButton = QPushButton("New Image")
+        self.loadButton = QPushButton("Load Image")
+        self.saveButton = QPushButton("Save Image")
+        self.clearButton = QPushButton("Clear Image")
+        self.colorButton = QPushButton("Select Color")
+        self.colorDisplay = QLabel()
+        self.colorDisplay.setFixedSize(20, 20)
+        self.colorDisplay.setStyleSheet("background-color: black;")
+
+        self.leftLayout.addWidget(self.newImageButton)
+        self.leftLayout.addWidget(self.loadButton)
+        self.leftLayout.addWidget(self.saveButton)
+        self.leftLayout.addWidget(self.clearButton)
+        # Add drawing tools selection
+        self.drawingToolsCombo = QComboBox()
+        self.drawingToolsCombo.addItems(["Pen", "Spray Paint"])
+        self.leftLayout.insertWidget(
+            5, self.drawingToolsCombo
+        )  # Insert before the color picker
+
+        # Current drawing tool
+        self.currentTool = "Pen"
+
+        self.leftLayout.addWidget(self.colorButton)
+        self.leftLayout.addWidget(self.colorDisplay)
+
+        # Right layout for filters
+        self.filterLabel = QLabel("Filters")
+        self.brightnessSlider = QSlider(Qt.Horizontal)
+        self.brightnessSlider.setMinimum(-100)
+        self.brightnessSlider.setMaximum(100)
+        self.brightnessLabel = QLabel("Brightness")
+
+        self.rightLayout.addWidget(self.filterLabel)
+        self.rightLayout.addWidget(self.brightnessLabel)
+        self.rightLayout.addWidget(self.brightnessSlider)
+
+        self.mainLayout.addLayout(self.leftLayout)
+        self.mainLayout.addLayout(self.rightLayout)
+
+        self.pen_color = QColor(Qt.black)
+
+    def setupConnections(self):
+        self.newImageButton.clicked.connect(self.newImage)
+        self.loadButton.clicked.connect(self.loadImage)
+        self.saveButton.clicked.connect(self.saveImage)
+        self.clearButton.clicked.connect(self.clearImage)
+        self.colorButton.clicked.connect(self.selectColor)
+
+    def newImage(self):
+        # Create a new blank image
+        size, ok = QInputDialog.getItem(
+            self,
+            "New Image",
+            "Select size:",
+            ["640x480", "800x600", "1024x768"],
+            0,
+            False,
+        )
+        if ok:
+            width, height = map(int, size.split("x"))
+            pixmap = QPixmap(width, height)
+            pixmap.fill(Qt.white)
+            self.scene.clear()
+            self.scene.addPixmap(pixmap)
+            self.view.fitInView(self.scene.itemsBoundingRect(), Qt.KeepAspectRatio)
+
+    def loadImage(self):
+        # Implementation for loading an image into the scene
+        pass
+
+    def saveImage(self):
+        # Implementation for saving the current image
+        pass
+
+    def clearImage(self):
+        self.scene.clear()
+
+    def selectColor(self):
+        color = QColorDialog.getColor(self.pen_color, self)
+        if color.isValid():
+            self.pen_color = color
+            self.colorDisplay.setStyleSheet(f"background-color: {color.name()};")
+
+    # Update setupConnections to handle tool change
+    def setupConnections(self):
+        # Connections from previous setup...
+        self.drawingToolsCombo.currentTextChanged.connect(self.changeTool)
+
+    def changeTool(self, tool):
+        self.currentTool = tool
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.lastPoint = self.view.mapToScene(event.pos())
+            self.drawing = True
+
+    def mouseMoveEvent(self, event):
+        if (event.buttons() & Qt.LeftButton) & self.drawing:
+            currentPoint = self.view.mapToScene(event.pos())
+            if self.currentTool == "Pen":
+                self.drawLineTo(currentPoint)
+            elif self.currentTool == "Spray Paint":
+                self.drawSprayPaint(currentPoint)
+            self.lastPoint = currentPoint
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.drawing = False
+
+    def drawLineTo(self, endPoint):
+        painter = QPainter(self.image)
+        painter.setPen(QPen(self.pen_color, 3, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+        painter.drawLine(self.lastPoint, endPoint)
+        self.update(
+            QRect(self.lastPoint.toPoint(), endPoint.toPoint())
+            .normalized()
+            .adjusted(-1, -1, 1, 1)
+        )
+        self.lastPoint = endPoint
+
+    def drawSprayPaint(self, point):
+        painter = QPainter(self.image)
+        for _ in range(10):  # Number of dots per spray action
+            xOffset = random.randint(-10, 10)
+            yOffset = random.randint(-10, 10)
+            painter.drawPoint(point.x() + xOffset, point.y() + yOffset)
+        self.update()
 
 
 class AudioCreatorWindow(QtWidgets.QWidget):
@@ -433,7 +621,6 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 self.setCurrentIndex(self.indexOf(new_tab))
 
 
-
 class NewTabDialog(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -443,15 +630,21 @@ class NewTabDialog(QtWidgets.QDialog):
         self.radio_existing = QtWidgets.QRadioButton("Load Existing Scene")
         self.radio_new = QtWidgets.QRadioButton("Create New Scene")
         self.radio_ship_builder = QtWidgets.QRadioButton("Ship Creator")
+        self.imagecreator = QtWidgets.QRadioButton("Image Creator")
+        self.audiocreator = QtWidgets.QRadioButton("Audio Creator")
         self.radio_existing.setChecked(True)
 
-        button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
 
         layout.addWidget(self.radio_existing)
         layout.addWidget(self.radio_new)
         layout.addWidget(self.radio_ship_builder)
+        layout.addWidget(self.imagecreator)
+        layout.addWidget(self.radio_existing)
         layout.addWidget(button_box)
         self.setLayout(layout)
 
@@ -462,6 +655,11 @@ class NewTabDialog(QtWidgets.QDialog):
             return "New Scene"
         if self.radio_ship_builder.isChecked():
             return "Ship Creator"
+        if self.imagecreator.isChecked():
+            return "Image Creator"
+        if self.audiocreator.isChecked():
+            return "Audio Creator"
+
 
 class ShipBuilderWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
@@ -485,11 +683,17 @@ class EmbeddedWindow(QtWidgets.QWidget):
         self.embed_process()
 
     def embed_process(self):
-        exe_path = 'shipbuilder\Superluminal Win-32 v2.2.1\superluminal2.exe'
-        self.process = subprocess.Popen(exe_path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        exe_path = "shipbuilder\Superluminal Win-32 v2.2.1\superluminal2.exe"
+        self.process = subprocess.Popen(
+            exe_path,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+        )
 
         # Wait for the process to start and get its window handle
-        #self.process.wait(3)  # Adjust the timeout as needed
+        # self.process.wait(3)  # Adjust the timeout as needed
         hwnd = self.find_hwnd(self.process.pid)
         if hwnd:
             self.embed_window(hwnd)
@@ -501,7 +705,7 @@ class EmbeddedWindow(QtWidgets.QWidget):
         if native_window:
             widget_container = QtWidgets.QWidget.createWindowContainer(native_window)
             self.layout.addWidget(widget_container)
-            
+
     def find_hwnd(self, process_id):
         def callback(hwnd, hwnds):
             if win32gui.IsWindowVisible(hwnd) and win32gui.IsWindowEnabled(hwnd):
