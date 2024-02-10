@@ -634,8 +634,7 @@ class EmbeddedWindow(QtWidgets.QWidget):
 
 class JsonToXmlConverter:
     def convert_json_to_xml(self, json_data):
-        # Initialize the root event element with the first connection's start_id as its name
-        # Note: Assumption here is that the first connection's start_id points to the initial event node
+        # Initialize the root event element
         event = Element(
             "event", {"name": json_data["connections"][0]["start_id"], "unique": "true"}
         )
@@ -647,60 +646,50 @@ class JsonToXmlConverter:
         for node in json_data["nodes"]:
             self.process_node(node, event, json_data, uuid_to_node)
 
-        # Convert the ElementTree to a string
         return tostring(event, encoding="unicode").decode()
 
     def process_node(self, node, parent_element, json_data, uuid_to_node):
-        # Depending on the node type, handle accordingly
         if node["type"] == "event_Node":
-            # For event nodes, add a text sub-element
             text_element = SubElement(parent_element, "text")
             text_element.text = node["internal-data"]["text"]
 
         elif node["type"] == "choice_Node":
-            # For choice nodes, add a choice sub-element and process connected nodes
             choice_element = SubElement(parent_element, "choice")
             self.process_choice_node(node, choice_element, json_data, uuid_to_node)
 
-        elif node["type"] in [
-            "text_Node",
-            "giveweapon_Node",
-            "giveaugument_Node",
-            "playsound_Node",
-            "loadship_Node",
-            "Reward_Node",
-        ]:
-            # Directly convert other known node types
+        else:
+            # For other node types, use a generic conversion method
             self.convert_node_to_xml(node, parent_element)
 
     def process_choice_node(self, choice_node, parent_element, json_data, uuid_to_node):
-        # Process the connections to find the next nodes after the choice
         for connection in json_data["connections"]:
             if connection["start_id"] == choice_node["uuid"]:
                 target_node_uuid = connection["end_id"]
                 target_node = uuid_to_node.get(target_node_uuid)
                 if target_node:
-                    self.convert_node_to_xml(target_node, parent_element)
+                    self.process_node(
+                        target_node, parent_element, json_data, uuid_to_node
+                    )
 
     def convert_node_to_xml(self, node, parent_element):
-        # Convert a node to its corresponding XML element based on its type
-        if node["type"] == "text_Node":
+        node_type = node["type"]
+        if node_type == "text_Node":
             SubElement(parent_element, "text", {"text": node["internal-data"]["text"]})
-        elif node["type"] == "giveweapon_Node":
+        elif node_type == "giveweapon_Node":
             SubElement(
                 parent_element, "weapon", {"name": node["internal-data"]["text"]}
             )
-        elif node["type"] == "giveaugument_Node":
+        elif node_type == "giveaugument_Node":
             SubElement(
                 parent_element, "augument", {"name": node["internal-data"]["text"]}
             )
-        elif node["type"] == "playsound_Node":
+        elif node_type == "playsound_Node":
             SubElement(
                 parent_element,
                 "playsound",
                 {"file": node.get("internal-data", {}).get("filepath", "default.wav")},
             )
-        elif node["type"] == "loadship_Node":
+        elif node_type == "loadship_Node":
             SubElement(
                 parent_element,
                 "ship",
@@ -709,7 +698,7 @@ class JsonToXmlConverter:
                     "hostile": str(node["internal-data"]["ishostile"]),
                 },
             )
-        elif node["type"] == "Reward_Node":
+        elif node_type == "Reward_Node":
             SubElement(
                 parent_element,
                 "reward",
