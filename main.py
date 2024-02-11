@@ -374,11 +374,12 @@ class NodeInspector(QtWidgets.QWidget):
                 and connection["start_pin"] == output_pin
             ):
                 return self.scene[connection["end_id"]]
+        print("noconnect")
         return None
 
     def inspect_node(self, node_uuid):
         if self.sr:
-
+            self.connections = self.sr["connections"]
             self.scene = self.parse_scene(self.sr)
             self.sr = None
 
@@ -413,33 +414,29 @@ class NodeInspector(QtWidgets.QWidget):
         # Simplified for this example; choices need to be defined properly
         label = QtWidgets.QLabel("Make a choice:")
         self.layoutt.addWidget(label)
-        ofromuuid = {}
-        for item in tab_widget.widget(tab_widget.currentIndex()).scene.items():
-            if isinstance(item, Node):
-                ofromuuid[str(item.uuid)] = item
 
         # print(choice_node)
         for i in range(10):
             try:
-                connection = (
-                    ofromuuid[choice_node["uuid"]]
-                    .get_pin(f"Choice Output{i}")
-                    .connection
-                )
-                if connection:
-                    text = connection.end_pin.parent.internaldata["text"]
-                else:
+                text = self.findchoicetext(choice_node, i)
+                if not text:
                     text = (
                         f"Choice {i} (No connection)"  # Default text if no connection
                     )
 
                 btn = QtWidgets.QPushButton(text)
                 btn.clicked.connect(
-                    lambda _, choice=i: self.make_choice(choice_node, choice)
+                    lambda choice=i: self.make_choice(choice_node, choice)
                 )
                 self.layoutt.addWidget(btn)
-            except Exception as e:
-                print(e)
+            except:  # Exception as e:
+                None
+                # print("error: " + str(e))
+                # btn = QtWidgets.QPushButton("error: " + str(e))
+                # btn.clicked.connect(
+                #    lambda _, choice=i: self.make_choice(choice_node, choice)
+                # )
+                # self.layoutt.addWidget(btn)
 
     def create_event_ui(self, event_node):
         label = QtWidgets.QLabel(event_node["internal-data"]["text"])
@@ -458,6 +455,18 @@ class NodeInspector(QtWidgets.QWidget):
         next_node = self.find_next_node(next_node["uuid"], f"Ex Out")
         if next_node:
             self.inspect_node(next_node["uuid"])
+        # This would need to fetch the next node object based on ID or reference
+
+    def findchoicetext(self, choice_node, choice_index):
+        # Simplified for demonstration
+        next_node = self.find_next_node(
+            choice_node["uuid"], f"Choice Output{choice_index}"
+        )
+        # print(
+        #    f"next node: {next_node} choicenode: {choice_node} connections: {self.connections}"
+        # )
+        if next_node["internal-data"]["text"]:
+            return next_node["internal-data"]["text"]
         # This would need to fetch the next node object based on ID or reference
 
 
