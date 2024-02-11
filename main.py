@@ -43,7 +43,7 @@ from PySide6.QtGui import (
     QPalette,
     QBrush,
 )
-from PySide6.QtCore import Qt, QRect, QTimer
+from PySide6.QtCore import Qt, QRect, QTimer, QSize
 import win32process
 from PySide6.QtGui import QKeySequence
 from PySide6.QtGui import QShortcut
@@ -326,16 +326,40 @@ class NodeInspector(QtWidgets.QWidget):
         self.scene = self.parse_scene(scene)
         self.sr = None
         self.connections = scene["connections"]
-        self.backgroundImage = QPixmap("simulator backround.png")
 
-        # Create a palette
-        palette = QPalette()
+        self.backroundbackroundo = QPixmap("backback.jpg")
+        self.backroundbackround = QPixmap("backback.jpg").scaled(
+            self.layoutt.sizeHint()
+        )
 
-        # Set the palette's brush to use the background image
-        palette.setBrush(QPalette.Window, QBrush(self.backgroundImage))
+        self.originalBackgroundImage = QPixmap("simulator backround.png")
+        self.backgroundImage = QPixmap("simulator backround.png").scaled(
+            self.layoutt.sizeHint()
+        )
 
-        # Apply the palette to the main window
-        self.setPalette(palette)
+    def paintEvent(self, event):
+        painter = QtGui.QPainter(self)
+        # Fill the background with the scaled pixmap
+        scaledPixmap = self.backroundbackroundo.scaled(
+            self.size(),
+            QtCore.Qt.AspectRatioMode.IgnoreAspectRatio,
+            QtCore.Qt.SmoothTransformation,
+        )
+        # Calculate starting point to center the image
+        startX = (self.width() - scaledPixmap.width()) / 2
+        startY = (self.height() - scaledPixmap.height()) / 2
+        painter.drawPixmap(QtCore.QPoint(startX, startY), scaledPixmap)
+
+        # Fill the background with the scaled pixmap
+        scaledPixmap = self.originalBackgroundImage.scaled(
+            self.size(),
+            QtCore.Qt.AspectRatioMode.KeepAspectRatio,
+            QtCore.Qt.SmoothTransformation,
+        )
+        # Calculate starting point to center the image
+        startX = (self.width() - scaledPixmap.width()) / 2
+        startY = (self.height() - scaledPixmap.height()) / 2
+        painter.drawPixmap(QtCore.QPoint(startX, startY), scaledPixmap)
 
     def parse_scene(self, scene):
         node_map = {}
@@ -354,6 +378,7 @@ class NodeInspector(QtWidgets.QWidget):
 
     def inspect_node(self, node_uuid):
         if self.sr:
+
             self.scene = self.parse_scene(self.sr)
             self.sr = None
 
@@ -388,13 +413,33 @@ class NodeInspector(QtWidgets.QWidget):
         # Simplified for this example; choices need to be defined properly
         label = QtWidgets.QLabel("Make a choice:")
         self.layoutt.addWidget(label)
-        # Assume two choices for simplicity
-        for i in range(2):
-            btn = QtWidgets.QPushButton(f"Choice {i}")
-            btn.clicked.connect(
-                lambda _, choice=i: self.make_choice(choice_node, choice)
-            )
-            self.layoutt.addWidget(btn)
+        ofromuuid = {}
+        for item in tab_widget.widget(tab_widget.currentIndex()).scene.items():
+            if isinstance(item, Node):
+                ofromuuid[str(item.uuid)] = item
+
+        # print(choice_node)
+        for i in range(10):
+            try:
+                connection = (
+                    ofromuuid[choice_node["uuid"]]
+                    .get_pin(f"Choice Output{i}")
+                    .connection
+                )
+                if connection:
+                    text = connection.end_pin.parent.internaldata["text"]
+                else:
+                    text = (
+                        f"Choice {i} (No connection)"  # Default text if no connection
+                    )
+
+                btn = QtWidgets.QPushButton(text)
+                btn.clicked.connect(
+                    lambda _, choice=i: self.make_choice(choice_node, choice)
+                )
+                self.layoutt.addWidget(btn)
+            except Exception as e:
+                print(e)
 
     def create_event_ui(self, event_node):
         label = QtWidgets.QLabel(event_node["internal-data"]["text"])
@@ -410,6 +455,7 @@ class NodeInspector(QtWidgets.QWidget):
         next_node = self.find_next_node(
             choice_node["uuid"], f"Choice Output{choice_index}"
         )
+        next_node = self.find_next_node(next_node["uuid"], f"Ex Out")
         if next_node:
             self.inspect_node(next_node["uuid"])
         # This would need to fetch the next node object based on ID or reference
