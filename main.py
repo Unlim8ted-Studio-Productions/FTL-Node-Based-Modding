@@ -10,7 +10,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 
 # from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
-from node_editor.gui.node_widget import NodeWidget
+from node_editor.gui.node_widget import NodeScene, NodeWidget
 import logging
 from node_editor.node import Node
 
@@ -382,9 +382,14 @@ class NodeInspector(QtWidgets.QWidget):
             self.connections = self.sr["connections"]
             self.scene = self.parse_scene(self.sr)
             self.sr = None
-
-        node = self.scene[node_uuid]
+            
         self.clear_inspector()
+        try:
+            node = self.scene[node_uuid]
+        except:
+            label = QLabel("to use simulator save project")
+            self.layoutt.addWidget(label)
+
         self.node = node
         # Based on node type, create interactive UI elements
         if node["type"] == "choice_Node":
