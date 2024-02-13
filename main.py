@@ -379,8 +379,8 @@ class Simulator(QtWidgets.QWidget):
         self.setContentsMargins(*self.get_margins(startX,startY,scaledPixmap))
 
     def find_node_from_uuid(self, node_uuid):
-        for node in self.scene["nodes"]:
-            if node["uuid"] == node_uuid:
+        for uuid, node in self.scene.items():
+            if uuid == node_uuid:
                 return node
         print(f"Node with UUID {node_uuid} not found")
         return None
@@ -413,10 +413,12 @@ class Simulator(QtWidgets.QWidget):
         return None
 
     def inspect_node(self, node_uuid):
+        
         if self.sr:
             self.connections = self.sr["connections"]
             self.scene = self.parse_scene(self.sr)
             self.sr = None
+            print(self.scene)
             
         self.clear_inspector()
         try:
@@ -435,6 +437,16 @@ class Simulator(QtWidgets.QWidget):
             self.create_text_ui(node)
         # Add other node types as needed
 
+    def find_previous_node(self, current_node_id, input_pin):
+        for connection in self.connections:
+            if (
+                connection["end_id"] == current_node_id
+                and connection["end_pin"] == input_pin
+            ):
+                return self.scene.get(connection["start_id"])
+        print("No connection found for the input pin.")
+        return None
+    
     def clear_inspector(self):
         """Deletes all widgets from the layout.
         Parameters:
@@ -454,10 +466,11 @@ class Simulator(QtWidgets.QWidget):
         i=0
         while True:
             node=choice_node
-            prevnode = self.find_node_internal_data(self.find_node_from_uuid(node["uuid"], "Ex In"))
-            if prevnode:
-                if prevnode["internaldata"]["text"]:
-                    text = prevnode["internaldata"]["text"]
+            node = self.find_previous_node(node["uuid"], "Ex In")
+            print(node)
+            if node:
+                if node["internal-data"]["text"]:
+                    text = node["internal-data"]["text"]
                     break
                 else:
                     i+1
@@ -507,7 +520,9 @@ class Simulator(QtWidgets.QWidget):
         next_node = self.find_next_node(
             choice_node["uuid"], f"Choice Output{choice_index}"
         )
-        next_node = self.find_next_node(next_node["uuid"], f"Ex Out")
+        next_node = self.find_next_node(
+            next_node["uuid"], "Ex Out"
+        )        
         if next_node:
             self.inspect_node(next_node["uuid"])
         # This would need to fetch the next node object based on ID or reference
