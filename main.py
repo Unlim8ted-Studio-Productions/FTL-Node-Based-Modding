@@ -4,7 +4,8 @@ import subprocess
 import sys
 from collections import defaultdict, deque
 
-# import json
+import json
+import xml.etree.ElementTree as ET
 # import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
 
@@ -35,6 +36,7 @@ from PySide6.QtWidgets import (
     QTextEdit,
     QSizePolicy,
     QDockWidget,
+    QFileDialog,
 )
 from PySide6.QtGui import (
     QKeyEvent,
@@ -839,6 +841,10 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 new_tab = SectorCreator()
                 self.addTab(new_tab, "Sector Creator")
                 self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "XML Converter/Editor":
+                new_tab = XMLConverterGUI()
+                self.addTab(new_tab, "XML Converter/Editor")
+                self.setCurrentIndex(self.indexOf(new_tab))
 
 
 class NewTabDialog(QtWidgets.QDialog):
@@ -853,7 +859,9 @@ class NewTabDialog(QtWidgets.QDialog):
         self.imagecreator = QtWidgets.QRadioButton("Image Creator")
         self.audiocreator = QtWidgets.QRadioButton("Audio Creator")
         self.simulator = QtWidgets.QRadioButton("Simulation Tab")
-        self.radio_sector_creator = QtWidgets.QRadioButton("Sector Creator")  # New option
+        self.sector_creator = QtWidgets.QRadioButton("Sector Creator")  # New option
+        self.xmleditor = QtWidgets.QRadioButton("XML Converter/Editor")  # New option
+
         self.radio_existing.setChecked(True)
 
         button_box = QtWidgets.QDialogButtonBox(
@@ -866,7 +874,10 @@ class NewTabDialog(QtWidgets.QDialog):
         layout.addWidget(self.radio_new)
         layout.addWidget(self.radio_ship_builder)
         layout.addWidget(self.imagecreator)
-        layout.addWidget(self.radio_existing)
+        layout.addWidget(self.audiocreator)
+        layout.addWidget(self.simulator)
+        layout.addWidget(self.sector_creator)
+        layout.addWidget(self.xmleditor)
         layout.addWidget(button_box)
         self.setLayout(layout)
 
@@ -883,8 +894,114 @@ class NewTabDialog(QtWidgets.QDialog):
             return "Audio Creator"
         if self.simulator.isChecked():
             return "Simulation Tab"
-        if self.radio_sector_creator.isChecked():  # New option
+        if self.sector_creator.isChecked():  # New option
             return "Sector Creator"
+        if self.xmleditor.isChecked():  # New option
+            return "XML Converter/Editor"
+
+class XMLConverterGUI(QtWidgets.QWidget):
+    def __init__(self):
+        """Converts an XML file to JSON format.
+        Parameters:
+            - None
+        Returns:
+            - None
+        Processing Logic:
+            - Sets up the GUI layout.
+            - Loads an XML file.
+            - Converts the XML file to JSON.
+            - Saves the changes to the file."""
+        super().__init__()
+       #self.setWindowTitle("XML to JSON Converter")
+       #self.setGeometry(100, 100, 400, 300)
+
+        self.text_edit = QTextEdit()
+        self.load_button = QPushButton("Load XML File")
+        self.load_button.clicked.connect(self.load_xml_file)
+        self.convert_button = QPushButton("Convert to JSON")
+        self.convert_button.clicked.connect(self.convert_to_json)
+        self.save_button = QPushButton("Save Changes")
+        self.save_button.clicked.connect(self.save_changes)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.text_edit)
+        layout.addWidget(self.load_button)
+        layout.addWidget(self.convert_button)
+        layout.addWidget(self.save_button)
+        self.setLayout(layout)
+        #central_widget = QWidget()
+        #central_widget.setLayout(layout)
+        #self.setCentralWidget(central_widget)
+
+        self.xml_tree = None
+
+    def load_xml_file(self):
+        file_dialog = QFileDialog(self)
+        file_dialog.setNameFilter("XML files (*.xml)")
+        if file_dialog.exec_():
+            file_path = file_dialog.selectedFiles()[0]
+            try:
+                self.xml_tree = ET.parse(file_path)
+                self.text_edit.setPlainText(ET.tostring(self.xml_tree.getroot(), encoding="unicode"))
+                print("XML file loaded successfully.")
+            except FileNotFoundError:
+                print("File not found.")
+
+    def convert_to_json(self):
+        if self.xml_tree is not None:
+            root = self.xml_tree.getroot()
+            nodes = []
+            connections = []
+
+            for elem in root.iter():
+                node = {"type": elem.tag, "x": 0, "y": 0, "uuid": "", "internal-data": {}}
+                for key, value in elem.attrib.items():
+                    if key == "name":
+                        node["internal-data"]["text"] = value
+                    elif key == "text":
+                        node["internal-data"]["text"] = value
+                    elif key == "hostile":
+                        node["internal-data"]["ishostile"] = True if value.lower() == "true" else False
+                    else:
+                        node["internal-data"][key] = value
+                nodes.append(node)
+
+            for elem in root.iter():
+                if elem.tag == "choice":
+                    choice_id = elem.attrib.get("name")
+                    for event in elem.iter("event"):
+                        event_id = event.attrib.get("name")
+                        connections.append({
+                            "start_id": self.get_node_id_by_name(nodes, event_id),
+                            "end_id": self.get_node_id_by_name(nodes, choice_id),
+                            "start_pin": "Ex Out",
+                            "end_pin": "Ex In"
+                        })
+
+            json_data = {"nodes": nodes, "connections": connections}
+            self.text_edit.setPlainText(json.dumps(json_data, indent=4))
+            print("XML converted to JSON successfully.")
+        else:
+            print("No XML file loaded.")
+
+    def save_changes(self):
+        if self.xml_tree is not None:
+            try:
+                new_xml_data = self.text_edit.toPlainText().encode()
+                self.xml_tree = ET.ElementTree(ET.fromstring(new_xml_data))
+                print("Changes saved successfully.")
+            except Exception as e:
+                print(f"Error saving changes: {e}")
+        else:
+            print("No XML file loaded.")
+
+    @staticmethod
+    def get_node_id_by_name(nodes, name):
+        for node in nodes:
+            if "internal-data" in node and "text" in node["internal-data"]:
+                if node["internal-data"]["text"] == name:
+                    return node["uuid"]
+        return None
 
 class ShipBuilderWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
