@@ -83,35 +83,38 @@ class NodeWidget(QtWidgets.QWidget):
         # Add the nodes
         if data:
             for node in data["nodes"]:
-                info = imports[node["type"]]
-                node_item = info["class"]()
-                node_item.uuid = node["uuid"]
-                self.scene.addItem(node_item)
-                node_item.setPos(node["x"], node["y"])
-
-                self.node_lookup[node["uuid"]] = node_item
-                node_item.internaldata = node["internal-data"]
                 try:
+                    info = imports[node["type"]]
+                    node_item = info["class"]()
+                    node_item.uuid = node["uuid"]
+                    self.scene.addItem(node_item)
+                    node_item.setPos(node["x"], node["y"])
+
+                    self.node_lookup[node["uuid"]] = node_item
+                    node_item.internaldata = node["internal-data"]
                     node_item.setinternaldata()
                 except:
                     None
 
         # Add the connections
         for c in data["connections"]:
-            connection = Connection(None)
-            self.scene.addItem(connection)
+            try:
+                connection = Connection(None)
+                self.scene.addItem(connection)
 
-            start_pin = self.node_lookup[c["start_id"]].get_pin(c["start_pin"])
-            end_pin = self.node_lookup[c["end_id"]].get_pin(c["end_pin"])
+                start_pin = self.node_lookup[c["start_id"]].get_pin(c["start_pin"])
+                end_pin = self.node_lookup[c["end_id"]].get_pin(c["end_pin"])
 
-            print("start_pin", start_pin)
+                print("start_pin", start_pin)
 
-            if start_pin:
-                connection.set_start_pin(start_pin)
+                if start_pin:
+                    connection.set_start_pin(start_pin)
 
-            if end_pin:
-                connection.set_end_pin(end_pin)
-            connection.update_start_and_end_pos()
+                if end_pin:
+                    connection.set_end_pin(end_pin)
+                connection.update_start_and_end_pos()
+            except:
+                None
 
     def save_project(self, json_path=None, returndat=False):
 

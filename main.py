@@ -3,11 +3,12 @@ import random
 import subprocess
 import sys
 from collections import defaultdict, deque
-
+import uuid
 import json
 import xml.etree.ElementTree as ET
 # import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
+import pyperclip
 
 # from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
@@ -208,7 +209,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
         if not project_path:
             return
-
+        #e = []
         project_path = Path(project_path)
         if project_path.exists() and project_path.is_dir():
             self.project_path = project_path
@@ -219,6 +220,9 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                 if not file.stem.endswith("_node"):
                     print("file:", file.stem)
                     continue
+                #with open(file, "r") as f:
+                #    for i in f.readlines():
+                #        e.append(i)
                 spec = importlib.util.spec_from_file_location(file.stem, file)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
@@ -230,7 +234,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                         self.imports[obj.__name__] = {"class": obj, "module": module}
             if not loadfile:
                 self.node_list.update_project(self.imports)
-
+            #pyperclip.copy(str(e))
             # work on just the first json file. add the ability to work on multiple json files later
             if loadscene:
                 for json_path in project_path.glob("*.json"):
@@ -899,21 +903,9 @@ class NewTabDialog(QtWidgets.QDialog):
         if self.xmleditor.isChecked():  # New option
             return "XML Converter/Editor"
 
-class XMLConverterGUI(QtWidgets.QWidget):
+class XMLConverterGUI(QWidget):
     def __init__(self):
-        """Converts an XML file to JSON format.
-        Parameters:
-            - None
-        Returns:
-            - None
-        Processing Logic:
-            - Sets up the GUI layout.
-            - Loads an XML file.
-            - Converts the XML file to JSON.
-            - Saves the changes to the file."""
         super().__init__()
-       #self.setWindowTitle("XML to JSON Converter")
-       #self.setGeometry(100, 100, 400, 300)
 
         self.text_edit = QTextEdit()
         self.load_button = QPushButton("Load XML File")
@@ -929,9 +921,6 @@ class XMLConverterGUI(QtWidgets.QWidget):
         layout.addWidget(self.convert_button)
         layout.addWidget(self.save_button)
         self.setLayout(layout)
-        #central_widget = QWidget()
-        #central_widget.setLayout(layout)
-        #self.setCentralWidget(central_widget)
 
         self.xml_tree = None
 
@@ -948,35 +937,56 @@ class XMLConverterGUI(QtWidgets.QWidget):
                 print("File not found.")
 
     def convert_to_json(self):
+        
+        # Load XML text from the text editor
+        xml_text = self.text_edit.toPlainText()
+
+        # Parse XML from the loaded text
+        self.xml_tree = ET.ElementTree(ET.fromstring(xml_text))
+        
         if self.xml_tree is not None:
             root = self.xml_tree.getroot()
             nodes = []
             connections = []
+            node_uuid_map = {}  # Map node names to their UUIDs
+            connection_uuid_map = {}  # Map connection IDs to their UUIDs
 
+            # Create nodes and populate node_uuid_map
+            max_nodes_per_row = 5
+            node_spacing_x = 200
+            node_spacing_y = 100
+            current_x = 0
+            current_y = 0
             for elem in root.iter():
-                node = {"type": elem.tag, "x": 0, "y": 0, "uuid": "", "internal-data": {}}
-                for key, value in elem.attrib.items():
-                    if key == "name":
-                        node["internal-data"]["text"] = value
-                    elif key == "text":
-                        node["internal-data"]["text"] = value
-                    elif key == "hostile":
-                        node["internal-data"]["ishostile"] = True if value.lower() == "true" else False
-                    else:
-                        node["internal-data"][key] = value
+                node_uuid = str(uuid.uuid4())
+                node_name = elem.attrib.get("name", "")
+                node = {"type": elem.tag+"_Node", "x": current_x, "y": current_y, "uuid": node_uuid, "internal-data": {"text": node_name}}
                 nodes.append(node)
+                node_uuid_map[node_name] = node_uuid
+                # Update coordinates for the next node
+                current_x += node_spacing_x
+                if current_x >= max_nodes_per_row * node_spacing_x:
+                    current_x = 0
+                    current_y += node_spacing_y
 
+            # Create connections
             for elem in root.iter():
                 if elem.tag == "choice":
                     choice_id = elem.attrib.get("name")
+                    choice_uuid = node_uuid_map.get(choice_id)
                     for event in elem.iter("event"):
                         event_id = event.attrib.get("name")
-                        connections.append({
-                            "start_id": self.get_node_id_by_name(nodes, event_id),
-                            "end_id": self.get_node_id_by_name(nodes, choice_id),
-                            "start_pin": "Ex Out",
-                            "end_pin": "Ex In"
-                        })
+                        event_uuid = node_uuid_map.get(event_id)
+                        if choice_uuid and event_uuid:  # Ensure both IDs are not None
+                            connection_id = f"{event_id}_{choice_id}"
+                            connection_uuid = str(uuid.uuid4())
+                            connections.append({
+                                "start_id": event_uuid,
+                                "end_id": choice_uuid,
+                                "start_pin": "Ex Out",
+                                "end_pin": "Ex In"
+                            })
+                            connection_uuid_map[connection_id] = connection_uuid
 
             json_data = {"nodes": nodes, "connections": connections}
             self.text_edit.setPlainText(json.dumps(json_data, indent=4))
@@ -1102,14 +1112,79 @@ class JsonToXmlConverter:
             self.uuid_to_node[node_id] for node_id in sorted_nodes
         ]
 
-    def convert_json_to_xml(self):
-        root = Element("FTL")
-        # Assume the first event node is the starting point
-        start_node_id = self.json_data["connections"][0]["start_id"]
-        start_node = self.uuid_to_node.get(start_node_id)
-        for node in self.json_data["nodes"]:
-            self.process_node(node, root)
-        return tostring(root, encoding="utf-8").decode("utf-8")
+def convert_to_json(self):
+    # Load XML text from the text editor
+    xml_text = self.text_edit.toPlainText()
+
+    # Parse XML from the loaded text
+    self.xml_tree = ET.ElementTree(ET.fromstring(xml_text))
+
+    if self.xml_tree is not None:
+        root = self.xml_tree.getroot()
+        nodes = []
+        connections = []
+        node_uuid_map = {}  # Map node names to their UUIDs
+        connection_uuid_map = {}  # Map connection IDs to their UUIDs
+
+        # Create nodes and populate node_uuid_map
+        max_nodes_per_row = 5
+        node_spacing_x = 200
+        node_spacing_y = 100
+        current_x = 0
+        current_y = 0
+        for elem in root.iter():
+            node_uuid = str(uuid.uuid4())
+            node_name = elem.attrib.get("name", "")
+            node_type = elem.tag
+            internal_data = {}
+
+            # Populate internal data based on node type
+            if node_type == "Condition":
+                internal_data = {"condition": node_name}
+            elif node_type == "Action":
+                internal_data = {"action": node_name}
+            elif node_type == "Event":
+                internal_data = {"event": node_name}
+
+            node = {
+                "type": node_type+"_Node",
+                "x": current_x,
+                "y": current_y,
+                "uuid": node_uuid,
+                "internal-data": internal_data
+            }
+            nodes.append(node)
+            node_uuid_map[node_name] = node_uuid
+            # Update coordinates for the next node
+            current_x += node_spacing_x
+            if current_x >= max_nodes_per_row * node_spacing_x:
+                current_x = 0
+                current_y += node_spacing_y
+
+        # Create connections
+        for elem in root.iter():
+            if elem.tag == "choice":
+                choice_id = elem.attrib.get("name")
+                choice_uuid = node_uuid_map.get(choice_id)
+                for event in elem.iter("event"):
+                    event_id = event.attrib.get("name")
+                    event_uuid = node_uuid_map.get(event_id)
+                    if choice_uuid and event_uuid:  # Ensure both IDs are not None
+                        connection_id = f"{event_id}_{choice_id}"
+                        connection_uuid = str(uuid.uuid4())
+                        connections.append({
+                            "start_id": event_uuid,
+                            "end_id": choice_uuid,
+                            "start_pin": "Ex Out",
+                            "end_pin": "Ex In"
+                        })
+                        connection_uuid_map[connection_id] = connection_uuid
+
+        json_data = {"nodes": nodes, "connections": connections}
+        self.text_edit.setPlainText(json.dumps(json_data, indent=4))
+        print("XML converted to JSON successfully.")
+    else:
+        print("No XML file loaded.")
 
     def process_node(self, node, parent_element):
         node_type = node["type"]

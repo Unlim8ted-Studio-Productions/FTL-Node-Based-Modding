@@ -1,0 +1,1177 @@
+{
+    "nodes": [
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 3400,
+            "uuid": "839d351e-36bf-44de-96ae-db6cb64c34d3",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 3400,
+            "uuid": "f9bf1dfd-29b3-460e-bcde-d375bf011215",
+            "internal-data": {
+                "text": "NextStealthMission",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 3400,
+            "uuid": "e5a0dfbd-c821-4840-b400-869676f945c5",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 3300,
+            "uuid": "bd4951d3-492e-4ca9-9b84-a4b97c9532ec",
+            "internal-data": {
+                "text": "NextMission",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 600,
+            "y": 3300,
+            "uuid": "165e8a04-240b-45e3-8406-0c147bee5b83",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 3200,
+            "uuid": "10ff786a-e7eb-4f07-bf83-d19654d6a3c0",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 3200,
+            "uuid": "7872ae51-7193-4eb1-9b5c-83754faf45b4",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 3200,
+            "uuid": "d435edf8-5b52-41af-9602-5af51afbf2f6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 3200,
+            "uuid": "b346d7a0-ec97-4eaa-b6f0-e6602269b4c3",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 3200,
+            "uuid": "315b0831-10a9-40a0-b955-205e26d76178",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 3100,
+            "uuid": "b4b762b8-8766-4e3f-8019-e96d5c0364a7",
+            "internal-data": {
+                "text": "ReturnToEmpireStealth",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 3100,
+            "uuid": "9e5c0a01-d90e-4a90-b403-fbf0f683148d",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 3100,
+            "uuid": "0063c93b-0dd5-4823-9599-71dc53e97072",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 3100,
+            "uuid": "fb3cd258-10c7-41d8-aab5-ed69241bb409",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 800,
+            "y": 3000,
+            "uuid": "9afe071e-a481-43e8-9f0e-a66915f897ca",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 600,
+            "y": 3000,
+            "uuid": "3319e5d6-4c4b-410f-9f5a-1ce485fd16e0",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 3000,
+            "uuid": "2e61e8fc-0e85-4b2d-9db1-cead528f55ba",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 2900,
+            "uuid": "5c2486ec-384c-421b-a89e-48c2008d2571",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2900,
+            "uuid": "1711bc29-51f3-4187-8f89-a330716103e5",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 2900,
+            "uuid": "6479a649-89f9-41cf-b31c-e88e7daa46aa",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 2900,
+            "uuid": "5ae413fd-c336-4ee4-9e3a-5cb663bed878",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 0,
+            "y": 2900,
+            "uuid": "3caf00e6-d21b-409b-b261-9ec02712e8f8",
+            "internal-data": {
+                "text": "ReturnToEmpire",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 800,
+            "y": 2800,
+            "uuid": "7feec8b4-441a-41d0-9c73-190d9bbb7ebc",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2800,
+            "uuid": "ba91d022-6869-4231-8b38-ea98b7977fde",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 2700,
+            "uuid": "1cdde9e1-5f66-46ac-b6ae-0b9cec6d2d6b",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2700,
+            "uuid": "f8480549-701c-48c3-8487-42da876dc040",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 2700,
+            "uuid": "6a3367f9-d033-4680-a5ab-b00a9cbc4437",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 200,
+            "y": 2700,
+            "uuid": "e900df12-8002-4d96-a605-c607544d7079",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 2600,
+            "uuid": "40152ca3-ccd4-4194-86cb-0e1dbe0a7212",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 2600,
+            "uuid": "0001b45d-0379-470d-9883-bb1158cb8108",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 2600,
+            "uuid": "c9c63db6-3d37-45b6-afa6-abafb007f982",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 800,
+            "y": 2500,
+            "uuid": "7c7d14a2-e123-44d8-8cd6-032905ea2e05",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 2500,
+            "uuid": "baa3d8df-87ef-4f78-9fde-42fc9016fb04",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 2500,
+            "uuid": "e6ba9194-e870-4999-b4d4-03296c4f451c",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 2500,
+            "uuid": "a76c92d3-4c27-46e7-a15c-444e85b7f4fd",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 800,
+            "y": 2400,
+            "uuid": "a0ef0685-b604-49c9-ab32-ac2543880fb2",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2400,
+            "uuid": "fa90d928-d491-474e-922c-e4289386ffd7",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 0,
+            "y": 2400,
+            "uuid": "42ee468e-d915-4d14-9daf-361970375efe",
+            "internal-data": {
+                "text": "InterceptShipment",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 800,
+            "y": 2300,
+            "uuid": "ad311b70-8e11-484c-9720-293927bb0b54",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 2300,
+            "uuid": "f450e5d4-64f0-4951-978e-59ce17d4ee25",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 2300,
+            "uuid": "2dae8636-c50e-48bd-a05d-b8458a6d52b4",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 2300,
+            "uuid": "995ebd71-dc9b-4ab8-bbe5-d1b3552b058c",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 2300,
+            "uuid": "69970f40-5692-495b-a018-bae7de9f9d4e",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 2200,
+            "uuid": "58a3d24c-8cd6-4d60-81af-93dac40b068f",
+            "internal-data": {
+                "text": "DogEmpireBriefing",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2200,
+            "uuid": "3de88ee0-17e9-4cb0-8955-e5840998c64e",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 2200,
+            "uuid": "69e6af39-9ce5-4f93-b4bb-5006ef298ac9",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 2200,
+            "uuid": "6f3bfcf7-c93f-46c1-b79b-dbe6673dbc77",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 2200,
+            "uuid": "89654017-c755-4b38-bf53-11acc671da27",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 800,
+            "y": 2100,
+            "uuid": "5ef8f8b9-33f1-4321-8252-4c9c7991878f",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 2100,
+            "uuid": "6abf8cac-37b4-47c9-b35c-ab9c3c844584",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 2100,
+            "uuid": "34c60306-4f33-4f78-bb29-8227dce7bacb",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 2000,
+            "uuid": "dc13dd62-dfc0-4005-923d-80c7a15c00d2",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 2000,
+            "uuid": "b365a2d2-3fca-4b94-bd8a-0e79badd49d7",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 2000,
+            "uuid": "50231763-d67e-4980-8c88-af58ecc2cbbf",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 800,
+            "y": 1900,
+            "uuid": "ace40fc4-6a56-4c8c-8312-7fc3a3050fff",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 1900,
+            "uuid": "5c990cba-f218-4312-abe7-27fb95a7e604",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 0,
+            "y": 1900,
+            "uuid": "a2ff2184-5538-42e7-867f-536213403016",
+            "internal-data": {
+                "text": "Dogrewardtask",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 800,
+            "y": 1800,
+            "uuid": "62e22798-cef2-466d-82a1-16ee36ef6aef",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 1800,
+            "uuid": "0231ba97-f91c-495c-bc9d-bcc8a386a137",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 0,
+            "y": 1800,
+            "uuid": "990544a0-7758-497f-ba52-9067a2adbae5",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 1700,
+            "uuid": "08b5ea4b-8f0a-40f7-8ec1-aa481d4fe47f",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 1700,
+            "uuid": "b29d7924-e06e-41af-82a9-4442e955be1c",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 1700,
+            "uuid": "93476815-5920-41fb-bd2e-450a19aade66",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 1600,
+            "uuid": "274efffd-743e-4504-bd77-f64777222b3e",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 1600,
+            "uuid": "449a680a-91e8-480f-a998-f7054e214ff8",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 1600,
+            "uuid": "751c33e4-e15b-4f4e-8a2f-8c98cca6efa6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 1600,
+            "uuid": "3fadf2fd-cd5c-4075-b275-b80b76cbd19d",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 800,
+            "y": 1500,
+            "uuid": "be5036a8-e5f1-4ebe-83a7-e36635c80972",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 1500,
+            "uuid": "6d582bd2-d024-4aca-8162-f0c34933e76a",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 1500,
+            "uuid": "854107d5-3324-4c0a-bd09-e8b9bfb69ac2",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 1500,
+            "uuid": "e6e42214-a378-4a37-8f2d-8eefaee255d0",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 1500,
+            "uuid": "3cfd6216-b0ba-4346-9002-34367ceee35f",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 1400,
+            "uuid": "3b7b5542-519a-4954-8924-10b3790e08ce",
+            "internal-data": {
+                "text": "RebelTask",
+                "isunique": false
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 1400,
+            "uuid": "7391a0c8-64ab-402a-aa99-fd2cae8f9d90",
+            "internal-data": {
+                "text": "fedp1",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 1300,
+            "uuid": "29056ffd-56d3-46f5-ac16-118dfe60e97e",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 1300,
+            "uuid": "c6cc2bb7-d50b-4196-8436-26ce44e12f70",
+            "internal-data": {
+                "text": "CatAmbush",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 400,
+            "y": 1300,
+            "uuid": "523483d8-878b-462b-8f92-fff9e88d1a99",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 1300,
+            "uuid": "7ac086c3-98ef-418c-8ad6-cbd31f37c2c6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 1200,
+            "uuid": "7cde8405-c1cb-41c9-9a96-ecbd6a417055",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 1200,
+            "uuid": "f9074278-6ebf-4f61-afd6-2385568ff125",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 1200,
+            "uuid": "573d4001-d9ac-4efb-85ab-5cb3e3b15323",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 1100,
+            "uuid": "b1080819-52e4-43fd-8a91-b67fc4f925a4",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 1100,
+            "uuid": "04c272a6-5533-4738-8c6b-d71861eab873",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 1100,
+            "uuid": "5ba9e569-3118-4326-8d88-78a5635b80c7",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 1100,
+            "uuid": "f15016e1-af7f-4c8d-a19b-eb6fe1472990",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 1100,
+            "uuid": "2a52415b-3a4d-4ccc-909a-6978bebbf3a6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 1000,
+            "uuid": "486a3bf5-44fd-4899-be3b-39e9c7675ac0",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 0,
+            "y": 1000,
+            "uuid": "5425e5e0-d5a7-4a19-a7b1-d6c9036927d4",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 900,
+            "uuid": "908324ac-bc4f-4394-af43-51b606eddfd6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 900,
+            "uuid": "7212edeb-1d4a-4515-a318-5634b53dcbfa",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 400,
+            "y": 900,
+            "uuid": "84b6319e-33d3-4de6-b411-1c22c34cedb6",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 900,
+            "uuid": "c1b14167-f9de-4b82-8cc6-f18d574ec61a",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 800,
+            "uuid": "78326d88-d4d1-477e-8d64-a8ea60c38345",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 800,
+            "uuid": "c19e8c29-d6f9-40d0-8541-28b7d09633fd",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 800,
+            "uuid": "e78916a2-987f-4adc-9084-c41a70702c34",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "quest_Node",
+            "x": 200,
+            "y": 800,
+            "uuid": "1ae7abca-a98a-49b8-8097-e73b16b7993a",
+            "internal-data": {
+                "text": "",
+                "index": 0
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 700,
+            "uuid": "eaa82a52-6001-4e7f-b57e-18c82fade161",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 700,
+            "uuid": "fb1d1492-9541-41a4-b2e1-6daa8a2c5c6e",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 700,
+            "uuid": "76a4cf2d-693a-47b0-a2a6-96516c176b7f",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 700,
+            "uuid": "95d14fda-324d-4919-af8f-c695580f174a",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 600,
+            "uuid": "201a2eea-5f2f-4c7f-b8b7-4f8cbe05ed2c",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 600,
+            "uuid": "cf0b4f27-92bf-4b28-ab11-9811fdbd360d",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 600,
+            "uuid": "18fe63b7-1dd4-4bf3-9611-d2cf56ed9e0a",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 200,
+            "y": 600,
+            "uuid": "4d857d1d-a030-4ca6-bd2c-8f4818763590",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 0,
+            "y": 600,
+            "uuid": "324590a3-22c6-4011-91c1-829d52e59264",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 500,
+            "uuid": "63696aef-61a0-448f-828d-dce5810604c5",
+            "internal-data": {
+                "text": "dogquestp1",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 400,
+            "uuid": "70bc4a55-b857-4707-bda5-4110bcbb1ca9",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 400,
+            "uuid": "67b889da-3d18-4f1b-b059-37a2d4861876",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 400,
+            "uuid": "df0302ad-044b-4656-a86b-5cbb9dad591b",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 400,
+            "uuid": "dd5b2f5d-695f-4744-84f2-ae17763f155a",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 300,
+            "uuid": "58a432d0-04fd-4f52-a66f-53f82a40ea97",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 300,
+            "uuid": "720378e3-e675-4509-a2bb-06dcd28ad836",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 300,
+            "uuid": "e23ddd8e-10d5-4d6f-937b-47c448d8b996",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 300,
+            "uuid": "883025d4-37a6-44ef-8c0a-c5e0b465cce6",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 200,
+            "uuid": "55c3a0dc-5796-473b-818e-087baa5bc907",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "d0b50c83-4ce9-4c9f-b1d8-d16309fd3c5f",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 200,
+            "uuid": "0a1aa706-451e-40f5-983c-a2a6ca9d083c",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 200,
+            "uuid": "286e77dc-583a-4bdf-a939-dad4428a27fc",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 100,
+            "uuid": "828e0e0f-e87d-443c-b93d-22c0f9da7450",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 100,
+            "uuid": "93beca1c-0478-40e1-ab6e-29e2039b0cbd",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 200,
+            "y": 100,
+            "uuid": "7fc1f4b0-419a-462d-a15b-6532100ec681",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 0,
+            "y": 100,
+            "uuid": "bff9395e-b478-4379-9124-1b8acf177e22",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "c21d261b-3cd9-4a88-9bee-eebecb475537",
+            "internal-data": {
+                "text": ""
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "ddb5ae3b-3d6f-407a-9d49-1bdb848586a9",
+            "internal-data": {
+                "text": "offer",
+                "isunique": false
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "a0a36485-095d-49d1-90bc-56972b3fab17",
+            "internal-data": {
+                "text": "s",
+                "isunique": false
+            }
+        }
+    ],
+    "connections": []
+}
