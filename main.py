@@ -787,7 +787,6 @@ class AudioCreatorWidget(QtWidgets.QWidget):
 
         # Add widgets for audio creation here
 
-
 class NodeTabWidget(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -836,6 +835,10 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 new_tab = Simulator()
                 self.addTab(new_tab, "Simulation Tab")
                 self.setCurrentIndex(self.indexOf(new_tab))
+            elif tab_type == "Sector Creator":
+                new_tab = SectorCreator()
+                self.addTab(new_tab, "Sector Creator")
+                self.setCurrentIndex(self.indexOf(new_tab))
 
 
 class NewTabDialog(QtWidgets.QDialog):
@@ -850,6 +853,7 @@ class NewTabDialog(QtWidgets.QDialog):
         self.imagecreator = QtWidgets.QRadioButton("Image Creator")
         self.audiocreator = QtWidgets.QRadioButton("Audio Creator")
         self.simulator = QtWidgets.QRadioButton("Simulation Tab")
+        self.radio_sector_creator = QtWidgets.QRadioButton("Sector Creator")  # New option
         self.radio_existing.setChecked(True)
 
         button_box = QtWidgets.QDialogButtonBox(
@@ -879,7 +883,8 @@ class NewTabDialog(QtWidgets.QDialog):
             return "Audio Creator"
         if self.simulator.isChecked():
             return "Simulation Tab"
-
+        if self.radio_sector_creator.isChecked():  # New option
+            return "Sector Creator"
 
 class ShipBuilderWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
