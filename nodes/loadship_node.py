@@ -23,9 +23,13 @@ class loadship_Node(Node):
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.scaler_line = TextLineEdit()
-        self.namelabel = QtWidgets.QLabel("ship name:")
+        self.a = TextLineEdit()
+        self.namelabel = QtWidgets.QLabel("ship name (for predifined ship, if you use this you must have a SEPERATE load ship node with auto bluprint field filled out):")
         layout.addWidget(self.namelabel)
         layout.addWidget(self.scaler_line)
+        self.namelabell = QtWidgets.QLabel("ship name to load from auto bluprint:")
+        layout.addWidget(self.namelabell)
+        layout.addWidget(self.a)
         self.label = QtWidgets.QLabel("is hostile:")
         layout.addWidget(self.label)
         self.isunique = checkbox()
@@ -41,8 +45,10 @@ class loadship_Node(Node):
     def setinternaldata(self):
         self.scaler_line.setText(self.internaldata["text"])
         self.isunique.setChecked(self.internaldata["ishostile"])
+        self.a.setText(self.internaldata["autoblueprint"])
         
     def setdata(self):
         self.internaldata["text"] = self.scaler_line.text()
+        self.internaldata["autoblueprint"] = self.a.text()
         self.internaldata["ishostile"] = self.isunique.isChecked()
          

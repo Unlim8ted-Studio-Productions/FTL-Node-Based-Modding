@@ -14,7 +14,7 @@ class Reward_Node(Node):
         self.add_pin(name="Input", is_output=False, execution=True)
         self.add_pin(name="Output", is_output=True, execution=True)
 
-        self.reward_types = ["Scrap", "Fuel", "Drone Parts", "Missiles"]
+        self.reward_types = ["scrap", "fuel", "drones", "missiles"]
 
         self.build()
 

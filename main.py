@@ -1136,18 +1136,63 @@ def convert_to_json(self):
             node_uuid = str(uuid.uuid4())
             node_name = elem.attrib.get("name", "")
             node_type = elem.tag
+            text = elem.text
             internal_data = {}
 
             # Populate internal data based on node type
-            if node_type == "Condition":
-                internal_data = {"condition": node_name}
-            elif node_type == "Action":
-                internal_data = {"action": node_name}
-            elif node_type == "Event":
-                internal_data = {"event": node_name}
+            if node_type == "choice":
+                internal_data = {}
+                node_type="choice_Node"
+            if node_type == "event":
+                internal_data = {"text":elem.get("name",""), "isunique":elem.get("unique", False)}
+                node_type="event_Node"
+            if node_type == "text":
+                internal_data = {"text":text}
+                node_type="text_Node"
+            if node_type == "playSound":
+                internal_data = {}
+                node_type="playsound_Node"
+            if node_type == "quest":
+                places = ["RANDOM", "LAST", "NEXT"]
+                internal_data = {"index":places.index(elem.get("beacon")), "text":elem.get(event)}
+                node_type="quest_Node"
+            if node_type == "ship":
+                internal_data = {"text":elem.get("name",elem.get("load")), "autoblueprint":elem.get("auto_blueprint",""), "ishostile":elem.get("hostile")}
+                node_type="loadship_Node"
+            if node_type == "item_modify":
+                internal_data = {}
+                node_type="item_modify_Node"
+            if node_type == "item":
+                reward_types = ["scrap", "fuel", "drones", "missiles"]
+                internal_data = {"index": reward_types.index(elem.get("type")), "amount": elem.get("amount")}
+                node_type="Reward_Node"
+            if node_type == "damage":
+                effects = ["random", "all", "fire"]
+                internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": False}
+                node_type="Damage_Node"
+            if node_type == "enemyDamage":
+                effects = ["random", "all", "fire"]
+                internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": True}
+                node_type="Damage_Node" #<damage amount="1" system="engines" effect="fire" />
+            if node_type == "weapon":
+                internal_data = {"amount":elem.get("name")}
+                node_type="giveweapon_Node"
+            if node_type == "augument":
+                internal_data = {"amount":elem.get("name")}
+                node_type="giveaugument_Node"
+            if node_type == "status":
+                internal_data = {} #<status type="limit" target="player" system="sensors" amount="1" />
+                node_type=""
+            if node_type == "autoReward":
+                internal_data = {}
+                node_type=""
+            if node_type == "surrender":
+                internal_data = {}#<surrender chance="0" min="3" max="4">
+                node_type=""
+                
 
             node = {
-                "type": node_type+"_Node",
+                "type": node_type,
                 "x": current_x,
                 "y": current_y,
                 "uuid": node_uuid,

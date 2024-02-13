@@ -31,9 +31,10 @@ class quest_Node(Node):
         self.reward_type_dropdown.addItems(self.reward_types)
         layout.addWidget(self.reward_type_dropdown)
 
-        #self.amount_label = QtWidgets.QLabel("Amount:")
-        #layout.addWidget(self.amount_label)
-
+        self.amount_label = QtWidgets.QLabel("Event to activate at quest beacon:")
+        layout.addWidget(self.amount_label)
+        self.input = TextLineEdit()
+        layout.addWidget(self.input)
         #self.amount_input = QtWidgets.QSpinBox()
         #self.amount_input.setMinimum(0)
         #self.amount_input.setMaximum(1000)
@@ -64,13 +65,15 @@ class quest_Node(Node):
         #self.amount_input.setValue(amount)
 
     def setinternaldata(self):
-        #self.amount_input.setValue(self.internaldata["amount"])
-        self.reward_type_dropdown.setValue(self.internaldata["index"])
+        self.input.setText(self.internaldata["text"])
+        self.reward_type_dropdown.setCurrentIndex(self.internaldata["index"])
         
     def setdata(self):
         
         #self.internaldata["amount"] = self.amount_input.value()
         self.internaldata["index"] = self.reward_type_dropdown.currentIndex()
+        self.internaldata["text"] = self.input.text()
+
 
          
 
