@@ -43,7 +43,7 @@ from PySide6.QtGui import (
     QPalette,
     QBrush,
 )
-from PySide6.QtCore import Qt, QRect, QTimer, QSize
+from PySide6.QtCore import Qt, QRect, QTimer, QSize, QPoint
 import win32process
 from PySide6.QtGui import QKeySequence
 from PySide6.QtGui import QShortcut
@@ -99,7 +99,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         left_widget = QtWidgets.QWidget()
         self.splitter = QtWidgets.QSplitter()
         self.node_widget = NodeWidget(self)
-        self.inspector_panel = NodeInspector(self.node_widget.save_project())
+        self.inspector_panel = Simulator(self.node_widget.save_project())
 
         # Add Widgets to layouts
         self.splitter.addWidget(left_widget)
@@ -316,7 +316,7 @@ class NodeCreationDialog(QtWidgets.QDialog):
         return node, r"/node" + node_name + r"_node.py"
 
 
-class NodeInspector(QtWidgets.QWidget):
+class Simulator(QtWidgets.QWidget):
     def __init__(self, scene, parent=None):
         super().__init__(parent)
         self.layoutt = QtWidgets.QVBoxLayout()
@@ -331,12 +331,28 @@ class NodeInspector(QtWidgets.QWidget):
         self.backroundbackround = QPixmap("backback.jpg").scaled(
             self.layoutt.sizeHint()
         )
+        
 
         self.originalBackgroundImage = QPixmap("simulator backround.png")
         self.backgroundImage = QPixmap("simulator backround.png").scaled(
             self.layoutt.sizeHint()
         )
-
+        
+        self.setStyleSheet("""
+            QPushButton {
+                border: none;
+                background-color: transparent; /* Set transparent background */
+                color: black; /* Set default text color */
+            }
+            
+            QPushButton:hover {
+                background-color: none; /* Set background color when hovered */
+                color: white; /* Set text color when hovered */
+            }
+        """)
+        
+        # Center the widget on the screen
+        self.setContentsMargins(0, 400, 0, 200)  # Left, top, right, bottom
     def paintEvent(self, event):
         painter = QtGui.QPainter(self)
         # Fill the background with the scaled pixmap
@@ -360,7 +376,26 @@ class NodeInspector(QtWidgets.QWidget):
         startX = (self.width() - scaledPixmap.width()) / 2
         startY = (self.height() - scaledPixmap.height()) / 2
         painter.drawPixmap(QtCore.QPoint(startX, startY), scaledPixmap)
+        self.setContentsMargins(*self.get_margins(startX,startY,scaledPixmap))
 
+    def find_node_from_uuid(self, node_uuid):
+        for node in self.scene["nodes"]:
+            if node["uuid"] == node_uuid:
+                return node
+        print(f"Node with UUID {node_uuid} not found")
+        return None
+
+    def get_margins(self, startX, startY, scaledPixmap):
+        # Get the size of the original pixmap
+        originalSize = scaledPixmap.size()
+    
+        # Calculate the margins
+        left_margin = startX
+        top_margin = startY
+        #right_margin = scaledPixmap.width() - originalSize.width() - left_margin
+        bottom_margin = scaledPixmap.height()
+    
+        return (left_margin, top_margin, 0, bottom_margin)
     def parse_scene(self, scene):
         node_map = {}
         for node in scene["nodes"]:
@@ -416,7 +451,21 @@ class NodeInspector(QtWidgets.QWidget):
                 widget.deleteLater()
     def create_choice_ui(self, choice_node):
         # Simplified for this example; choices need to be defined properly
-        label = QtWidgets.QLabel("Make a choice:")
+        i=0
+        while True:
+            node=choice_node
+            prevnode = self.find_node_internal_data(self.find_node_from_uuid(node["uuid"], "Ex In"))
+            if prevnode:
+                if prevnode["internaldata"]["text"]:
+                    text = prevnode["internaldata"]["text"]
+                    break
+                else:
+                    i+1
+            if i>100:
+                text="no previouse node"
+                break
+        label = QtWidgets.QLabel(text)
+        
         self.layoutt.addWidget(label)
 
         # print(choice_node)
@@ -432,6 +481,8 @@ class NodeInspector(QtWidgets.QWidget):
                 btn.clicked.connect(
                     lambda choice=i: self.make_choice(choice_node, choice)
                 )
+                print(self.layoutt.sizeHint().height())
+                btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
                 self.layoutt.addWidget(btn)
             except:  # Exception as e:
                 None
@@ -668,45 +719,6 @@ class AudioCreatorWidget(QtWidgets.QWidget):
         # Add widgets for audio creation here
 
 
-class SimulationEngine:
-    def __init__(self, node_graph):
-        self.node_graph = node_graph
-        self.current_node = None
-        self.state = {}
-
-    def start(self, start_node_id):
-        self.current_node = self.node_graph[start_node_id]
-        self.process_node(self.current_node)
-
-    def process_node(self, node):
-        if node.type == "choice_Node":
-            self.present_choices(node)
-        elif node.type == "event_Node":
-            self.handle_event(node)
-        # Add logic for other node types
-
-    def present_choices(self, choice_node):
-        # Present choices to the user and wait for input
-        # For this example, let's assume a simple console input
-        print("Choose an option:")
-        for index, option in enumerate(choice_node.choices):
-            print(f"{index}: {option.description}")
-        choice = int(input())
-        self.make_choice(choice_node, choice)
-
-    def make_choice(self, choice_node, choice_index):
-        # Update state based on choice and move to the next node
-        choice = choice_node.choices[choice_index]
-        self.state.update(choice.effects)
-        self.current_node = choice.next_node
-        self.process_node(self.current_node)
-
-    def handle_event(self, event_node):
-        # Handle event node logic
-        print(f"Event: {event_node.description}")
-        # Move to the next node based on event logic
-
-
 class NodeTabWidget(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -752,7 +764,7 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 self.addTab(new_tab, "Audio Creator")
                 self.setCurrentIndex(self.indexOf(new_tab))
             elif tab_type == "Simulation Tab":
-                new_tab = SimulationEngine()
+                new_tab = Simulator()
                 self.addTab(new_tab, "Simulation Tab")
                 self.setCurrentIndex(self.indexOf(new_tab))
 

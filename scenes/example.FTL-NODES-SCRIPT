@@ -1,63 +1,22 @@
 {
     "nodes": [
         {
-            "type": "choice_Node",
-            "x": 5155,
-            "y": 4866,
-            "uuid": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "internal-data": {}
-        },
-        {
-            "type": "event_Node",
-            "x": 4814,
-            "y": 4920,
-            "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "type": "Reward_Node",
+            "x": 5734,
+            "y": 4725,
+            "uuid": "468cf1dc-4d15-46a9-958f-1b27b7353820",
             "internal-data": {
-                "text": "example",
-                "isunique": true
+                "amount": 20,
+                "index": 0
             }
         },
         {
             "type": "text_Node",
-            "x": 4973,
-            "y": 4869,
-            "uuid": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
+            "x": 5551,
+            "y": 4751,
+            "uuid": "4142a167-4f62-469a-967a-6814ca3c4fc3",
             "internal-data": {
-                "text": "A zoltan ship hails you"
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 5380,
-            "y": 4778,
-            "uuid": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "internal-data": {
-                "text": "Tell them about your mission and ask for supplies"
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 5353,
-            "y": 4952,
-            "uuid": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "internal-data": {
-                "text": "attack!"
-            }
-        },
-        {
-            "type": "playsound_Node",
-            "x": 5514,
-            "y": 4927,
-            "uuid": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "internal-data": {}
-        },
-        {
-            "type": "loadsound_Node",
-            "x": 5348,
-            "y": 5098,
-            "uuid": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
-            "internal-data": {
-                "filepath": ""
+                "text": "They give you some supplies to help you on your quest"
             }
         },
         {
@@ -71,62 +30,82 @@
             }
         },
         {
+            "type": "loadsound_Node",
+            "x": 5348,
+            "y": 5098,
+            "uuid": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
+            "internal-data": {
+                "filepath": ""
+            }
+        },
+        {
+            "type": "playsound_Node",
+            "x": 5514,
+            "y": 4927,
+            "uuid": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "internal-data": {}
+        },
+        {
             "type": "text_Node",
-            "x": 5551,
-            "y": 4751,
-            "uuid": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "x": 5353,
+            "y": 4952,
+            "uuid": "11e6b28e-0473-487f-8480-0069fd412c47",
             "internal-data": {
-                "text": "They give you some supplies to help you on your quest"
+                "text": "attack!"
             }
         },
         {
-            "type": "Reward_Node",
-            "x": 5734,
-            "y": 4725,
-            "uuid": "468cf1dc-4d15-46a9-958f-1b27b7353820",
+            "type": "text_Node",
+            "x": 5380,
+            "y": 4778,
+            "uuid": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
             "internal-data": {
-                "amount": 20,
-                "index": 0
+                "text": "Tell them about your mission and ask for supplies"
             }
         },
         {
-            "type": "giveaugument_Node",
-            "x": 4842,
-            "y": 4898,
-            "uuid": "3e25649e-41a3-4df0-a31a-0e3bfebf8bb4",
+            "type": "text_Node",
+            "x": 4973,
+            "y": 4869,
+            "uuid": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
             "internal-data": {
-                "amount": ""
+                "text": "A zoltan ship hails you"
             }
+        },
+        {
+            "type": "event_Node",
+            "x": 4814,
+            "y": 4920,
+            "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "internal-data": {
+                "text": "example",
+                "isunique": true
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 5155,
+            "y": 4866,
+            "uuid": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "internal-data": {}
         }
     ],
     "connections": [
         {
-            "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
-            "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
-            "start_pin": "Ex Out",
-            "end_pin": "Input"
-        },
-        {
-            "start_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "end_id": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
-            "start_pin": "Ex Out",
+            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "end_id": "11e6b28e-0473-487f-8480-0069fd412c47",
+            "start_pin": "Choice Output1",
             "end_pin": "Ex In"
         },
         {
-            "start_id": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
-            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "start_pin": "Audio",
-            "end_pin": "AudioFile"
-        },
-        {
-            "start_id": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "start_pin": "Ex Out",
+            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "end_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
+            "start_pin": "Choice Output0",
             "end_pin": "Ex In"
         },
         {
-            "start_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "end_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "start_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
+            "end_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
             "start_pin": "Ex Out",
             "end_pin": "Ex In"
         },
@@ -137,22 +116,34 @@
             "end_pin": "Ex In"
         },
         {
-            "start_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
-            "end_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
+            "start_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
+            "end_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
             "start_pin": "Ex Out",
             "end_pin": "Ex In"
         },
         {
-            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "end_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "start_pin": "Choice Output0",
+            "start_id": "11e6b28e-0473-487f-8480-0069fd412c47",
+            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "start_pin": "Ex Out",
             "end_pin": "Ex In"
         },
         {
-            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "end_id": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "start_pin": "Choice Output1",
+            "start_id": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
+            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "start_pin": "Audio",
+            "end_pin": "AudioFile"
+        },
+        {
+            "start_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
+            "end_id": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
+            "start_pin": "Ex Out",
             "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
+            "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
+            "start_pin": "Ex Out",
+            "end_pin": "Input"
         }
     ]
 }
