@@ -414,7 +414,6 @@ class NodeInspector(QtWidgets.QWidget):
             widget = self.layoutt.itemAt(i).widget()
             if widget:
                 widget.deleteLater()
-
     def create_choice_ui(self, choice_node):
         # Simplified for this example; choices need to be defined properly
         label = QtWidgets.QLabel("Make a choice:")

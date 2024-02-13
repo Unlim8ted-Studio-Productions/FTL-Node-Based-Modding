@@ -140,10 +140,11 @@ class NodeEditor(QtCore.QObject):
 
         elif event.type() == QtCore.QEvent.Type.GraphicsSceneMouseRelease:
             item = self.item_at(event.scenePos())
-            print(self.selection_rect_item)
+            #print(self.selection_rect_item)
             if self.selection_rect_item:
+                selected_items = self.scene.collidingItems(self.selection_rect_item, Qt.ItemSelectionMode.IntersectsItemShape)
                 self.scene.removeItem(self.selection_rect_item)
-                selected_items = self.scene.collidingItems(self.scene, self.selection_rect_item, Qt.ItemSelectionMode.ContainsItemBoundingRect)
+                #print(selected_items)
                 self.selection_rect_item=None
                 for item in selected_items:
                     if isinstance(item, Node):

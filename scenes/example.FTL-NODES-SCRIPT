@@ -88,6 +88,15 @@
                 "amount": 20,
                 "index": 0
             }
+        },
+        {
+            "type": "giveaugument_Node",
+            "x": 4842,
+            "y": 4898,
+            "uuid": "3e25649e-41a3-4df0-a31a-0e3bfebf8bb4",
+            "internal-data": {
+                "amount": ""
+            }
         }
     ],
     "connections": [
