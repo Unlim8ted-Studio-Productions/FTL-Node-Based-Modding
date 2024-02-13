@@ -1130,8 +1130,8 @@ def convert_to_json(self):
         max_nodes_per_row = 5
         node_spacing_x = 200
         node_spacing_y = 100
-        current_x = 0
-        current_y = 0
+        current_x = 4814
+        current_y = 4920
         for elem in root.iter():
             node_uuid = str(uuid.uuid4())
             node_name = elem.attrib.get("name", "")
