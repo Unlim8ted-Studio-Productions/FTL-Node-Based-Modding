@@ -32,6 +32,9 @@ from PySide6.QtWidgets import (
     QGraphicsView,
     QWidget,
     QComboBox,
+    QTextEdit,
+    QSizePolicy,
+    QDockWidget,
 )
 from PySide6.QtGui import (
     QKeyEvent,
@@ -69,6 +72,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # create a "File" menu and add an "Export CSV" action to it
         file_menu = QtWidgets.QMenu("File", self)
         self.menuBar().addMenu(file_menu)
+        
 
         load_action = QtGui.QAction("Load Project", self)
         load_action.triggered.connect(self.loadproject)
@@ -131,6 +135,24 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
+            
+        # Add dock widget for the output console
+        self.dock_console = QDockWidget("Console Output", self)
+        self.dock_console.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        self.dock_console.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.dock_console)
+
+        # Console output widget
+        self.console_output = QTextEdit()
+        self.console_output.setReadOnly(True)
+        self.console_output.setStyleSheet("background-color: black; color: white;")
+        self.console_output.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        self.console_output.setMinimumHeight(20)  # Set the minimum height here
+        self.dock_console.setWidget(self.console_output)
+
+        # Redirect stdout and stderr to console output
+        sys.stdout = StreamRedirect(self.console_output, sys.stdout)
+        sys.stderr = StreamRedirect(self.console_output, sys.stderr)
 
     def setsimulationloc(
         self,
@@ -179,6 +201,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
             )
         self.scene = self.node_widget.save_project(file_path, True)
         self.inspector_panel.sr = self.scene
+        print(f"project saved to {file_path}")
 
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
         if not project_path:
@@ -315,6 +338,37 @@ class NodeCreationDialog(QtWidgets.QDialog):
 
         return node, r"/node" + node_name + r"_node.py"
 
+class StreamRedirect(QtCore.QObject):
+    def __init__(self, widget, stream):
+        super().__init__()
+        self.widget = widget
+        self.stream = stream
+        self.last_line_empty = False
+
+    def write(self, text):
+        cursor = self.widget.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        
+
+        # Insert text
+        cursor.insertText(text)
+        self.widget.setTextCursor(cursor)
+        self.widget.ensureCursorVisible()
+        
+       ## Check if the last line is empty
+       #self.last_line_empty = text.endswith("\n")  # Check if the text ends with a newline character
+       #if self.last_line_empty:
+       #    text=text[:-2]
+       #    self.last_line_empty=False
+
+        # Scroll to the bottom
+        self.widget.verticalScrollBar().setValue(self.widget.verticalScrollBar().maximum()-20)
+
+    def flush(self):
+        pass  # No need to flush in this case
+
+    def fileno(self):
+        return self.stream.fileno()
 
 class Simulator(QtWidgets.QWidget):
     def __init__(self, scene, parent=None):
