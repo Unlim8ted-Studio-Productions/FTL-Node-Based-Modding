@@ -938,12 +938,12 @@ class XMLConverterGUI(QWidget):
 
     def convert_to_json(self):
         
-        # Load XML text from the text editor
+# Load XML text from the text editor
         xml_text = self.text_edit.toPlainText()
 
         # Parse XML from the loaded text
         self.xml_tree = ET.ElementTree(ET.fromstring(xml_text))
-        
+
         if self.xml_tree is not None:
             root = self.xml_tree.getroot()
             nodes = []
@@ -954,28 +954,100 @@ class XMLConverterGUI(QWidget):
             # Create nodes and populate node_uuid_map
             max_nodes_per_row = 5
             node_spacing_x = 200
-            node_spacing_y = 100
-            current_x = 0
-            current_y = 0
+            node_spacing_y = 400
+            current_x = 4814
+            current_y = 4920
+          #  a=[]
             for elem in root.iter():
-                node_uuid = str(uuid.uuid4())
-                node_name = elem.attrib.get("name", "")
-                node = {"type": elem.tag+"_Node", "x": current_x, "y": current_y, "uuid": node_uuid, "internal-data": {"text": node_name}}
-                nodes.append(node)
-                node_uuid_map[node_name] = node_uuid
-                # Update coordinates for the next node
-                current_x += node_spacing_x
-                if current_x >= max_nodes_per_row * node_spacing_x:
-                    current_x = 0
-                    current_y += node_spacing_y
+                try:
+                    node_uuid = str(uuid.uuid4())
+                    node_name = elem.get("name", "")
+                    node_type = elem.tag
+                    text = elem.text
+                    internal_data = {}
+                    #a.append(text)
 
+                    # Populate internal data based on node type
+               #     print(node_type)
+                    if node_type == "choice":
+                        internal_data = {}
+                        node_type="choice_Node"
+                    elif node_type == "event":
+                        internal_data = {"text":elem.get("name",""), "isunique":elem.get("unique", False)}
+                        node_type="event_Node"
+                    elif node_type == "text":
+                        internal_data = {"text":text}
+                        node_type="text_Node"
+                    elif node_type == "playSound":
+                        internal_data = {}
+                        node_type="playsound_Node"
+                    elif node_type == "quest":
+                        places = ["RANDOM", "LAST", "NEXT"]
+                        internal_data = {"index":places.index(elem.get("beacon")), "text":elem.get("event")}
+                        node_type="quest_Node"
+                    elif node_type == "ship":
+                        internal_data = {"text":elem.get("name",elem.get("load")), "autoblueprint":elem.get("auto_blueprint",""), "ishostile":elem.get("hostile")}
+                        node_type="loadship_Node"
+                    elif node_type == "item_modify":
+                        internal_data = {}
+                        node_type="item_modify_Node"
+                    elif node_type == "item":
+                        reward_types = ["scrap", "fuel", "drones", "missiles"]
+                        internal_data = {"index": reward_types.index(elem.get("type")), "amount": elem.get("amount")}
+                        node_type="Reward_Node"
+                    elif node_type == "damage":
+                        effects = ["random", "all", "fire"]
+                        internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": False}
+                        node_type="Damage_Node"
+                    elif node_type == "enemyDamage":
+                        effects = ["random", "all", "fire"]
+                        internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": True}
+                        node_type="Damage_Node" #<damage amount="1" system="engines" effect="fire" />
+                    elif node_type == "weapon":
+                        internal_data = {"amount":elem.get("name")}
+                        node_type="giveweapon_Node"
+                    elif node_type == "augument":
+                        internal_data = {"amount":elem.get("name")}
+                        node_type="giveaugument_Node"
+                    elif node_type == "status":
+                        internal_data = {} #<status type="limit" target="player" system="sensors" amount="1" />
+                        node_type=""
+                    elif node_type == "autoReward":
+                        internal_data = {}
+                        node_type=""
+                    elif node_type == "surrender":
+                        internal_data = {}#<surrender chance="0" min="3" max="4">
+                        node_type=""
+                    elif node_type == "store":
+                        internal_data = {}
+                        node_type="store_Node"
+
+
+                    node = {
+                        "type": node_type,
+                        "x": current_x,
+                        "y": current_y,
+                        "uuid": node_uuid,
+                        "internal-data": internal_data
+                    }
+                    nodes.append(node)
+                    #node_uuid_map[node] = node_uuid
+                    # Update coordinates for the next node
+                    current_x += node_spacing_x
+                    if current_x >= max_nodes_per_row * node_spacing_x:
+                        current_x = 4814
+                        current_y += node_spacing_y
+                except:
+                    continue
+            #pyperclip.copy(a)
+        
             # Create connections
             for elem in root.iter():
                 if elem.tag == "choice":
-                    choice_id = elem.attrib.get("name")
+                    choice_id = elem.get("name")
                     choice_uuid = node_uuid_map.get(choice_id)
                     for event in elem.iter("event"):
-                        event_id = event.attrib.get("name")
+                        event_id = event.get("name")
                         event_uuid = node_uuid_map.get(event_id)
                         if choice_uuid and event_uuid:  # Ensure both IDs are not None
                             connection_id = f"{event_id}_{choice_id}"
@@ -987,7 +1059,7 @@ class XMLConverterGUI(QWidget):
                                 "end_pin": "Ex In"
                             })
                             connection_uuid_map[connection_id] = connection_uuid
-
+    
             json_data = {"nodes": nodes, "connections": connections}
             self.text_edit.setPlainText(json.dumps(json_data, indent=4))
             print("XML converted to JSON successfully.")
@@ -1112,124 +1184,14 @@ class JsonToXmlConverter:
             self.uuid_to_node[node_id] for node_id in sorted_nodes
         ]
 
-def convert_to_json(self):
-    # Load XML text from the text editor
-    xml_text = self.text_edit.toPlainText()
-
-    # Parse XML from the loaded text
-    self.xml_tree = ET.ElementTree(ET.fromstring(xml_text))
-
-    if self.xml_tree is not None:
-        root = self.xml_tree.getroot()
-        nodes = []
-        connections = []
-        node_uuid_map = {}  # Map node names to their UUIDs
-        connection_uuid_map = {}  # Map connection IDs to their UUIDs
-
-        # Create nodes and populate node_uuid_map
-        max_nodes_per_row = 5
-        node_spacing_x = 200
-        node_spacing_y = 100
-        current_x = 4814
-        current_y = 4920
-        for elem in root.iter():
-            node_uuid = str(uuid.uuid4())
-            node_name = elem.attrib.get("name", "")
-            node_type = elem.tag
-            text = elem.text
-            internal_data = {}
-
-            # Populate internal data based on node type
-            if node_type == "choice":
-                internal_data = {}
-                node_type="choice_Node"
-            if node_type == "event":
-                internal_data = {"text":elem.get("name",""), "isunique":elem.get("unique", False)}
-                node_type="event_Node"
-            if node_type == "text":
-                internal_data = {"text":text}
-                node_type="text_Node"
-            if node_type == "playSound":
-                internal_data = {}
-                node_type="playsound_Node"
-            if node_type == "quest":
-                places = ["RANDOM", "LAST", "NEXT"]
-                internal_data = {"index":places.index(elem.get("beacon")), "text":elem.get(event)}
-                node_type="quest_Node"
-            if node_type == "ship":
-                internal_data = {"text":elem.get("name",elem.get("load")), "autoblueprint":elem.get("auto_blueprint",""), "ishostile":elem.get("hostile")}
-                node_type="loadship_Node"
-            if node_type == "item_modify":
-                internal_data = {}
-                node_type="item_modify_Node"
-            if node_type == "item":
-                reward_types = ["scrap", "fuel", "drones", "missiles"]
-                internal_data = {"index": reward_types.index(elem.get("type")), "amount": elem.get("amount")}
-                node_type="Reward_Node"
-            if node_type == "damage":
-                effects = ["random", "all", "fire"]
-                internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": False}
-                node_type="Damage_Node"
-            if node_type == "enemyDamage":
-                effects = ["random", "all", "fire"]
-                internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": True}
-                node_type="Damage_Node" #<damage amount="1" system="engines" effect="fire" />
-            if node_type == "weapon":
-                internal_data = {"amount":elem.get("name")}
-                node_type="giveweapon_Node"
-            if node_type == "augument":
-                internal_data = {"amount":elem.get("name")}
-                node_type="giveaugument_Node"
-            if node_type == "status":
-                internal_data = {} #<status type="limit" target="player" system="sensors" amount="1" />
-                node_type=""
-            if node_type == "autoReward":
-                internal_data = {}
-                node_type=""
-            if node_type == "surrender":
-                internal_data = {}#<surrender chance="0" min="3" max="4">
-                node_type=""
-                
-
-            node = {
-                "type": node_type,
-                "x": current_x,
-                "y": current_y,
-                "uuid": node_uuid,
-                "internal-data": internal_data
-            }
-            nodes.append(node)
-            node_uuid_map[node_name] = node_uuid
-            # Update coordinates for the next node
-            current_x += node_spacing_x
-            if current_x >= max_nodes_per_row * node_spacing_x:
-                current_x = 0
-                current_y += node_spacing_y
-
-        # Create connections
-        for elem in root.iter():
-            if elem.tag == "choice":
-                choice_id = elem.attrib.get("name")
-                choice_uuid = node_uuid_map.get(choice_id)
-                for event in elem.iter("event"):
-                    event_id = event.attrib.get("name")
-                    event_uuid = node_uuid_map.get(event_id)
-                    if choice_uuid and event_uuid:  # Ensure both IDs are not None
-                        connection_id = f"{event_id}_{choice_id}"
-                        connection_uuid = str(uuid.uuid4())
-                        connections.append({
-                            "start_id": event_uuid,
-                            "end_id": choice_uuid,
-                            "start_pin": "Ex Out",
-                            "end_pin": "Ex In"
-                        })
-                        connection_uuid_map[connection_id] = connection_uuid
-
-        json_data = {"nodes": nodes, "connections": connections}
-        self.text_edit.setPlainText(json.dumps(json_data, indent=4))
-        print("XML converted to JSON successfully.")
-    else:
-        print("No XML file loaded.")
+    def convert_json_to_xml(self):
+        root = Element("FTL")
+        # Assume the first event node is the starting point
+        start_node_id = self.json_data["connections"][0]["start_id"]
+        start_node = self.uuid_to_node.get(start_node_id)
+        for node in self.json_data["nodes"]:
+            self.process_node(node, root)
+        return tostring(root, encoding="utf-8").decode("utf-8")
 
     def process_node(self, node, parent_element):
         node_type = node["type"]
@@ -1297,7 +1259,6 @@ def convert_to_json(self):
             child_node = self.uuid_to_node.get(conn["end_id"])
             if child_node:
                 self.process_node(child_node, parent_element)
-
 
 if __name__ == "__main__":
     import qdarktheme
