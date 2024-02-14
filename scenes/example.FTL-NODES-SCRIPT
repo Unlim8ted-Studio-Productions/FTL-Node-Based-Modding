@@ -1,6 +1,13 @@
 {
     "nodes": [
         {
+            "type": "start_Node",
+            "x": 4571,
+            "y": 4897,
+            "uuid": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
+            "internal-data": {}
+        },
+        {
             "type": "choice_Node",
             "x": 5155,
             "y": 4866,
@@ -67,7 +74,8 @@
             "uuid": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
             "internal-data": {
                 "text": "enemy-zoltan",
-                "ishostile": true
+                "ishostile": true,
+                "autoblueprint": ""
             }
         },
         {
@@ -91,6 +99,12 @@
         }
     ],
     "connections": [
+        {
+            "start_id": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
+            "end_id": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "start_pin": "output",
+            "end_pin": "Start Node Connection"
+        },
         {
             "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
             "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",

@@ -23,6 +23,13 @@ def convert_connections(nodes: list, connections: list):
 a = {
     "nodes": [
         {
+            "type": "start_Node",
+            "x": 4571,
+            "y": 4897,
+            "uuid": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
+            "internal-data": {}
+        },
+        {
             "type": "choice_Node",
             "x": 5155,
             "y": 4866,
@@ -89,7 +96,8 @@ a = {
             "uuid": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
             "internal-data": {
                 "text": "enemy-zoltan",
-                "ishostile": True
+                "ishostile": True,
+                "autoblueprint": ""
             }
         },
         {
@@ -113,6 +121,12 @@ a = {
         }
     ],
     "connections": [
+        {
+            "start_id": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
+            "end_id": "23e4b45c-461f-4a65-a112-5af01b77df81",
+            "start_pin": "output",
+            "end_pin": "Start Node Connection"
+        },
         {
             "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
             "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
@@ -275,4 +289,42 @@ def topological_sort(nodes):
 
     return sorted_nodes_data
 
-print(parseString(convert_to_xml(topological_sort((convert_connections(a["nodes"], a["connections"]))))).toprettyxml())
+def sort_nodes_by_connections(nodes):
+    sorted_nodes = []
+    nextnode = None
+    startnodes = []
+    uuidmap = {}
+
+    # Create a dictionary to map UUIDs to nodes
+    for node in nodes:
+        uuidmap[node["uuid"]] = node
+
+    # Find all start nodes
+    for node in nodes:
+        if node["type"] == "start":
+            startnodes.append(node)
+
+    # Define the sort function
+    def sort(start, uuidmap):
+        if "connections" in start:
+            for end_id in start["connections"]["end_id"]:
+                nextnode = uuidmap.get(end_id)
+                if nextnode:
+                    sorted_nodes.append(nextnode)
+                    return sort(nextnode)
+
+    # Process each start node
+    for start in startnodes:
+        sorted_nodes.append(start)
+        sorted_nodes.append(sort(start, uuidmap))
+        print(sorted_nodes)
+
+    return sorted_nodes
+
+#print("base scene: " + json.dumps(a, indent = 4))
+b = convert_connections(a["nodes"], a["connections"])
+#print("converted connections: " + json.dumps(b, indent=4))
+b = sort_nodes_by_connections(b)
+#print("sorted: " + json.dumps(b, indent=4))
+b = convert_to_xml(b)
+#print("converted to xml: " + parseString(b).toprettyxml())

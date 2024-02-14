@@ -14,6 +14,7 @@ class event_Node(Node):
         self.set_color(title_color=(255, 165, 0))
 
         self.add_pin(name="event_contain", is_output=True, execution=True)
+        self.add_pin(name="Start Node Connection", is_output=False, execution=True)
 
         self.build()
 
