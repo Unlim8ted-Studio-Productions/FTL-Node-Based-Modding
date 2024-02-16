@@ -272,11 +272,14 @@ def sort_nodes_based_on_connections(nodes, connections):
 
     return sorted_nodes_with_data
 
-#print("base scene: " + json.dumps(a, indent = 4))
-b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
-b = {"nodes": b, "connections": a["connections"]}
-#print("sorted: " + json.dumps(b, indent=4))
-b = convert_connections(b["nodes"], b["connections"])
-#print("converted connections: " + json.dumps(b, indent=4))
-b = convert_to_xml(b)
-print("converted to xml: " + parseString(b).toprettyxml())
+def compile(scene):
+    a=scene
+    #print("base scene: " + json.dumps(a, indent = 4))
+    b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
+    b = {"nodes": b, "connections": a["connections"]}
+    #print("sorted: " + json.dumps(b, indent=4))
+    b = convert_connections(b["nodes"], b["connections"])
+    #print("converted connections: " + json.dumps(b, indent=4))
+    b = convert_to_xml(b)
+    print("converted to xml: " + parseString(b).toprettyxml())
+compile(a)
