@@ -1,25 +1,6 @@
 import json
 from xml.dom.minidom import parseString
 
-def convert_connections(nodes: list, connections: list):
-    converted_data = []
-    for node in nodes:
-        for connection in connections:
-            if connection["start_id"] == node["uuid"]:
-                if not "connection" in node:
-                    node["connections"] = {}
-                    node["connections"]["start_id"] = []
-                    node["connections"]["end_id"] = []
-                    node["connections"]["start_pin"] = []
-                    node["connections"]["end_pin"] = []
-                node["connections"]["start_id"].append(connection["start_id"])
-                node["connections"]["end_id"].append(connection["end_id"])
-                node["connections"]["start_pin"].append(connection["start_pin"])
-                node["connections"]["end_pin"].append(connection["end_pin"])
-    converted_data=nodes
-    print(json.dumps(converted_data,indent=4))
-    return converted_data
-
 a = {
     "nodes": [
         {
@@ -184,19 +165,24 @@ a = {
     ]
 }
 
-def sort_nodes_by_connection_order(nodes):
-    # Create a dictionary to store the start pins of each node
-    start_pins = {}
-
-    # Iterate through the nodes to collect the start pins
+def convert_connections(nodes: list, connections: list):
+    converted_data = []
     for node in nodes:
-        start_pins[node["uuid"]] = node["connections"]["start_pin"]
-
-    # Sort the nodes based on the order of their connections
-    sorted_nodes = sorted(nodes, key=lambda x: start_pins[x["connections"]["end_id"]])
-
-    return sorted_nodes
-
+        for connection in connections:
+            if connection["start_id"] == node["uuid"]:
+                if not "connection" in node:
+                    node["connections"] = {}
+                    node["connections"]["start_id"] = []
+                    node["connections"]["end_id"] = []
+                    node["connections"]["start_pin"] = []
+                    node["connections"]["end_pin"] = []
+                node["connections"]["start_id"].append(connection["start_id"])
+                node["connections"]["end_id"].append(connection["end_id"])
+                node["connections"]["start_pin"].append(connection["start_pin"])
+                node["connections"]["end_pin"].append(connection["end_pin"])
+    converted_data=nodes
+    #print(json.dumps(converted_data,indent=4))
+    return converted_data
 
 def convert_node_to_xml(node):
     node_type = node["type"]
@@ -241,8 +227,6 @@ def convert_node_to_xml(node):
     else:
         return "<unknown></unknown>"
 
-
-
 def convert_to_xml(nodes):
     xml_output = "<FTL>"
     
@@ -253,78 +237,46 @@ def convert_to_xml(nodes):
     xml_output += "</FTL>"
     return xml_output
 
-def topological_sort(nodes):
-    # Create a dictionary to store the incoming edges count for each node
-    incoming_edges_count = {node['uuid']: 0 for node in nodes}
+def sort_nodes_based_on_connections(nodes, connections):
+    # Create a dictionary to store the graph
+    graph = {node["uuid"]: [] for node in nodes}
 
-    # Create a dictionary to store the outgoing edges for each node
-    outgoing_edges = {node['uuid']: [] for node in nodes}
-
-    # Populate incoming edges count and outgoing edges
-    for node in nodes:
-        if 'connections' in node:
-            for end_id in node['connections'].get('end_id', []):
-                incoming_edges_count[end_id] += 1
-                outgoing_edges[node['uuid']].append(end_id)
+    # Populate the graph based on connections
+    for connection in connections:
+        start_id = connection["start_id"]
+        end_id = connection["end_id"]
+        graph[start_id].append(end_id)
 
     # Perform topological sorting
+    visited = set()
     sorted_nodes = []
-    queue = [node['uuid'] for node in nodes if incoming_edges_count[node['uuid']] == 0]
 
-    while queue:
-        current_node_uuid = queue.pop(0)
-        sorted_nodes.append(current_node_uuid)
+    def dfs(node_id):
+        if node_id not in visited:
+            visited.add(node_id)
+            for neighbor_id in graph[node_id]:
+                dfs(neighbor_id)
+            sorted_nodes.append(node_id)
 
-        for neighbor_uuid in outgoing_edges[current_node_uuid]:
-            incoming_edges_count[neighbor_uuid] -= 1
-            if incoming_edges_count[neighbor_uuid] == 0:
-                queue.append(neighbor_uuid)
+    for node_id in graph.keys():
+        dfs(node_id)
 
-    # Check for cyclic dependencies
-    if len(sorted_nodes) != len(nodes):
-        raise ValueError("The graph contains cycles.")
+    # Reverse the sorted nodes to get them in correct order
+    sorted_nodes.reverse()
 
-    # Reorder the nodes based on the sorted order
-    sorted_nodes_data = [next(node for node in nodes if node['uuid'] == uuid) for uuid in sorted_nodes]
+    # Create a mapping of node UUIDs to their index in the sorted list
+    node_index_map = {node["uuid"]: index for index, node in enumerate(nodes)}
 
-    return sorted_nodes_data
+    # Sort the nodes based on their index in the sorted list
+    sorted_nodes_with_data = [nodes[node_index_map[node_id]] for node_id in sorted_nodes]
 
-def sort_nodes_by_connections(nodes):
-    sorted_nodes = []
-    nextnode = None
-    startnodes = []
-    uuidmap = {}
-
-    # Create a dictionary to map UUIDs to nodes
-    for node in nodes:
-        uuidmap[node["uuid"]] = node
-
-    # Find all start nodes
-    for node in nodes:
-        if node["type"] == "start":
-            startnodes.append(node)
-
-    # Define the sort function
-    def sort(start, uuidmap):
-        if "connections" in start:
-            for end_id in start["connections"]["end_id"]:
-                nextnode = uuidmap.get(end_id)
-                if nextnode:
-                    sorted_nodes.append(nextnode)
-                    return sort(nextnode)
-
-    # Process each start node
-    for start in startnodes:
-        sorted_nodes.append(start)
-        sorted_nodes.append(sort(start, uuidmap))
-        print(sorted_nodes)
-
-    return sorted_nodes
+    return sorted_nodes_with_data
 
 #print("base scene: " + json.dumps(a, indent = 4))
-b = convert_connections(a["nodes"], a["connections"])
-#print("converted connections: " + json.dumps(b, indent=4))
-b = sort_nodes_by_connections(b)
+b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
+b = {"nodes": b, "connections": a["connections"]}
 #print("sorted: " + json.dumps(b, indent=4))
+b = convert_connections(b["nodes"], b["connections"])
+#print("converted connections: " + json.dumps(b, indent=4))
 b = convert_to_xml(b)
-#print("converted to xml: " + parseString(b).toprettyxml())
+print("converted to xml: " + parseString(b).toprettyxml())
