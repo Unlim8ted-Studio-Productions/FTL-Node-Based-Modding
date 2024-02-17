@@ -281,7 +281,9 @@ def convert_to_xml(nodes):
 def sort_nodes_based_on_connections(nodes, connections):
     # Create a dictionary to store the graph
     graph = {node["uuid"]: [] for node in nodes}
-
+    uuidtonode={}
+    for node in nodes:
+        uuidtonode[node["uuid"]] = node
     # Populate the graph based on connections
     for connection in connections:
         start_id = connection["start_id"]
@@ -310,6 +312,12 @@ def sort_nodes_based_on_connections(nodes, connections):
 
     # Sort the nodes based on their index in the sorted list
     sorted_nodes_with_data = [nodes[node_index_map[node_id]] for node_id in sorted_nodes]
+    
+    # Move choice nodes to the front of their level
+    for i in range(len(sorted_nodes_with_data)):
+        if sorted_nodes_with_data[i]["type"] == "choice_Node":
+            choice_node = sorted_nodes_with_data.pop(i)
+            sorted_nodes_with_data.insert(i, choice_node)
 
     return sorted_nodes_with_data
 
@@ -318,9 +326,13 @@ def compile(scene):
     #print("base scene: " + json.dumps(a, indent = 4))
     b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
     b = {"nodes": b, "connections": a["connections"]}
+    #print(json.dumps(b["nodes"], indent=4))
     #print("sorted: " + json.dumps(b, indent=4))
     b = convert_connections(b["nodes"], b["connections"])
     #print("converted connections: " + json.dumps(b, indent=4))
     b = convert_to_xml(b)
-    print("converted to xml: " + parseString(b).toprettyxml())
+    try:
+        print("converted to xml: " + parseString(b).toprettyxml())
+    except:
+        print("converted to xml: " + b)
 compile(a)
