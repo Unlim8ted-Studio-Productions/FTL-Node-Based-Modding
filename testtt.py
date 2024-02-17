@@ -312,12 +312,6 @@ def sort_nodes_based_on_connections(nodes, connections):
 
     # Sort the nodes based on their index in the sorted list
     sorted_nodes_with_data = [nodes[node_index_map[node_id]] for node_id in sorted_nodes]
-    
-    # Move choice nodes to the front of their level
-    for i in range(len(sorted_nodes_with_data)):
-        if sorted_nodes_with_data[i]["type"] == "choice_Node":
-            choice_node = sorted_nodes_with_data.pop(i)
-            sorted_nodes_with_data.insert(i, choice_node)
 
     return sorted_nodes_with_data
 
