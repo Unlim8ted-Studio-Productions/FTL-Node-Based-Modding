@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 # import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
 import pyperclip
-
+from compiletoxml import compile as xmlcomp
 # from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
 from node_editor.gui.node_widget import NodeScene, NodeWidget
@@ -118,7 +118,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.selected = None
 
         compilea = QtGui.QAction("Compile to xml format", self)
-        compilea.triggered.connect(self.compile_to_ftl)
+        compilea.triggered.connect(xmlcomp)
         file_menu.addAction(compilea)
 
         self.shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
