@@ -6,6 +6,8 @@ from PySide6.QtCore import Qt
 from node_editor.connection import Connection
 from node_editor.node import Node
 from node_editor.pin import Pin
+from PySide6.QtGui import QKeySequence
+from PySide6.QtGui import QShortcut
 #from node_editor.gui.node_widget import NodeScene
 
 
@@ -38,6 +40,7 @@ class NodeEditor(QtCore.QObject):
         self._last_selected = None
         self.selection_rect_item = None
 
+
     def install(self, scene):
         """
         Installs the NodeEditor into a QGraphicsScene.
@@ -64,6 +67,12 @@ class NodeEditor(QtCore.QObject):
         )
         return items[0] if items else None
 
+    def selectall(self):
+        print("hi")
+        for item in self.scene.items():
+            if isinstance(item, Node):
+                item.select_connections(True)
+ 
     def eventFilter(self, watched, event):
         """
         Filters events from the QGraphicsScene.

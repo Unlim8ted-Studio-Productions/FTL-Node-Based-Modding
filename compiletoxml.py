@@ -307,8 +307,6 @@ def convert_to_xml(nodes):
 def sort_nodes_based_on_connections(nodes, connections):
     # Create a dictionary to store the graph
     uuidtonode={node["uuid"]: node for node in nodes}
-    startnodes=[]
-    nextchioce={}
     sortednodes=[]
     
     def findpreviousenode(uuid):
@@ -316,24 +314,19 @@ def sort_nodes_based_on_connections(nodes, connections):
             for id in node["connections"]["end_id"]:
                 if id == uuid:
                     return node
-    def sort(node):
-        i=[]
-        i.append(node)
+    def _sort(node):
+        i=[node]
         if "connections" in node:
             for a in node["connections"]["end_id"]:
                 #print(uuidtonode[a]["type"])
-                for b in sort(uuidtonode[a]):
-                    i.append(b)
+                i.extend(_sort(uuidtonode[a]))
         return i
     
     for node in nodes:
         if node["type"] == "start_Node":
-            startnodes.append(node)
-    for node in startnodes:
-        for i in sort(node):
-            sortednodes.append(i)
+            print(json.dumps(node, indent=4))
+            sortednodes.extend(_sort(node))
     return sortednodes
-        
         
 def compile(scene):
     a=scene

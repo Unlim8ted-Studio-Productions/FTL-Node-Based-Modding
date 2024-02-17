@@ -125,6 +125,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
         self.shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
         self.shortcut.activated.connect(self.save_project)
+        self.sele = QShortcut(QKeySequence("Ctrl+A"), self)
+        self.shortcut.activated.connect(self.selectall)
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
         self.scenes_path = Path(__file__).parent.resolve() / "scenes"
@@ -158,8 +160,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.dock_console.setWidget(self.console_output)
 
         # Redirect stdout and stderr to console output
-        sys.stdout = StreamRedirect(self.console_output, sys.stdout)
-        sys.stderr = StreamRedirect(self.console_output, sys.stderr)
+        #sys.stdout = StreamRedirect(self.console_output, sys.stdout)
+        #sys.stderr = StreamRedirect(self.console_output, sys.stderr)
 
     def setsimulationloc(
         self,
@@ -256,7 +258,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
         # self.load_project(project_path)
 
-    def loadproject(self, returnname=False):
+    def loadproject(self, returnname=False, isnewtab=False):
         file_dialog = QtWidgets.QFileDialog()
         # file_dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
         # file_dialog.setDirectory()
@@ -269,8 +271,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         )
 
         self.load_project(self.project_path, loadscene=False, loadfile=file_path)
-
-        tab_widget.setTabText(tab_widget.currentIndex(), Path(file_path).name)
+        if not isnewtab:
+            tab_widget.setTabText(tab_widget.currentIndex(), Path(file_path).name)
         self.scene = self.node_widget.save_project(file_path, True)
         self.inspector_panel.sr = self.scene
         if returnname:
@@ -828,7 +830,7 @@ class NodeTabWidget(QtWidgets.QTabWidget):
                 file_dialog = QtWidgets.QFileDialog()
                 # file_path, _ = file_dialog.getOpenFileName(caption="Select project to load or click cancel", filter="FTL-NODES-SCRIPT files (*.FTL-NODES-SCRIPT)", dir=str(launcher1.project_path.absolute()))
                 new_tab = NodeEditorTab()
-                name = new_tab.loadproject(True)
+                name = new_tab.loadproject(True, True)
                 self.addTab(new_tab, name)
                 self.setCurrentIndex(self.indexOf(new_tab))
             elif tab_type == "New Scene":

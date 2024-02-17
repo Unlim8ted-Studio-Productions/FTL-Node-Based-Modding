@@ -141,6 +141,7 @@ class NodeWidget(QtWidgets.QWidget):
                 #        start_id = i[1]
                 #    if i[0] == nodes[1]:
                 #        end_id = i[1]
+                
                 start_id = str(nodes[0].parent.uuid)
                 end_id = str(nodes[1].parent.uuid)
                 start_pin = item.start_pin
