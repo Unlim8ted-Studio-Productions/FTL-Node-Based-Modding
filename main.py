@@ -5,11 +5,14 @@ import sys
 from collections import defaultdict, deque
 import uuid
 import json
+from xmltojson import convert_xml_to_json
 import xml.etree.ElementTree as ET
+
 # import tempfile
 from PySide6 import QtWidgets, QtGui, QtCore
 import pyperclip
 from compiletoxml import compile as xmlcomp
+
 # from node_editor.connection import Connection
 from node_editor.gui.node_list import NodeList
 from node_editor.gui.node_widget import NodeScene, NodeWidget
@@ -75,7 +78,6 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         # create a "File" menu and add an "Export CSV" action to it
         file_menu = QtWidgets.QMenu("File", self)
         self.menuBar().addMenu(file_menu)
-        
 
         load_action = QtGui.QAction("Load Project", self)
         load_action.triggered.connect(self.loadproject)
@@ -138,7 +140,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
 
             s = settings.value("splitterSize")
             self.splitter.restoreState(s)
-            
+
         # Add dock widget for the output console
         self.dock_console = QDockWidget("Console Output", self)
         self.dock_console.setFeatures(QDockWidget.NoDockWidgetFeatures)
@@ -149,7 +151,9 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.console_output = QTextEdit()
         self.console_output.setReadOnly(True)
         self.console_output.setStyleSheet("background-color: black; color: white;")
-        self.console_output.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        self.console_output.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
+        )
         self.console_output.setMinimumHeight(20)  # Set the minimum height here
         self.dock_console.setWidget(self.console_output)
 
@@ -209,7 +213,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
         if not project_path:
             return
-        #e = []
+        # e = []
         project_path = Path(project_path)
         if project_path.exists() and project_path.is_dir():
             self.project_path = project_path
@@ -220,7 +224,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                 if not file.stem.endswith("_node"):
                     print("file:", file.stem)
                     continue
-                #with open(file, "r") as f:
+                # with open(file, "r") as f:
                 #    for i in f.readlines():
                 #        e.append(i)
                 spec = importlib.util.spec_from_file_location(file.stem, file)
@@ -234,7 +238,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                         self.imports[obj.__name__] = {"class": obj, "module": module}
             if not loadfile:
                 self.node_list.update_project(self.imports)
-            #pyperclip.copy(str(e))
+            # pyperclip.copy(str(e))
             # work on just the first json file. add the ability to work on multiple json files later
             if loadscene:
                 for json_path in project_path.glob("*.json"):
@@ -344,6 +348,7 @@ class NodeCreationDialog(QtWidgets.QDialog):
 
         return node, r"/node" + node_name + r"_node.py"
 
+
 class StreamRedirect(QtCore.QObject):
     def __init__(self, widget, stream):
         super().__init__()
@@ -354,27 +359,29 @@ class StreamRedirect(QtCore.QObject):
     def write(self, text):
         cursor = self.widget.textCursor()
         cursor.movePosition(QtGui.QTextCursor.End)
-        
 
         # Insert text
         cursor.insertText(text)
         self.widget.setTextCursor(cursor)
         self.widget.ensureCursorVisible()
-        
-       ## Check if the last line is empty
-       #self.last_line_empty = text.endswith("\n")  # Check if the text ends with a newline character
-       #if self.last_line_empty:
-       #    text=text[:-2]
-       #    self.last_line_empty=False
+
+        ## Check if the last line is empty
+        # self.last_line_empty = text.endswith("\n")  # Check if the text ends with a newline character
+        # if self.last_line_empty:
+        #    text=text[:-2]
+        #    self.last_line_empty=False
 
         # Scroll to the bottom
-        self.widget.verticalScrollBar().setValue(self.widget.verticalScrollBar().maximum()-20)
+        self.widget.verticalScrollBar().setValue(
+            self.widget.verticalScrollBar().maximum() - 20
+        )
 
     def flush(self):
         pass  # No need to flush in this case
 
     def fileno(self):
         return self.stream.fileno()
+
 
 class Simulator(QtWidgets.QWidget):
     def __init__(self, scene, parent=None):
@@ -391,14 +398,14 @@ class Simulator(QtWidgets.QWidget):
         self.backroundbackround = QPixmap("backback.jpg").scaled(
             self.layoutt.sizeHint()
         )
-        
 
         self.originalBackgroundImage = QPixmap("simulator backround.png")
         self.backgroundImage = QPixmap("simulator backround.png").scaled(
             self.layoutt.sizeHint()
         )
-        
-        self.setStyleSheet("""
+
+        self.setStyleSheet(
+            """
             QPushButton {
                 border: none;
                 background-color: transparent; /* Set transparent background */
@@ -409,10 +416,12 @@ class Simulator(QtWidgets.QWidget):
                 background-color: none; /* Set background color when hovered */
                 color: white; /* Set text color when hovered */
             }
-        """)
-        
+        """
+        )
+
         # Center the widget on the screen
         self.setContentsMargins(0, 400, 0, 200)  # Left, top, right, bottom
+
     def paintEvent(self, event):
         painter = QtGui.QPainter(self)
         # Fill the background with the scaled pixmap
@@ -436,7 +445,7 @@ class Simulator(QtWidgets.QWidget):
         startX = (self.width() - scaledPixmap.width()) / 2
         startY = (self.height() - scaledPixmap.height()) / 2
         painter.drawPixmap(QtCore.QPoint(startX, startY), scaledPixmap)
-        self.setContentsMargins(*self.get_margins(startX,startY,scaledPixmap))
+        self.setContentsMargins(*self.get_margins(startX, startY, scaledPixmap))
 
     def find_node_from_uuid(self, node_uuid):
         for uuid, node in self.scene.items():
@@ -448,14 +457,15 @@ class Simulator(QtWidgets.QWidget):
     def get_margins(self, startX, startY, scaledPixmap):
         # Get the size of the original pixmap
         originalSize = scaledPixmap.size()
-    
+
         # Calculate the margins
         left_margin = startX
         top_margin = startY
-        #right_margin = scaledPixmap.width() - originalSize.width() - left_margin
+        # right_margin = scaledPixmap.width() - originalSize.width() - left_margin
         bottom_margin = scaledPixmap.height()
-    
+
         return (left_margin, top_margin, 0, bottom_margin)
+
     def parse_scene(self, scene):
         node_map = {}
         for node in scene["nodes"]:
@@ -473,13 +483,13 @@ class Simulator(QtWidgets.QWidget):
         return None
 
     def inspect_node(self, node_uuid):
-        
+
         if self.sr:
             self.connections = self.sr["connections"]
             self.scene = self.parse_scene(self.sr)
             self.sr = None
             print(self.scene)
-            
+
         self.clear_inspector()
         try:
             node = self.scene[node_uuid]
@@ -506,7 +516,7 @@ class Simulator(QtWidgets.QWidget):
                 return self.scene.get(connection["start_id"])
         print("No connection found for the input pin.")
         return None
-    
+
     def clear_inspector(self):
         """Deletes all widgets from the layout.
         Parameters:
@@ -521,11 +531,12 @@ class Simulator(QtWidgets.QWidget):
             widget = self.layoutt.itemAt(i).widget()
             if widget:
                 widget.deleteLater()
+
     def create_choice_ui(self, choice_node):
         # Simplified for this example; choices need to be defined properly
-        i=0
+        i = 0
         while True:
-            node=choice_node
+            node = choice_node
             node = self.find_previous_node(node["uuid"], "Ex In")
             print(node)
             if node:
@@ -533,12 +544,12 @@ class Simulator(QtWidgets.QWidget):
                     text = node["internal-data"]["text"]
                     break
                 else:
-                    i+1
-            if i>100:
-                text="no previouse node"
+                    i + 1
+            if i > 100:
+                text = "no previouse node"
                 break
         label = QtWidgets.QLabel(text)
-        
+
         self.layoutt.addWidget(label)
 
         # print(choice_node)
@@ -580,9 +591,7 @@ class Simulator(QtWidgets.QWidget):
         next_node = self.find_next_node(
             choice_node["uuid"], f"Choice Output{choice_index}"
         )
-        next_node = self.find_next_node(
-            next_node["uuid"], "Ex Out"
-        )        
+        next_node = self.find_next_node(next_node["uuid"], "Ex Out")
         if next_node:
             self.inspect_node(next_node["uuid"])
         # This would need to fetch the next node object based on ID or reference
@@ -793,6 +802,7 @@ class AudioCreatorWidget(QtWidgets.QWidget):
 
         # Add widgets for audio creation here
 
+
 class NodeTabWidget(QtWidgets.QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -903,6 +913,7 @@ class NewTabDialog(QtWidgets.QDialog):
         if self.xmleditor.isChecked():  # New option
             return "XML Converter/Editor"
 
+
 class XMLConverterGUI(QWidget):
     def __init__(self):
         super().__init__()
@@ -911,7 +922,7 @@ class XMLConverterGUI(QWidget):
         self.load_button = QPushButton("Load XML File")
         self.load_button.clicked.connect(self.load_xml_file)
         self.convert_button = QPushButton("Convert to JSON")
-        self.convert_button.clicked.connect(self.convert_to_json)
+        self.convert_button.clicked.connect(self.convert)
         self.save_button = QPushButton("Save Changes")
         self.save_button.clicked.connect(self.save_changes)
 
@@ -924,6 +935,11 @@ class XMLConverterGUI(QWidget):
 
         self.xml_tree = None
 
+    def convert(self):
+        self.text_edit.setPlainText(
+            json.dumps(convert_xml_to_json(self.text_edit.toPlainText()), indent=4)
+        )
+
     def load_xml_file(self):
         file_dialog = QFileDialog(self)
         file_dialog.setNameFilter("XML files (*.xml)")
@@ -931,14 +947,16 @@ class XMLConverterGUI(QWidget):
             file_path = file_dialog.selectedFiles()[0]
             try:
                 self.xml_tree = ET.parse(file_path)
-                self.text_edit.setPlainText(ET.tostring(self.xml_tree.getroot(), encoding="unicode"))
+                self.text_edit.setPlainText(
+                    ET.tostring(self.xml_tree.getroot(), encoding="unicode")
+                )
                 print("XML file loaded successfully.")
             except FileNotFoundError:
                 print("File not found.")
 
     def convert_to_json(self):
-        
-# Load XML text from the text editor
+
+        # Load XML text from the text editor
         xml_text = self.text_edit.toPlainText()
 
         # Parse XML from the loaded text
@@ -957,7 +975,7 @@ class XMLConverterGUI(QWidget):
             node_spacing_y = 400
             current_x = 4814
             current_y = 4920
-          #  a=[]
+            #  a=[]
             for elem in root.iter():
                 try:
                     node_uuid = str(uuid.uuid4())
@@ -965,73 +983,97 @@ class XMLConverterGUI(QWidget):
                     node_type = elem.tag
                     text = elem.text
                     internal_data = {}
-                    #a.append(text)
+                    # a.append(text)
 
                     # Populate internal data based on node type
-               #     print(node_type)
+                    #     print(node_type)
                     if node_type == "choice":
                         internal_data = {}
-                        node_type="choice_Node"
+                        node_type = "choice_Node"
                     elif node_type == "event":
-                        internal_data = {"text":elem.get("name",""), "isunique":elem.get("unique", False)}
-                        node_type="event_Node"
+                        internal_data = {
+                            "text": elem.get("name", ""),
+                            "isunique": elem.get("unique", False),
+                        }
+                        node_type = "event_Node"
                     elif node_type == "text":
-                        internal_data = {"text":text}
-                        node_type="text_Node"
+                        internal_data = {"text": text}
+                        node_type = "text_Node"
                     elif node_type == "playSound":
                         internal_data = {}
-                        node_type="playsound_Node"
+                        node_type = "playsound_Node"
                     elif node_type == "quest":
                         places = ["RANDOM", "LAST", "NEXT"]
-                        internal_data = {"index":places.index(elem.get("beacon")), "text":elem.get("event")}
-                        node_type="quest_Node"
+                        internal_data = {
+                            "index": places.index(elem.get("beacon")),
+                            "text": elem.get("event"),
+                        }
+                        node_type = "quest_Node"
                     elif node_type == "ship":
-                        internal_data = {"text":elem.get("name",elem.get("load")), "autoblueprint":elem.get("auto_blueprint",""), "ishostile":elem.get("hostile")}
-                        node_type="loadship_Node"
+                        internal_data = {
+                            "text": elem.get("name", elem.get("load")),
+                            "autoblueprint": elem.get("auto_blueprint", ""),
+                            "ishostile": elem.get("hostile"),
+                        }
+                        node_type = "loadship_Node"
                     elif node_type == "item_modify":
                         internal_data = {}
-                        node_type="item_modify_Node"
+                        node_type = "item_modify_Node"
                     elif node_type == "item":
                         reward_types = ["scrap", "fuel", "drones", "missiles"]
-                        internal_data = {"index": reward_types.index(elem.get("type")), "amount": elem.get("amount")}
-                        node_type="Reward_Node"
+                        internal_data = {
+                            "index": reward_types.index(elem.get("type")),
+                            "amount": elem.get("amount"),
+                        }
+                        node_type = "Reward_Node"
                     elif node_type == "damage":
                         effects = ["random", "all", "fire"]
-                        internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": False}
-                        node_type="Damage_Node"
+                        internal_data = {
+                            "text": elem.get("amount"),
+                            "System": elem.get("system"),
+                            "Effect": effects.index(elem.get("effect")),
+                            "enemy": False,
+                        }
+                        node_type = "Damage_Node"
                     elif node_type == "enemyDamage":
                         effects = ["random", "all", "fire"]
-                        internal_data = {"text": elem.get("amount"), "System": elem.get("system"), "Effect": effects.index(elem.get("effect")), "enemy": True}
-                        node_type="Damage_Node" #<damage amount="1" system="engines" effect="fire" />
+                        internal_data = {
+                            "text": elem.get("amount"),
+                            "System": elem.get("system"),
+                            "Effect": effects.index(elem.get("effect")),
+                            "enemy": True,
+                        }
+                        node_type = "Damage_Node"  # <damage amount="1" system="engines" effect="fire" />
                     elif node_type == "weapon":
-                        internal_data = {"amount":elem.get("name")}
-                        node_type="giveweapon_Node"
+                        internal_data = {"amount": elem.get("name")}
+                        node_type = "giveweapon_Node"
                     elif node_type == "augument":
-                        internal_data = {"amount":elem.get("name")}
-                        node_type="giveaugument_Node"
+                        internal_data = {"amount": elem.get("name")}
+                        node_type = "giveaugument_Node"
                     elif node_type == "status":
-                        internal_data = {} #<status type="limit" target="player" system="sensors" amount="1" />
-                        node_type=""
+                        internal_data = (
+                            {}
+                        )  # <status type="limit" target="player" system="sensors" amount="1" />
+                        node_type = ""
                     elif node_type == "autoReward":
                         internal_data = {}
-                        node_type=""
+                        node_type = ""
                     elif node_type == "surrender":
-                        internal_data = {}#<surrender chance="0" min="3" max="4">
-                        node_type=""
+                        internal_data = {}  # <surrender chance="0" min="3" max="4">
+                        node_type = ""
                     elif node_type == "store":
                         internal_data = {}
-                        node_type="store_Node"
-
+                        node_type = "store_Node"
 
                     node = {
                         "type": node_type,
                         "x": current_x,
                         "y": current_y,
                         "uuid": node_uuid,
-                        "internal-data": internal_data
+                        "internal-data": internal_data,
                     }
                     nodes.append(node)
-                    #node_uuid_map[node] = node_uuid
+                    # node_uuid_map[node] = node_uuid
                     # Update coordinates for the next node
                     current_x += node_spacing_x
                     if current_x >= max_nodes_per_row * node_spacing_x:
@@ -1039,8 +1081,8 @@ class XMLConverterGUI(QWidget):
                         current_y += node_spacing_y
                 except:
                     continue
-            #pyperclip.copy(a)
-        
+            # pyperclip.copy(a)
+
             # Create connections
             for elem in root.iter():
                 if elem.tag == "choice":
@@ -1052,14 +1094,16 @@ class XMLConverterGUI(QWidget):
                         if choice_uuid and event_uuid:  # Ensure both IDs are not None
                             connection_id = f"{event_id}_{choice_id}"
                             connection_uuid = str(uuid.uuid4())
-                            connections.append({
-                                "start_id": event_uuid,
-                                "end_id": choice_uuid,
-                                "start_pin": "Ex Out",
-                                "end_pin": "Ex In"
-                            })
+                            connections.append(
+                                {
+                                    "start_id": event_uuid,
+                                    "end_id": choice_uuid,
+                                    "start_pin": "Ex Out",
+                                    "end_pin": "Ex In",
+                                }
+                            )
                             connection_uuid_map[connection_id] = connection_uuid
-    
+
             json_data = {"nodes": nodes, "connections": connections}
             self.text_edit.setPlainText(json.dumps(json_data, indent=4))
             print("XML converted to JSON successfully.")
@@ -1084,6 +1128,7 @@ class XMLConverterGUI(QWidget):
                 if node["internal-data"]["text"] == name:
                     return node["uuid"]
         return None
+
 
 class ShipBuilderWindow(QtWidgets.QWidget):
     def __init__(self, parent=None):
@@ -1259,6 +1304,7 @@ class JsonToXmlConverter:
             child_node = self.uuid_to_node.get(conn["end_id"])
             if child_node:
                 self.process_node(child_node, parent_element)
+
 
 if __name__ == "__main__":
     import qdarktheme

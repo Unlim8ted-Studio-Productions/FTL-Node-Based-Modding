@@ -1,104 +1,1321 @@
 {
     "nodes": [
         {
-            "type": "text_Node",
-            "x": 400,
-            "y": 3400,
-            "uuid": "839d351e-36bf-44de-96ae-db6cb64c34d3",
-            "internal-data": {
-                "text": ""
-            }
+            "type": "FTL",
+            "x": 0,
+            "y": 0,
+            "uuid": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "internal-data": {}
         },
         {
             "type": "event_Node",
             "x": 200,
-            "y": 3400,
-            "uuid": "f9bf1dfd-29b3-460e-bcde-d375bf011215",
+            "y": 0,
+            "uuid": "da4c3bea-309c-4306-8a93-e8f3a0b72a14",
             "internal-data": {
-                "text": "NextStealthMission",
+                "text": "s",
                 "isunique": false
             }
         },
         {
-            "type": "text_Node",
-            "x": 0,
-            "y": 3400,
-            "uuid": "e5a0dfbd-c821-4840-b400-869676f945c5",
-            "internal-data": {
-                "text": ""
-            }
+            "type": "playSound",
+            "x": 400,
+            "y": 0,
+            "uuid": "ed9c4257-1992-40a5-bfd2-94bc3142eaf4",
+            "internal-data": {}
         },
         {
             "type": "event_Node",
-            "x": 800,
-            "y": 3300,
-            "uuid": "bd4951d3-492e-4ca9-9b84-a4b97c9532ec",
+            "x": 200,
+            "y": 0,
+            "uuid": "64a8ae4d-628e-4b0f-985f-cf5e9304536d",
             "internal-data": {
-                "text": "NextMission",
-                "isunique": false
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 600,
-            "y": 3300,
-            "uuid": "165e8a04-240b-45e3-8406-0c147bee5b83",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 3200,
-            "uuid": "10ff786a-e7eb-4f07-bf83-d19654d6a3c0",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 3200,
-            "uuid": "7872ae51-7193-4eb1-9b5c-83754faf45b4",
-            "internal-data": {
-                "text": "",
-                "isunique": false
+                "text": "offer",
+                "isunique": "true"
             }
         },
         {
             "type": "text_Node",
             "x": 400,
-            "y": 3200,
-            "uuid": "d435edf8-5b52-41af-9602-5af51afbf2f6",
+            "y": 0,
+            "uuid": "44844b4d-afd8-4ae3-bbb2-da5fd28f747b",
             "internal-data": {
-                "text": ""
+                "text": null
             }
         },
         {
             "type": "choice_Node",
-            "x": 200,
-            "y": 3200,
-            "uuid": "b346d7a0-ec97-4eaa-b6f0-e6602269b4c3",
-            "internal-data": {
-                "text": ""
-            }
+            "x": 400,
+            "y": 200,
+            "uuid": "63d1f100-38a0-42d5-9567-116c7f2ad8d3",
+            "internal-data": {}
         },
         {
             "type": "text_Node",
-            "x": 0,
-            "y": 3200,
-            "uuid": "315b0831-10a9-40a0-b955-205e26d76178",
+            "x": 400,
+            "y": 0,
+            "uuid": "d894b0bf-2c3e-4ec5-9a28-8f95c7b7f4c2",
             "internal-data": {
-                "text": ""
+                "text": "continue"
             }
         },
         {
             "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "61b7436d-fdd4-411c-b86c-4ebd48cd2816",
+            "internal-data": {
+                "text": "Upon arriving at this beacon, you immediately receive three different calls. One asking you to join the rebels, one asking you to join the Federation, and one from the Dogian Empire? What's that?"
+            }
+        },
+        {
+            "type": "img",
+            "x": 600,
+            "y": 0,
+            "uuid": "8544ba51-21b6-4103-a8d0-9162b9023692",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "bfc965fc-a7ff-4af3-a9eb-bafb95ef08ca",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "03cb06a8-25d5-4205-b943-f2efb641d0c7",
+            "internal-data": {
+                "text": "Join the rebels."
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "ab355c31-cf58-4918-9c3f-f7b2d0eaba8b",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "img",
             "x": 800,
-            "y": 3100,
-            "uuid": "b4b762b8-8766-4e3f-8019-e96d5c0364a7",
+            "y": 0,
+            "uuid": "32a6cdb9-966b-48c5-9b84-830a973018a5",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "a5b8c19e-fb16-43d8-a863-9ded9739a2bc",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "5422950c-6ece-4a35-a95e-2451eab5e74e",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "3d80882b-91f0-464c-89b9-03a8003c0b6f",
+            "internal-data": {
+                "text": "Join the Federation."
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "8ef8c40a-b7d4-42d5-bace-9ba669c8f0bd",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "8f160004-400a-4211-8dcd-c2af6721739f",
+            "internal-data": {
+                "text": "You are now in the Federation. You quickly jump away."
+            }
+        },
+        {
+            "type": "img",
+            "x": 800,
+            "y": 0,
+            "uuid": "7b8880b5-1ae6-4def-97eb-78b50eb6a3e1",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "35ae5faa-4765-4633-8477-bd9d30ec2892",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "2af4918e-76f7-456d-82e6-7106ce64ec24",
+            "internal-data": {
+                "text": "Join the Dogian Empire"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "img",
+            "x": 800,
+            "y": 0,
+            "uuid": "836524df-b127-42f6-bec5-ac917addc415",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "77081aef-b816-4c1f-93ea-d768fabdc592",
+            "internal-data": {
+                "text": "Welcome to the Dogian Empire."
+            }
+        },
+        {
+            "type": "playSound",
+            "x": 800,
+            "y": 0,
+            "uuid": "8b7c89ad-08d2-4590-a832-59f9fcc6e313",
+            "internal-data": {}
+        },
+        {
+            "type": "secretSector",
+            "x": 800,
+            "y": 0,
+            "uuid": "138e7db9-c9fc-460a-a76c-359d8d600ae0",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "internal-data": {
+                "text": "dogquestp1",
+                "isunique": false
+            }
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "07e9ef50-7d5c-4665-a938-89d4a2751f2c",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "f94eee74-c412-49be-a649-dc9f5c8c619e",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "67fdb307-1e44-48b0-967f-9f74ff675854",
+            "internal-data": {
+                "text": "You pull up to what looks like a broken down looking shop. You watch as a cat sticks her head out the window to offer you some goods."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "9f6869c2-9164-456e-ac56-49ef7450eb53",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "fe610589-fa39-438a-a582-cf1d42402309",
+            "internal-data": {
+                "text": "Look at the goods with your shields up and your engine charged"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "28bc4919-2805-4b7e-a05b-8abdf3084442",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "b91e2ef5-a831-4620-9a3f-ebb84fd626b3",
+            "internal-data": {
+                "text": "Heres what we have..."
+            }
+        },
+        {
+            "type": "store",
+            "x": 600,
+            "y": 0,
+            "uuid": "5a5c8e84-2b41-464b-b5ee-135cc0877495",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "a48e743a-e5e1-414d-ae62-03767c7c8eb4",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "15f795c0-ee0f-4379-8f26-3a72ba2f355c",
+            "internal-data": {
+                "text": "Ask them to stop attacking the Dogian Empire"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "d778e69d-306c-4731-8fe4-a479f49297b2",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "27c5fa01-2880-49f4-9cf7-8199fb8dde6a",
+            "internal-data": {
+                "text": "Once you finish speaking the shopkeeper's demeanor suddenly shifts. \"These items are not for sale to your kind,\" she hisses, before you find yourself under attack."
+            }
+        },
+        {
+            "type": "ship",
+            "x": 800,
+            "y": 0,
+            "uuid": "09f4d7c2-3de0-43c8-a620-71d7278a6609",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 800,
+            "y": 0,
+            "uuid": "c5898030-4205-45bf-8056-33f9cf380385",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "9ea69a13-5cd6-493a-9e84-28e896714224",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "f8dc4253-4fbc-42e6-bec6-7539c4f57843",
+            "internal-data": {
+                "text": "attack!"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "4cb29344-120a-4a51-b1d3-53ed62da024d",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "80d01790-7eb8-4fe8-8391-3e7abf9ed173",
+            "internal-data": {
+                "text": "You are foolish to attack us"
+            }
+        },
+        {
+            "type": "ship",
+            "x": 600,
+            "y": 0,
+            "uuid": "d24e3e9e-0226-4648-9829-710068966382",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "6982a8ac-5223-429b-a3ba-002ec034c9f2",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "263c7712-eca8-493e-b40c-a3bedeac3521",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "48ac8584-b935-4875-b1df-ea3812b61392",
+            "internal-data": {
+                "text": "run away"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "de4b9d08-616f-4a25-a479-897097afecd3",
+            "internal-data": {
+                "text": "you start to run away but halfway to the next planet your ship suddenly stops, as if gripped by a giant hand.. suddenly the dog emporour appears in front of your ship.. where do you think your going??!??! I thought you would help us, betrayer"
+            }
+        },
+        {
+            "type": "enemyDamage",
+            "x": 600,
+            "y": 0,
+            "uuid": "25c00dab-3f7a-4411-8aac-5b3c1020b685",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 600,
+            "y": 0,
+            "uuid": "7e3b1f97-7949-44d7-8104-494e90cbb304",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 600,
+            "y": 0,
+            "uuid": "bc65207f-739a-47a4-b0b8-83d9956239b2",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "378fd6fe-ad51-4ba7-9763-ac77b3476608",
+            "internal-data": {
+                "text": "I will give you one last chance"
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "f5caf595-2d8f-4aa2-a06a-540df56d4431",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "42904ce4-7f2f-45bb-8d9e-517cda2acf17",
+            "internal-data": {
+                "text": "Just fight me, weakling"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "6b4abebd-f88d-4f11-a2dd-95c97573e3a2",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "2a825317-7e02-4ce8-a415-5b6f41d77b91",
+            "internal-data": {
+                "text": "Fine"
+            }
+        },
+        {
+            "type": "ship",
+            "x": 800,
+            "y": 0,
+            "uuid": "b729d5b1-9a0b-4a6f-a951-c4607014d522",
+            "internal-data": {}
+        },
+        {
+            "type": "customFleet",
+            "x": 800,
+            "y": 0,
+            "uuid": "933ab028-33c2-44fb-a616-63a3c35cb64c",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "304dcf1a-764a-48c1-bc56-38dc0e676888",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "69daa482-de2e-4944-9849-d1b32125fffd",
+            "internal-data": {
+                "text": "Thank you for the second chance"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "d3210766-7c77-430c-99b7-03a48c2fc6e5",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "84b15a7e-cfc2-48bf-85b6-eccda22d7ede",
+            "internal-data": {
+                "text": "Here is some extra gear"
+            }
+        },
+        {
+            "type": "store",
+            "x": 800,
+            "y": 0,
+            "uuid": "020cea7f-4e1e-4e45-80b3-b20969a56262",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 800,
+            "y": 0,
+            "uuid": "d1ee24f4-fa9e-40f7-9c14-580b3f7e1bb7",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "ac8191a3-425b-4103-981a-45756a51a5af",
+            "internal-data": {
+                "text": "CatAmbush",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "c66a20ac-1504-41e1-8664-1475200f2d72",
+            "internal-data": {
+                "text": "Suddenly, two cats that looked like ninjas boarded. Prepare to fight."
+            }
+        },
+        {
+            "type": "boarders",
+            "x": 400,
+            "y": 0,
+            "uuid": "7e3bb5bd-c082-4fd8-859a-56951a8ceb01",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "10dcc972-d0c4-4260-9266-94eef04441d5",
+            "internal-data": {
+                "text": "fedp1",
+                "isunique": false
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "internal-data": {
+                "text": "RebelTask",
+                "isunique": false
+            }
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "1600c2c0-9749-47f0-b6cf-66f0625485de",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "94f5d94b-c1be-415e-b85f-5735ff8cc548",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "ab1a90a0-904d-4c28-8b3a-74fc7c67a496",
+            "internal-data": {
+                "text": "We need more parts to rebuild the flagship... Go defeat people and go to the next quest when you obtain 200 scrap"
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "4494fbde-8d25-48cf-a1d3-53bb186d0315",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "d3608379-05db-4602-ac3e-ef4a43fa4381",
+            "internal-data": {
+                "text": "ok"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "25b8c9f8-d78f-4314-8715-22781db3f787",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "9ee14d4d-cb57-435e-8f47-3be145b0c757",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "b3ec462b-5271-4e8f-80c0-44605f0f173e",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "c8baffad-2711-4340-b329-ba7a3dd3553e",
+            "internal-data": {
+                "text": "can I have some starter gear first?"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "4cc548e5-7cb2-4c97-9a40-7af1e9e1df1c",
+            "internal-data": {
+                "text": "You are lucky I am in a good mood, here you go.."
+            }
+        },
+        {
+            "type": "item_modify",
+            "x": 600,
+            "y": 0,
+            "uuid": "3336716c-0c33-48bc-9652-7ae0e217b65b",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 800,
+            "y": 0,
+            "uuid": "a1f79e58-24cc-48b9-91e2-3df89964e2e0",
+            "internal-data": {}
+        },
+        {
+            "type": "weapon",
+            "x": 600,
+            "y": 0,
+            "uuid": "2ecd346b-3adb-4e6e-9d06-857f2cef0c62",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "1949878a-de91-4fea-a61e-abf165f6d986",
+            "internal-data": {
+                "text": "now we will see how powerfull you are.."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "e8089f86-85a3-4f6c-943d-ae845b4b5946",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "5d8efa52-cf98-4934-95b7-985f82e488fd",
+            "internal-data": {
+                "text": "okay"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "032bde8f-d487-4a27-8d06-3936692fa375",
+            "internal-data": {
+                "text": null
+            }
+        },
+        {
+            "type": "ship",
+            "x": 800,
+            "y": 0,
+            "uuid": "1bc037e2-e74d-40df-a515-de28c1feb55d",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 800,
+            "y": 0,
+            "uuid": "285efdf7-3475-4ef1-9ad2-9855d1ce78b0",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 800,
+            "y": 0,
+            "uuid": "b9bbc3af-5755-4709-986b-c6b8a0df46eb",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "internal-data": {
+                "text": "Dogrewardtask",
+                "isunique": false
+            }
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "d91f72b9-c314-4169-9df9-c7e4823979c1",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "c34a0375-2b7e-4b90-ac7e-3d995c53c060",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "6c74a67c-bfcc-44de-86cf-4cd45a267c58",
+            "internal-data": {
+                "text": "Welcome to the Dogian Empire. Lately, there have been many rebel cat ships attacking. If you can find their hideout and destroy them, we will reward you with our top scientists."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "8052d7d0-f265-4c5d-a76b-5e9f20f2cb41",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "a3b420e2-4560-42a6-b572-968cac859f50",
+            "internal-data": {
+                "text": "Accept"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "17f92677-5ef4-46f9-a529-133c632938a9",
+            "internal-data": {
+                "text": "The Dogian official nods approvingly and hands you 50 scrap and a weapon for your journey."
+            }
+        },
+        {
+            "type": "item_modify",
+            "x": 600,
+            "y": 0,
+            "uuid": "b60840d7-beaa-4d96-931b-2df63ccaaf9b",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 800,
+            "y": 0,
+            "uuid": "fa30afaa-2345-4f42-a2b6-a536f893dac9",
+            "internal-data": {}
+        },
+        {
+            "type": "weapon",
+            "x": 600,
+            "y": 0,
+            "uuid": "6187b721-4250-4096-a955-820ec0c6b3d9",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "22cdf741-5bb2-4789-9e03-52f5aad8272f",
+            "internal-data": {
+                "text": "As you prepare to depart, two cats that looked like ninjas boarded. It seems the cats have already made their move. Prepare to fight."
+            }
+        },
+        {
+            "type": "boarders",
+            "x": 600,
+            "y": 0,
+            "uuid": "6deb743a-6c79-4a59-bf33-63f6b970c8f2",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "20ebc535-89f1-4cb3-91ad-ed4c89c7bb5f",
+            "internal-data": {
+                "text": "This will be your first test"
+            }
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "12805b49-7862-4926-af1b-aa73f72093ae",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "ce192b9b-df2a-497e-9ea9-97b278221c19",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "9c9c9a3f-edf2-41de-803e-118cb6458ca9",
+            "internal-data": {
+                "text": "Decline"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "8fa5e206-fe7a-466d-9949-626e414f5284",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "77df5e66-5ecc-4208-9aae-9d04947bb7bc",
+            "internal-data": {
+                "text": "You decide not to involve yourself in the Dogian Empire's conflict with the rebel cats."
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "15a4b840-5658-41c9-ae02-2dd8fd7b9c7b",
+            "internal-data": {
+                "text": "DogEmpireBriefing",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "7d4464a9-33b5-4498-8537-2093448b8b7e",
+            "internal-data": {
+                "text": "The Dogian Empire has entrusted you with a critical mission to intercept a shipment of weapons headed for the Rebel-Cat alliance. Success will weaken their forces significantly."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "b975f10e-70c0-4af4-b5d1-1da054dfb40b",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "9e6a41a8-2fea-4b61-8c5b-dfd1039ab01c",
+            "internal-data": {
+                "text": "Set course for the shipment"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "2cd8ebde-677e-47a1-98d7-39dc87c25790",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "b244fac7-4f7d-45fb-98c3-32d4d4795e0f",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "internal-data": {
+                "text": "InterceptShipment",
+                "isunique": false
+            }
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "09d0d820-9b32-4d57-828f-40ffd2a2b632",
+            "internal-data": {}
+        },
+        {
+            "type": "ship",
+            "x": 400,
+            "y": 0,
+            "uuid": "f2bf07db-e90f-45db-9536-f9daeffbc48b",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "a4c863ad-7d0e-4ca2-ba81-e6445cf5e87b",
+            "internal-data": {
+                "text": "As you approach the coordinates, you detect multiple ships guarding the shipment. Stealth is an option, but so is a full-frontal assault."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "25b37638-55c0-48a3-8f9e-8f757870b1cd",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "fbb9fb37-13b7-42d0-85d8-9d9bf2b50967",
+            "internal-data": {
+                "text": "Attack head-on"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "dd6f851d-a262-4d94-8773-e61541742044",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "18e810b4-cb50-4e07-8e12-62e7ac11f132",
+            "internal-data": {
+                "text": "You decide to confront the enemy directly. Prepare for battle!"
+            }
+        },
+        {
+            "type": "ship",
+            "x": 600,
+            "y": 0,
+            "uuid": "d5ffd051-25fd-41f6-91f0-a814e525542d",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 600,
+            "y": 200,
+            "uuid": "68cfe109-0e97-4048-93f2-24ab7d559719",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "912dcd09-5d70-4d2f-b00d-13a7ec255d71",
+            "internal-data": {
+                "text": "Continue"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 800,
+            "y": 0,
+            "uuid": "5f304b1a-704d-4678-9883-39a58c9a15c2",
+            "internal-data": {
+                "text": "The shipment is secured, but you've taken some damage. The Dogian Empire will be pleased."
+            }
+        },
+        {
+            "type": "item_modify",
+            "x": 800,
+            "y": 0,
+            "uuid": "b5e17d83-c86c-4765-911c-b2e44de4e8c4",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 1000,
+            "y": 0,
+            "uuid": "1cefe522-5434-4f64-9164-65394ddb54a6",
+            "internal-data": {}
+        },
+        {
+            "type": "weapon",
+            "x": 800,
+            "y": 0,
+            "uuid": "6c0425d8-3ad8-4a31-a882-d2e237be7660",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 800,
+            "y": 0,
+            "uuid": "4d853abe-1c0c-4d7d-b2b9-16d3cdb63a7d",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "a1c08465-eb70-4dfe-8d4f-1d0a6fcb9fcd",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "1439ae2e-edd4-4cab-96d9-8504dd94243a",
+            "internal-data": {
+                "text": "Use stealth to steal the shipment and destroy the ship"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "enemyDamage",
+            "x": 600,
+            "y": 0,
+            "uuid": "dd9af88a-fc84-4743-8cf6-d105a82ba1b4",
+            "internal-data": {}
+        },
+        {
+            "type": "item_modify",
+            "x": 600,
+            "y": 0,
+            "uuid": "bee9e010-73ed-41f7-b646-680cf130f011",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 800,
+            "y": 0,
+            "uuid": "86cabfd1-0806-4d90-b393-5e6313e36d05",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "6bc998c3-f630-4c48-9f8b-93c536142f4e",
+            "internal-data": {
+                "text": "success"
+            }
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "fb669126-30ee-425a-a005-8cc44a4d2c82",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "e778f8a5-b4dd-485a-8d19-e5a5f3fc02b3",
+            "internal-data": {
+                "text": "ReturnToEmpire",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "1e823b50-d5a1-4105-84ee-c6a3a48b6e0f",
+            "internal-data": {
+                "text": "With the stolen shipment, you return to the Dogian Empire. The Emperor is impressed by your bravery."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "dbd41611-fad8-4a4c-a9f7-4a1d3765a8cf",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "43ce4659-3ece-40ac-8542-37c54e117a7f",
+            "internal-data": {
+                "text": "Report your success"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "83874d79-09f0-48b5-9263-85f5b01f250e",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "32183d28-b1c9-42df-9ed2-ce1091004549",
+            "internal-data": {
+                "text": "\"Your actions have saved countless lives,\" the Emperor says, granting you a medal of honor and additional resources for your journey."
+            }
+        },
+        {
+            "type": "item_modify",
+            "x": 600,
+            "y": 0,
+            "uuid": "d139babc-005e-4178-88f8-cfbb4e365212",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 800,
+            "y": 0,
+            "uuid": "7040ea22-fa31-4925-a7a2-6a97b6fe98f7",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "aa7d1fa8-82a4-401c-ba19-381a15304e8c",
+            "internal-data": {}
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "698cf112-282b-49c5-b998-c94217a1b2d6",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "0e3eed63-7ef3-4789-a531-8c6d401e89a8",
+            "internal-data": {
+                "text": "tell him about the weapon you found"
+            }
+        },
+        {
+            "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "5e2d7782-3cfa-4afb-a4c4-e3a288f8969a",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 600,
+            "y": 0,
+            "uuid": "db182012-e802-40f9-b387-2bdf0da3e128",
+            "internal-data": {
+                "text": "This was being used for the rebel flagship, thank you for stopping them.."
+            }
+        },
+        {
+            "type": "removeItem",
+            "x": 600,
+            "y": 0,
+            "uuid": "4c815c0f-2c40-4962-97a2-34b4b233f3dc",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "ad7392db-ab2b-4d2b-972e-1b0f08fde923",
             "internal-data": {
                 "text": "ReturnToEmpireStealth",
                 "isunique": false
@@ -107,1071 +1324,1146 @@
         {
             "type": "text_Node",
             "x": 400,
-            "y": 3100,
-            "uuid": "9e5c0a01-d90e-4a90-b403-fbf0f683148d",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 200,
-            "y": 3100,
-            "uuid": "0063c93b-0dd5-4823-9599-71dc53e97072",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 3100,
-            "uuid": "fb3cd258-10c7-41d8-aab5-ed69241bb409",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 800,
-            "y": 3000,
-            "uuid": "9afe071e-a481-43e8-9f0e-a66915f897ca",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 600,
-            "y": 3000,
-            "uuid": "3319e5d6-4c4b-410f-9f5a-1ce485fd16e0",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 3000,
-            "uuid": "2e61e8fc-0e85-4b2d-9db1-cead528f55ba",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 2900,
-            "uuid": "5c2486ec-384c-421b-a89e-48c2008d2571",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2900,
-            "uuid": "1711bc29-51f3-4187-8f89-a330716103e5",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 400,
-            "y": 2900,
-            "uuid": "6479a649-89f9-41cf-b31c-e88e7daa46aa",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 2900,
-            "uuid": "5ae413fd-c336-4ee4-9e3a-5cb663bed878",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 0,
-            "y": 2900,
-            "uuid": "3caf00e6-d21b-409b-b261-9ec02712e8f8",
-            "internal-data": {
-                "text": "ReturnToEmpire",
-                "isunique": false
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 800,
-            "y": 2800,
-            "uuid": "7feec8b4-441a-41d0-9c73-190d9bbb7ebc",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2800,
-            "uuid": "ba91d022-6869-4231-8b38-ea98b7977fde",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 2700,
-            "uuid": "1cdde9e1-5f66-46ac-b6ae-0b9cec6d2d6b",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2700,
-            "uuid": "f8480549-701c-48c3-8487-42da876dc040",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 400,
-            "y": 2700,
-            "uuid": "6a3367f9-d033-4680-a5ab-b00a9cbc4437",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 200,
-            "y": 2700,
-            "uuid": "e900df12-8002-4d96-a605-c607544d7079",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 2600,
-            "uuid": "40152ca3-ccd4-4194-86cb-0e1dbe0a7212",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 200,
-            "y": 2600,
-            "uuid": "0001b45d-0379-470d-9883-bb1158cb8108",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 2600,
-            "uuid": "c9c63db6-3d37-45b6-afa6-abafb007f982",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 800,
-            "y": 2500,
-            "uuid": "7c7d14a2-e123-44d8-8cd6-032905ea2e05",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 2500,
-            "uuid": "baa3d8df-87ef-4f78-9fde-42fc9016fb04",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 200,
-            "y": 2500,
-            "uuid": "e6ba9194-e870-4999-b4d4-03296c4f451c",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 2500,
-            "uuid": "a76c92d3-4c27-46e7-a15c-444e85b7f4fd",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 800,
-            "y": 2400,
-            "uuid": "a0ef0685-b604-49c9-ab32-ac2543880fb2",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2400,
-            "uuid": "fa90d928-d491-474e-922c-e4289386ffd7",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 0,
-            "y": 2400,
-            "uuid": "42ee468e-d915-4d14-9daf-361970375efe",
-            "internal-data": {
-                "text": "InterceptShipment",
-                "isunique": false
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 800,
-            "y": 2300,
-            "uuid": "ad311b70-8e11-484c-9720-293927bb0b54",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 2300,
-            "uuid": "f450e5d4-64f0-4951-978e-59ce17d4ee25",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 2300,
-            "uuid": "2dae8636-c50e-48bd-a05d-b8458a6d52b4",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 200,
-            "y": 2300,
-            "uuid": "995ebd71-dc9b-4ab8-bbe5-d1b3552b058c",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 2300,
-            "uuid": "69970f40-5692-495b-a018-bae7de9f9d4e",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 2200,
-            "uuid": "58a3d24c-8cd6-4d60-81af-93dac40b068f",
-            "internal-data": {
-                "text": "DogEmpireBriefing",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2200,
-            "uuid": "3de88ee0-17e9-4cb0-8955-e5840998c64e",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 2200,
-            "uuid": "69e6af39-9ce5-4f93-b4bb-5006ef298ac9",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 2200,
-            "uuid": "6f3bfcf7-c93f-46c1-b79b-dbe6673dbc77",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 2200,
-            "uuid": "89654017-c755-4b38-bf53-11acc671da27",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 800,
-            "y": 2100,
-            "uuid": "5ef8f8b9-33f1-4321-8252-4c9c7991878f",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 2100,
-            "uuid": "6abf8cac-37b4-47c9-b35c-ab9c3c844584",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 2100,
-            "uuid": "34c60306-4f33-4f78-bb29-8227dce7bacb",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 2000,
-            "uuid": "dc13dd62-dfc0-4005-923d-80c7a15c00d2",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 200,
-            "y": 2000,
-            "uuid": "b365a2d2-3fca-4b94-bd8a-0e79badd49d7",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 2000,
-            "uuid": "50231763-d67e-4980-8c88-af58ecc2cbbf",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 800,
-            "y": 1900,
-            "uuid": "ace40fc4-6a56-4c8c-8312-7fc3a3050fff",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 1900,
-            "uuid": "5c990cba-f218-4312-abe7-27fb95a7e604",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 0,
-            "y": 1900,
-            "uuid": "a2ff2184-5538-42e7-867f-536213403016",
-            "internal-data": {
-                "text": "Dogrewardtask",
-                "isunique": false
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 800,
-            "y": 1800,
-            "uuid": "62e22798-cef2-466d-82a1-16ee36ef6aef",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 1800,
-            "uuid": "0231ba97-f91c-495c-bc9d-bcc8a386a137",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 0,
-            "y": 1800,
-            "uuid": "990544a0-7758-497f-ba52-9067a2adbae5",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 1700,
-            "uuid": "08b5ea4b-8f0a-40f7-8ec1-aa481d4fe47f",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 600,
-            "y": 1700,
-            "uuid": "b29d7924-e06e-41af-82a9-4442e955be1c",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 1700,
-            "uuid": "93476815-5920-41fb-bd2e-450a19aade66",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 1600,
-            "uuid": "274efffd-743e-4504-bd77-f64777222b3e",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 1600,
-            "uuid": "449a680a-91e8-480f-a998-f7054e214ff8",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 1600,
-            "uuid": "751c33e4-e15b-4f4e-8a2f-8c98cca6efa6",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 1600,
-            "uuid": "3fadf2fd-cd5c-4075-b275-b80b76cbd19d",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 800,
-            "y": 1500,
-            "uuid": "be5036a8-e5f1-4ebe-83a7-e36635c80972",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 1500,
-            "uuid": "6d582bd2-d024-4aca-8162-f0c34933e76a",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 1500,
-            "uuid": "854107d5-3324-4c0a-bd09-e8b9bfb69ac2",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 200,
-            "y": 1500,
-            "uuid": "e6e42214-a378-4a37-8f2d-8eefaee255d0",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 1500,
-            "uuid": "3cfd6216-b0ba-4346-9002-34367ceee35f",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 1400,
-            "uuid": "3b7b5542-519a-4954-8924-10b3790e08ce",
-            "internal-data": {
-                "text": "RebelTask",
-                "isunique": false
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 200,
-            "y": 1400,
-            "uuid": "7391a0c8-64ab-402a-aa99-fd2cae8f9d90",
-            "internal-data": {
-                "text": "fedp1",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 1300,
-            "uuid": "29056ffd-56d3-46f5-ac16-118dfe60e97e",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 1300,
-            "uuid": "c6cc2bb7-d50b-4196-8436-26ce44e12f70",
-            "internal-data": {
-                "text": "CatAmbush",
-                "isunique": false
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 400,
-            "y": 1300,
-            "uuid": "523483d8-878b-462b-8f92-fff9e88d1a99",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 1300,
-            "uuid": "7ac086c3-98ef-418c-8ad6-cbd31f37c2c6",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 1200,
-            "uuid": "7cde8405-c1cb-41c9-9a96-ecbd6a417055",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 1200,
-            "uuid": "f9074278-6ebf-4f61-afd6-2385568ff125",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 400,
-            "y": 1200,
-            "uuid": "573d4001-d9ac-4efb-85ab-5cb3e3b15323",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 1100,
-            "uuid": "b1080819-52e4-43fd-8a91-b67fc4f925a4",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 1100,
-            "uuid": "04c272a6-5533-4738-8c6b-d71861eab873",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 1100,
-            "uuid": "5ba9e569-3118-4326-8d88-78a5635b80c7",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 200,
-            "y": 1100,
-            "uuid": "f15016e1-af7f-4c8d-a19b-eb6fe1472990",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 1100,
-            "uuid": "2a52415b-3a4d-4ccc-909a-6978bebbf3a6",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 1000,
-            "uuid": "486a3bf5-44fd-4899-be3b-39e9c7675ac0",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 0,
-            "y": 1000,
-            "uuid": "5425e5e0-d5a7-4a19-a7b1-d6c9036927d4",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 900,
-            "uuid": "908324ac-bc4f-4394-af43-51b606eddfd6",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 600,
-            "y": 900,
-            "uuid": "7212edeb-1d4a-4515-a318-5634b53dcbfa",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 400,
-            "y": 900,
-            "uuid": "84b6319e-33d3-4de6-b411-1c22c34cedb6",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 900,
-            "uuid": "c1b14167-f9de-4b82-8cc6-f18d574ec61a",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 800,
-            "uuid": "78326d88-d4d1-477e-8d64-a8ea60c38345",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 800,
-            "uuid": "c19e8c29-d6f9-40d0-8541-28b7d09633fd",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 400,
-            "y": 800,
-            "uuid": "e78916a2-987f-4adc-9084-c41a70702c34",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "quest_Node",
-            "x": 200,
-            "y": 800,
-            "uuid": "1ae7abca-a98a-49b8-8097-e73b16b7993a",
-            "internal-data": {
-                "text": "",
-                "index": 0
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 700,
-            "uuid": "eaa82a52-6001-4e7f-b57e-18c82fade161",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 700,
-            "uuid": "fb1d1492-9541-41a4-b2e1-6daa8a2c5c6e",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 700,
-            "uuid": "76a4cf2d-693a-47b0-a2a6-96516c176b7f",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 200,
-            "y": 700,
-            "uuid": "95d14fda-324d-4919-af8f-c695580f174a",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 600,
-            "uuid": "201a2eea-5f2f-4c7f-b8b7-4f8cbe05ed2c",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 600,
-            "y": 600,
-            "uuid": "cf0b4f27-92bf-4b28-ab11-9811fdbd360d",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 400,
-            "y": 600,
-            "uuid": "18fe63b7-1dd4-4bf3-9611-d2cf56ed9e0a",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 200,
-            "y": 600,
-            "uuid": "4d857d1d-a030-4ca6-bd2c-8f4818763590",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 0,
-            "y": 600,
-            "uuid": "324590a3-22c6-4011-91c1-829d52e59264",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 500,
-            "uuid": "63696aef-61a0-448f-828d-dce5810604c5",
-            "internal-data": {
-                "text": "dogquestp1",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
-            "y": 400,
-            "uuid": "70bc4a55-b857-4707-bda5-4110bcbb1ca9",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 400,
-            "uuid": "67b889da-3d18-4f1b-b059-37a2d4861876",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 400,
-            "uuid": "df0302ad-044b-4656-a86b-5cbb9dad591b",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 400,
-            "uuid": "dd5b2f5d-695f-4744-84f2-ae17763f155a",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 300,
-            "uuid": "58a432d0-04fd-4f52-a66f-53f82a40ea97",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 300,
-            "uuid": "720378e3-e675-4509-a2bb-06dcd28ad836",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 300,
-            "uuid": "e23ddd8e-10d5-4d6f-937b-47c448d8b996",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 300,
-            "uuid": "883025d4-37a6-44ef-8c0a-c5e0b465cce6",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 800,
-            "y": 200,
-            "uuid": "55c3a0dc-5796-473b-818e-087baa5bc907",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 200,
-            "uuid": "d0b50c83-4ce9-4c9f-b1d8-d16309fd3c5f",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 200,
-            "uuid": "0a1aa706-451e-40f5-983c-a2a6ca9d083c",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 200,
-            "uuid": "286e77dc-583a-4bdf-a939-dad4428a27fc",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 600,
-            "y": 100,
-            "uuid": "828e0e0f-e87d-443c-b93d-22c0f9da7450",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "event_Node",
-            "x": 400,
-            "y": 100,
-            "uuid": "93beca1c-0478-40e1-ab6e-29e2039b0cbd",
-            "internal-data": {
-                "text": "",
-                "isunique": false
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 200,
-            "y": 100,
-            "uuid": "7fc1f4b0-419a-462d-a15b-6532100ec681",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "choice_Node",
-            "x": 0,
-            "y": 100,
-            "uuid": "bff9395e-b478-4379-9124-1b8acf177e22",
-            "internal-data": {
-                "text": ""
-            }
-        },
-        {
-            "type": "text_Node",
-            "x": 800,
             "y": 0,
-            "uuid": "c21d261b-3cd9-4a88-9bee-eebecb475537",
+            "uuid": "24794c23-0ade-4dba-9a02-56f510a749ac",
             "internal-data": {
-                "text": ""
+                "text": "You report back to the Dogian Empire with the shipment. The Emperor praises your cunning and stealth."
+            }
+        },
+        {
+            "type": "choice_Node",
+            "x": 400,
+            "y": 200,
+            "uuid": "666c2e2b-787b-41e0-a192-ee35240f0c82",
+            "internal-data": {}
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "e36a5722-90a2-40fe-9e52-dbeb5f463ab6",
+            "internal-data": {
+                "text": "Report your success"
             }
         },
         {
             "type": "event_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "internal-data": {
+                "text": "",
+                "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
             "x": 600,
             "y": 0,
-            "uuid": "ddb5ae3b-3d6f-407a-9d49-1bdb848586a9",
+            "uuid": "af75d8cd-2361-45b7-86ce-1c9d3096f267",
             "internal-data": {
-                "text": "offer",
+                "text": "\"A true shadow warrior,\" the Emperor remarks, rewarding you with advanced stealth technology and resources."
+            }
+        },
+        {
+            "type": "item_modify",
+            "x": 600,
+            "y": 0,
+            "uuid": "bee1b5a4-34ef-4967-a76c-73cab32f1a97",
+            "internal-data": {}
+        },
+        {
+            "type": "item",
+            "x": 800,
+            "y": 0,
+            "uuid": "05e4b07a-bcda-4a4c-a1f7-a18f3f372163",
+            "internal-data": {}
+        },
+        {
+            "type": "augment",
+            "x": 600,
+            "y": 0,
+            "uuid": "fa26ccee-ec51-4a75-9dc6-8d9b743dcd36",
+            "internal-data": {}
+        },
+        {
+            "type": "quest",
+            "x": 600,
+            "y": 0,
+            "uuid": "252f3ecf-646d-4778-aa03-b2b26e6b7dae",
+            "internal-data": {}
+        },
+        {
+            "type": "event_Node",
+            "x": 200,
+            "y": 0,
+            "uuid": "018b06c3-21e9-46fa-99f8-b3f9b9c8fe3d",
+            "internal-data": {
+                "text": "NextMission",
                 "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "8746128f-7eef-428b-a166-c4763a516df9",
+            "internal-data": {
+                "text": "The Dogian Empire has identified a Rebel-Cat research facility developing a new weapon. Destroying or capturing this facility could turn the tide of the war."
             }
         },
         {
             "type": "event_Node",
             "x": 200,
             "y": 0,
-            "uuid": "a0a36485-095d-49d1-90bc-56972b3fab17",
+            "uuid": "55945ea9-0da9-43dd-9784-eb59247ade2e",
             "internal-data": {
-                "text": "s",
+                "text": "NextStealthMission",
                 "isunique": false
+            }
+        },
+        {
+            "type": "text_Node",
+            "x": 400,
+            "y": 0,
+            "uuid": "278d5f07-f3d8-4e3f-bfad-808b2afb728e",
+            "internal-data": {
+                "text": "An undercover agent has gone missing in Rebel-Cat territory. Your mission is to locate and extract the agent without alerting the enemy."
             }
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "da4c3bea-309c-4306-8a93-e8f3a0b72a14",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "da4c3bea-309c-4306-8a93-e8f3a0b72a14",
+            "end_id": "ed9c4257-1992-40a5-bfd2-94bc3142eaf4",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "64a8ae4d-628e-4b0f-985f-cf5e9304536d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "64a8ae4d-628e-4b0f-985f-cf5e9304536d",
+            "end_id": "44844b4d-afd8-4ae3-bbb2-da5fd28f747b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "64a8ae4d-628e-4b0f-985f-cf5e9304536d",
+            "end_id": "63d1f100-38a0-42d5-9567-116c7f2ad8d3",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "63d1f100-38a0-42d5-9567-116c7f2ad8d3",
+            "end_id": "d894b0bf-2c3e-4ec5-9a28-8f95c7b7f4c2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "63d1f100-38a0-42d5-9567-116c7f2ad8d3",
+            "end_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "end_id": "61b7436d-fdd4-411c-b86c-4ebd48cd2816",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "end_id": "8544ba51-21b6-4103-a8d0-9162b9023692",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "end_id": "bfc965fc-a7ff-4af3-a9eb-bafb95ef08ca",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "bfc965fc-a7ff-4af3-a9eb-bafb95ef08ca",
+            "end_id": "03cb06a8-25d5-4205-b943-f2efb641d0c7",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "bfc965fc-a7ff-4af3-a9eb-bafb95ef08ca",
+            "end_id": "ab355c31-cf58-4918-9c3f-f7b2d0eaba8b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ab355c31-cf58-4918-9c3f-f7b2d0eaba8b",
+            "end_id": "32a6cdb9-966b-48c5-9b84-830a973018a5",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ab355c31-cf58-4918-9c3f-f7b2d0eaba8b",
+            "end_id": "a5b8c19e-fb16-43d8-a863-9ded9739a2bc",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "end_id": "5422950c-6ece-4a35-a95e-2451eab5e74e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "5422950c-6ece-4a35-a95e-2451eab5e74e",
+            "end_id": "3d80882b-91f0-464c-89b9-03a8003c0b6f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "5422950c-6ece-4a35-a95e-2451eab5e74e",
+            "end_id": "8ef8c40a-b7d4-42d5-bace-9ba669c8f0bd",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ef8c40a-b7d4-42d5-bace-9ba669c8f0bd",
+            "end_id": "8f160004-400a-4211-8dcd-c2af6721739f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ef8c40a-b7d4-42d5-bace-9ba669c8f0bd",
+            "end_id": "7b8880b5-1ae6-4def-97eb-78b50eb6a3e1",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f4385800-a899-4a59-995d-13c3e84a7f72",
+            "end_id": "35ae5faa-4765-4633-8477-bd9d30ec2892",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "35ae5faa-4765-4633-8477-bd9d30ec2892",
+            "end_id": "2af4918e-76f7-456d-82e6-7106ce64ec24",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "35ae5faa-4765-4633-8477-bd9d30ec2892",
+            "end_id": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "end_id": "836524df-b127-42f6-bec5-ac917addc415",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "end_id": "77081aef-b816-4c1f-93ea-d768fabdc592",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "end_id": "8b7c89ad-08d2-4590-a832-59f9fcc6e313",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8c82d556-63e8-4c0c-a162-fe9bd0b310ad",
+            "end_id": "138e7db9-c9fc-460a-a76c-359d8d600ae0",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "07e9ef50-7d5c-4665-a938-89d4a2751f2c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "f94eee74-c412-49be-a649-dc9f5c8c619e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "67fdb307-1e44-48b0-967f-9f74ff675854",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "9f6869c2-9164-456e-ac56-49ef7450eb53",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "9f6869c2-9164-456e-ac56-49ef7450eb53",
+            "end_id": "fe610589-fa39-438a-a582-cf1d42402309",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "9f6869c2-9164-456e-ac56-49ef7450eb53",
+            "end_id": "28bc4919-2805-4b7e-a05b-8abdf3084442",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "28bc4919-2805-4b7e-a05b-8abdf3084442",
+            "end_id": "b91e2ef5-a831-4620-9a3f-ebb84fd626b3",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "28bc4919-2805-4b7e-a05b-8abdf3084442",
+            "end_id": "5a5c8e84-2b41-464b-b5ee-135cc0877495",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "28bc4919-2805-4b7e-a05b-8abdf3084442",
+            "end_id": "a48e743a-e5e1-414d-ae62-03767c7c8eb4",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a48e743a-e5e1-414d-ae62-03767c7c8eb4",
+            "end_id": "15f795c0-ee0f-4379-8f26-3a72ba2f355c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a48e743a-e5e1-414d-ae62-03767c7c8eb4",
+            "end_id": "d778e69d-306c-4731-8fe4-a479f49297b2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d778e69d-306c-4731-8fe4-a479f49297b2",
+            "end_id": "27c5fa01-2880-49f4-9cf7-8199fb8dde6a",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d778e69d-306c-4731-8fe4-a479f49297b2",
+            "end_id": "09f4d7c2-3de0-43c8-a620-71d7278a6609",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d778e69d-306c-4731-8fe4-a479f49297b2",
+            "end_id": "c5898030-4205-45bf-8056-33f9cf380385",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "9ea69a13-5cd6-493a-9e84-28e896714224",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "9ea69a13-5cd6-493a-9e84-28e896714224",
+            "end_id": "f8dc4253-4fbc-42e6-bec6-7539c4f57843",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "9ea69a13-5cd6-493a-9e84-28e896714224",
+            "end_id": "4cb29344-120a-4a51-b1d3-53ed62da024d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4cb29344-120a-4a51-b1d3-53ed62da024d",
+            "end_id": "80d01790-7eb8-4fe8-8391-3e7abf9ed173",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4cb29344-120a-4a51-b1d3-53ed62da024d",
+            "end_id": "d24e3e9e-0226-4648-9829-710068966382",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4cb29344-120a-4a51-b1d3-53ed62da024d",
+            "end_id": "6982a8ac-5223-429b-a3ba-002ec034c9f2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55aa5317-21c2-4602-ab32-6383eb39c308",
+            "end_id": "263c7712-eca8-493e-b40c-a3bedeac3521",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "263c7712-eca8-493e-b40c-a3bedeac3521",
+            "end_id": "48ac8584-b935-4875-b1df-ea3812b61392",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "263c7712-eca8-493e-b40c-a3bedeac3521",
+            "end_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "de4b9d08-616f-4a25-a479-897097afecd3",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "25c00dab-3f7a-4411-8aac-5b3c1020b685",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "7e3b1f97-7949-44d7-8104-494e90cbb304",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "bc65207f-739a-47a4-b0b8-83d9956239b2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "378fd6fe-ad51-4ba7-9763-ac77b3476608",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "f5caf595-2d8f-4aa2-a06a-540df56d4431",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f5caf595-2d8f-4aa2-a06a-540df56d4431",
+            "end_id": "42904ce4-7f2f-45bb-8d9e-517cda2acf17",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "f5caf595-2d8f-4aa2-a06a-540df56d4431",
+            "end_id": "6b4abebd-f88d-4f11-a2dd-95c97573e3a2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "6b4abebd-f88d-4f11-a2dd-95c97573e3a2",
+            "end_id": "2a825317-7e02-4ce8-a415-5b6f41d77b91",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "6b4abebd-f88d-4f11-a2dd-95c97573e3a2",
+            "end_id": "b729d5b1-9a0b-4a6f-a951-c4607014d522",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "6b4abebd-f88d-4f11-a2dd-95c97573e3a2",
+            "end_id": "933ab028-33c2-44fb-a616-63a3c35cb64c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "96fa8679-a432-4f50-b996-344ea0efe3d2",
+            "end_id": "304dcf1a-764a-48c1-bc56-38dc0e676888",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "304dcf1a-764a-48c1-bc56-38dc0e676888",
+            "end_id": "69daa482-de2e-4944-9849-d1b32125fffd",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "304dcf1a-764a-48c1-bc56-38dc0e676888",
+            "end_id": "d3210766-7c77-430c-99b7-03a48c2fc6e5",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d3210766-7c77-430c-99b7-03a48c2fc6e5",
+            "end_id": "84b15a7e-cfc2-48bf-85b6-eccda22d7ede",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d3210766-7c77-430c-99b7-03a48c2fc6e5",
+            "end_id": "020cea7f-4e1e-4e45-80b3-b20969a56262",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d3210766-7c77-430c-99b7-03a48c2fc6e5",
+            "end_id": "d1ee24f4-fa9e-40f7-9c14-580b3f7e1bb7",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "ac8191a3-425b-4103-981a-45756a51a5af",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ac8191a3-425b-4103-981a-45756a51a5af",
+            "end_id": "c66a20ac-1504-41e1-8664-1475200f2d72",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ac8191a3-425b-4103-981a-45756a51a5af",
+            "end_id": "7e3bb5bd-c082-4fd8-859a-56951a8ceb01",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "10dcc972-d0c4-4260-9266-94eef04441d5",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "end_id": "1600c2c0-9749-47f0-b6cf-66f0625485de",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "end_id": "94f5d94b-c1be-415e-b85f-5735ff8cc548",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "end_id": "ab1a90a0-904d-4c28-8b3a-74fc7c67a496",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "end_id": "4494fbde-8d25-48cf-a1d3-53bb186d0315",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4494fbde-8d25-48cf-a1d3-53bb186d0315",
+            "end_id": "d3608379-05db-4602-ac3e-ef4a43fa4381",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "4494fbde-8d25-48cf-a1d3-53bb186d0315",
+            "end_id": "25b8c9f8-d78f-4314-8715-22781db3f787",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "25b8c9f8-d78f-4314-8715-22781db3f787",
+            "end_id": "9ee14d4d-cb57-435e-8f47-3be145b0c757",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b79bddab-e450-46d4-9a7a-12e9d33f11f2",
+            "end_id": "b3ec462b-5271-4e8f-80c0-44605f0f173e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b3ec462b-5271-4e8f-80c0-44605f0f173e",
+            "end_id": "c8baffad-2711-4340-b329-ba7a3dd3553e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b3ec462b-5271-4e8f-80c0-44605f0f173e",
+            "end_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "end_id": "4cc548e5-7cb2-4c97-9a40-7af1e9e1df1c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "end_id": "3336716c-0c33-48bc-9652-7ae0e217b65b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3336716c-0c33-48bc-9652-7ae0e217b65b",
+            "end_id": "a1f79e58-24cc-48b9-91e2-3df89964e2e0",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "end_id": "2ecd346b-3adb-4e6e-9d06-857f2cef0c62",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "end_id": "1949878a-de91-4fea-a61e-abf165f6d986",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "986bb579-5a35-4eae-9e40-7d8254b174b4",
+            "end_id": "e8089f86-85a3-4f6c-943d-ae845b4b5946",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "e8089f86-85a3-4f6c-943d-ae845b4b5946",
+            "end_id": "5d8efa52-cf98-4934-95b7-985f82e488fd",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "e8089f86-85a3-4f6c-943d-ae845b4b5946",
+            "end_id": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "end_id": "032bde8f-d487-4a27-8d06-3936692fa375",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "end_id": "1bc037e2-e74d-40df-a515-de28c1feb55d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "end_id": "285efdf7-3475-4ef1-9ad2-9855d1ce78b0",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d35ea805-f555-4217-b9c2-4c42abffa706",
+            "end_id": "b9bbc3af-5755-4709-986b-c6b8a0df46eb",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "end_id": "d91f72b9-c314-4169-9df9-c7e4823979c1",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "end_id": "c34a0375-2b7e-4b90-ac7e-3d995c53c060",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "end_id": "6c74a67c-bfcc-44de-86cf-4cd45a267c58",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "end_id": "8052d7d0-f265-4c5d-a76b-5e9f20f2cb41",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8052d7d0-f265-4c5d-a76b-5e9f20f2cb41",
+            "end_id": "a3b420e2-4560-42a6-b572-968cac859f50",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8052d7d0-f265-4c5d-a76b-5e9f20f2cb41",
+            "end_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "17f92677-5ef4-46f9-a529-133c632938a9",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "b60840d7-beaa-4d96-931b-2df63ccaaf9b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b60840d7-beaa-4d96-931b-2df63ccaaf9b",
+            "end_id": "fa30afaa-2345-4f42-a2b6-a536f893dac9",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "6187b721-4250-4096-a955-820ec0c6b3d9",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "22cdf741-5bb2-4789-9e03-52f5aad8272f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "6deb743a-6c79-4a59-bf33-63f6b970c8f2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "20ebc535-89f1-4cb3-91ad-ed4c89c7bb5f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3aeb76a6-05d7-4474-bcfe-db2b325ea863",
+            "end_id": "12805b49-7862-4926-af1b-aa73f72093ae",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d9901f0b-de19-46c8-8307-b30d6dc33092",
+            "end_id": "ce192b9b-df2a-497e-9ea9-97b278221c19",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ce192b9b-df2a-497e-9ea9-97b278221c19",
+            "end_id": "9c9c9a3f-edf2-41de-803e-118cb6458ca9",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ce192b9b-df2a-497e-9ea9-97b278221c19",
+            "end_id": "8fa5e206-fe7a-466d-9949-626e414f5284",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8fa5e206-fe7a-466d-9949-626e414f5284",
+            "end_id": "77df5e66-5ecc-4208-9aae-9d04947bb7bc",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "15a4b840-5658-41c9-ae02-2dd8fd7b9c7b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "15a4b840-5658-41c9-ae02-2dd8fd7b9c7b",
+            "end_id": "7d4464a9-33b5-4498-8537-2093448b8b7e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "15a4b840-5658-41c9-ae02-2dd8fd7b9c7b",
+            "end_id": "b975f10e-70c0-4af4-b5d1-1da054dfb40b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b975f10e-70c0-4af4-b5d1-1da054dfb40b",
+            "end_id": "9e6a41a8-2fea-4b61-8c5b-dfd1039ab01c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b975f10e-70c0-4af4-b5d1-1da054dfb40b",
+            "end_id": "2cd8ebde-677e-47a1-98d7-39dc87c25790",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "2cd8ebde-677e-47a1-98d7-39dc87c25790",
+            "end_id": "b244fac7-4f7d-45fb-98c3-32d4d4795e0f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "end_id": "09d0d820-9b32-4d57-828f-40ffd2a2b632",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "end_id": "f2bf07db-e90f-45db-9536-f9daeffbc48b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "end_id": "a4c863ad-7d0e-4ca2-ba81-e6445cf5e87b",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "end_id": "25b37638-55c0-48a3-8f9e-8f757870b1cd",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "25b37638-55c0-48a3-8f9e-8f757870b1cd",
+            "end_id": "fbb9fb37-13b7-42d0-85d8-9d9bf2b50967",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "25b37638-55c0-48a3-8f9e-8f757870b1cd",
+            "end_id": "dd6f851d-a262-4d94-8773-e61541742044",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "dd6f851d-a262-4d94-8773-e61541742044",
+            "end_id": "18e810b4-cb50-4e07-8e12-62e7ac11f132",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "dd6f851d-a262-4d94-8773-e61541742044",
+            "end_id": "d5ffd051-25fd-41f6-91f0-a814e525542d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "dd6f851d-a262-4d94-8773-e61541742044",
+            "end_id": "68cfe109-0e97-4048-93f2-24ab7d559719",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "68cfe109-0e97-4048-93f2-24ab7d559719",
+            "end_id": "912dcd09-5d70-4d2f-b00d-13a7ec255d71",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "68cfe109-0e97-4048-93f2-24ab7d559719",
+            "end_id": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "end_id": "5f304b1a-704d-4678-9883-39a58c9a15c2",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "end_id": "b5e17d83-c86c-4765-911c-b2e44de4e8c4",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b5e17d83-c86c-4765-911c-b2e44de4e8c4",
+            "end_id": "1cefe522-5434-4f64-9164-65394ddb54a6",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "end_id": "6c0425d8-3ad8-4a31-a882-d2e237be7660",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a4786381-0f80-4e08-abc5-348f7fb8e45e",
+            "end_id": "4d853abe-1c0c-4d7d-b2b9-16d3cdb63a7d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "7e559887-26ea-42d3-94b5-26e33e830692",
+            "end_id": "a1c08465-eb70-4dfe-8d4f-1d0a6fcb9fcd",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a1c08465-eb70-4dfe-8d4f-1d0a6fcb9fcd",
+            "end_id": "1439ae2e-edd4-4cab-96d9-8504dd94243a",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "a1c08465-eb70-4dfe-8d4f-1d0a6fcb9fcd",
+            "end_id": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "end_id": "dd9af88a-fc84-4743-8cf6-d105a82ba1b4",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "end_id": "bee9e010-73ed-41f7-b646-680cf130f011",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "bee9e010-73ed-41f7-b646-680cf130f011",
+            "end_id": "86cabfd1-0806-4d90-b393-5e6313e36d05",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "end_id": "6bc998c3-f630-4c48-9f8b-93c536142f4e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "8ba0b6c1-30c2-4329-aca1-68112ae78cef",
+            "end_id": "fb669126-30ee-425a-a005-8cc44a4d2c82",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "e778f8a5-b4dd-485a-8d19-e5a5f3fc02b3",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "e778f8a5-b4dd-485a-8d19-e5a5f3fc02b3",
+            "end_id": "1e823b50-d5a1-4105-84ee-c6a3a48b6e0f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "e778f8a5-b4dd-485a-8d19-e5a5f3fc02b3",
+            "end_id": "dbd41611-fad8-4a4c-a9f7-4a1d3765a8cf",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "dbd41611-fad8-4a4c-a9f7-4a1d3765a8cf",
+            "end_id": "43ce4659-3ece-40ac-8542-37c54e117a7f",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "dbd41611-fad8-4a4c-a9f7-4a1d3765a8cf",
+            "end_id": "83874d79-09f0-48b5-9263-85f5b01f250e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "83874d79-09f0-48b5-9263-85f5b01f250e",
+            "end_id": "32183d28-b1c9-42df-9ed2-ce1091004549",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "83874d79-09f0-48b5-9263-85f5b01f250e",
+            "end_id": "d139babc-005e-4178-88f8-cfbb4e365212",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "d139babc-005e-4178-88f8-cfbb4e365212",
+            "end_id": "7040ea22-fa31-4925-a7a2-6a97b6fe98f7",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "83874d79-09f0-48b5-9263-85f5b01f250e",
+            "end_id": "aa7d1fa8-82a4-401c-ba19-381a15304e8c",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "e778f8a5-b4dd-485a-8d19-e5a5f3fc02b3",
+            "end_id": "698cf112-282b-49c5-b998-c94217a1b2d6",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "698cf112-282b-49c5-b998-c94217a1b2d6",
+            "end_id": "0e3eed63-7ef3-4789-a531-8c6d401e89a8",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "698cf112-282b-49c5-b998-c94217a1b2d6",
+            "end_id": "5e2d7782-3cfa-4afb-a4c4-e3a288f8969a",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "5e2d7782-3cfa-4afb-a4c4-e3a288f8969a",
+            "end_id": "db182012-e802-40f9-b387-2bdf0da3e128",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "5e2d7782-3cfa-4afb-a4c4-e3a288f8969a",
+            "end_id": "4c815c0f-2c40-4962-97a2-34b4b233f3dc",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "ad7392db-ab2b-4d2b-972e-1b0f08fde923",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ad7392db-ab2b-4d2b-972e-1b0f08fde923",
+            "end_id": "24794c23-0ade-4dba-9a02-56f510a749ac",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "ad7392db-ab2b-4d2b-972e-1b0f08fde923",
+            "end_id": "666c2e2b-787b-41e0-a192-ee35240f0c82",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "666c2e2b-787b-41e0-a192-ee35240f0c82",
+            "end_id": "e36a5722-90a2-40fe-9e52-dbeb5f463ab6",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "666c2e2b-787b-41e0-a192-ee35240f0c82",
+            "end_id": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "end_id": "af75d8cd-2361-45b7-86ce-1c9d3096f267",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "end_id": "bee1b5a4-34ef-4967-a76c-73cab32f1a97",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "bee1b5a4-34ef-4967-a76c-73cab32f1a97",
+            "end_id": "05e4b07a-bcda-4a4c-a1f7-a18f3f372163",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "end_id": "fa26ccee-ec51-4a75-9dc6-8d9b743dcd36",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "b4b7efe7-fd9b-497a-9e7e-3444a42f1538",
+            "end_id": "252f3ecf-646d-4778-aa03-b2b26e6b7dae",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "018b06c3-21e9-46fa-99f8-b3f9b9c8fe3d",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "018b06c3-21e9-46fa-99f8-b3f9b9c8fe3d",
+            "end_id": "8746128f-7eef-428b-a166-c4763a516df9",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "3a9d0beb-b192-48fb-b886-cf954688fa5a",
+            "end_id": "55945ea9-0da9-43dd-9784-eb59247ade2e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        },
+        {
+            "start_id": "55945ea9-0da9-43dd-9784-eb59247ade2e",
+            "end_id": "278d5f07-f3d8-4e3f-bfad-808b2afb728e",
+            "start_pin": "Ex Out",
+            "end_pin": "Ex In"
+        }
+    ]
 }
