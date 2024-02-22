@@ -215,7 +215,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
     def load_project(self, project_path=None, loadscene=True, loadfile=None):
         if not project_path:
             return
-        # e = []
+        e = []
         project_path = Path(project_path)
         if project_path.exists() and project_path.is_dir():
             self.project_path = project_path
@@ -226,9 +226,9 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                 if not file.stem.endswith("_node"):
                     print("file:", file.stem)
                     continue
-                # with open(file, "r") as f:
-                #    for i in f.readlines():
-                #        e.append(i)
+                with open(file, "r") as f:
+                   for i in f.readlines():
+                       e.append(i)
                 spec = importlib.util.spec_from_file_location(file.stem, file)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
@@ -240,7 +240,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                         self.imports[obj.__name__] = {"class": obj, "module": module}
             if not loadfile:
                 self.node_list.update_project(self.imports)
-            # pyperclip.copy(str(e))
+            pyperclip.copy(str(e))
             # work on just the first json file. add the ability to work on multiple json files later
             if loadscene:
                 for json_path in project_path.glob("*.json"):
