@@ -126,7 +126,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
         self.shortcut.activated.connect(self.save_project)
         self.sele = QShortcut(QKeySequence("Ctrl+A"), self)
-        self.shortcut.activated.connect(self.selectall)
+        self.shortcut.activated.connect(self.node_widget.node_editor.selectall)
         # Load the example project
         self.project_path = Path(__file__).parent.resolve() / "nodes"
         self.scenes_path = Path(__file__).parent.resolve() / "scenes"
@@ -160,8 +160,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.dock_console.setWidget(self.console_output)
 
         # Redirect stdout and stderr to console output
-        #sys.stdout = StreamRedirect(self.console_output, sys.stdout)
-        #sys.stderr = StreamRedirect(self.console_output, sys.stderr)
+        sys.stdout = StreamRedirect(self.console_output, sys.stdout)
+        sys.stderr = StreamRedirect(self.console_output, sys.stderr)
 
     def setsimulationloc(
         self,
