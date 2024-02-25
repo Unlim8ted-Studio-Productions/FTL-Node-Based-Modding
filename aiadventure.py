@@ -1,17 +1,38 @@
+import os
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from torch.utils.data import Dataset, DataLoader
 import xml.etree.ElementTree as ET
 from asciitree import Traversal
+from pathlib import Path
 
 
 # Define a dataset class to load and preprocess the XML data
 class FTLDataSet(Dataset):
     def __init__(self, file_path, tokenizer):
+        """Initializes the object with a file path and a tokenizer.
+        Parameters:
+            - file_path (str): Path to the file containing the data.
+            - tokenizer (Tokenizer): Tokenizer object used to tokenize the data.
+        Returns:
+            - None: This function does not return anything.
+        Processing Logic:
+            - Load data from the given file.
+            - Initialize the tokenizer object.
+            - Assign the loaded data and tokenizer to the object."""
         self.data = self.load_data(file_path)
         self.tokenizer = tokenizer
 
     def load_data(self, file_path):
+        """Loads data from a given file path.
+        Parameters:
+            - file_path (str): Path to the file to be loaded.
+        Returns:
+            - elements_list (list): List of elements from the loaded file.
+        Processing Logic:
+            - Open file and read contents.
+            - Split text by event with name.
+            - Return elements list up to specified number of samples."""
         with open(file_path, "r", encoding="utf8") as file:
             tree = file.read()
 
@@ -20,6 +41,16 @@ class FTLDataSet(Dataset):
         # Function to traverse the ElementTree and append elements to the list
 
     def split_text_by_event_with_name(self, xml_string):
+        """Splits text by event with name.
+        Parameters:
+            - xml_string (str): XML string to be parsed.
+        Returns:
+            - events (list): List of XML strings of events with name.
+        Processing Logic:
+            - Parse XML string into root.
+            - Loop through all events with name.
+            - Append current event to list.
+            - Return list of events."""
         events = []
         root = ET.fromstring(xml_string)
         current_event = None
@@ -35,9 +66,26 @@ class FTLDataSet(Dataset):
         return events
 
     def __len__(self):
+        """ "Returns the length of the data attribute."
+        Parameters:
+            - self (object): The object being passed in.
+        Returns:
+            - int: The length of the data attribute.
+        Processing Logic:
+            - Uses the len() function.
+            - Returns the length of the data attribute."""
         return len(self.data)
 
     def __getitem__(self, idx):
+        """Returns tokenized text from XML data at specified index.
+        Parameters:
+            - idx (int): Index of XML data to be tokenized.
+        Returns:
+            - tokenized_text (tensor): Tokenized text from XML data at specified index.
+        Processing Logic:
+            - Get XML text at specified index.
+            - Tokenize XML text using specified tokenizer.
+            - Return tokenized text."""
         xml_text = self.data[idx]
         tokenized_text = self.tokenizer(
             xml_text, return_tensors="pt", padding=True, truncation=True
@@ -185,25 +233,29 @@ def train_model(
     with tqdm(
         iterable=num_epochs, desc="Training", total=num_epochs, unit="epochs"
     ) as pbar:
+        model.train()
         for epoch in range(num_epochs):
-            model.train()
             total_loss = 0
             for batch in dataloader:
                 # Move batch to device
-                batch = {k: v.to(device) for k, v in batch.items()}
+                batch = {
+                    key: value.to(device) for key, value in batch.items()
+                }  # makes new dictionary but is on device
 
                 # Forward pass
                 outputs = model(**batch, labels=batch["input_ids"])
 
                 # Compute loss
-                loss = outputs.loss
+                loss = (
+                    outputs.loss
+                )  # takes a sentance blanks out some of the words and then tries to guess the missing words
 
                 # Backward pass
                 loss.backward()
 
                 # Update weights
-                optimizer.step()
-                optimizer.zero_grad()
+                optimizer.step()  # update optimizer which will change model
+                optimizer.zero_grad()  # get rid of gradients
 
                 total_loss += loss.item()
 
@@ -212,7 +264,7 @@ def train_model(
             pbar.update(epoch + 1)
 
     # Save the trained model
-    model.save_pretrained("trained_model")
+    model.save_pretrained("trained_model", safe_serialization=True)
 
 
 from tqdm import tqdm  # Import tqdm for the loading bar
@@ -256,7 +308,8 @@ def main():
     The generated text is then printed."""
 
     # Define the model and tokenizer
-    device = torch.device("cpu")  # ("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(device)
     model_name = "gpt2-medium"
 
     with tqdm(desc="Loading tokenizer", total=100) as pbar:
@@ -267,7 +320,11 @@ def main():
         # Set padding token to eos_token
         tokenizer.pad_token = tokenizer.eos_token
         with tqdm(desc="Loading model and pushing to device", total=100) as pbar:
-            model = GPT2LMHeadModel.from_pretrained(model_name).to(device)
+            if os.path.exists(Path("trained_model")):
+                model = GPT2LMHeadModel.from_pretrained("trained_model").to(device)
+            else:
+                model = GPT2LMHeadModel.from_pretrained(model_name).to(device)
+
             pbar.update(100)
 
         dataset = FTLDataSet("AIdata\\ftl_data.xml", tokenizer)
@@ -285,7 +342,9 @@ def main():
 
     prompt = "Upon arriving at this beacon"
     print("Generating text based on the prompt...")
-    generated_text = generate_text(prompt, tokenizer, model)
+    generated_text = generate_text(
+        prompt, tokenizer, model, int(input("max lenght (int)"))
+    )
     print("Generated Text:", generated_text)
 
 
