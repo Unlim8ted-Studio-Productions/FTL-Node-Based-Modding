@@ -1,5 +1,5 @@
 from xml.dom.minidom import parseString
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 
 def convert_connections(nodes: list, connections: list):
@@ -170,19 +170,24 @@ def save_file(xml):
 
 
 def compile(scene):
-    # print("base scene: " + json.dumps(a, indent = 4))
-    # print(json.dumps(b["nodes"], indent=4))
-    # print("sorted: " + json.dumps(b, indent=4))
-    b = convert_connections(scene["nodes"], scene["connections"])
-    # print("converted connections: " + json.dumps(b, indent=4))
-    b = sort_nodes_based_on_connections(scene["nodes"], scene["connections"])
-    # b = {"nodes": b, "connections": a["connections"]}
-    b = convert_to_xml(b, scene)
-    try:
-        print(parseString(b).toprettyxml())
-        xml = parseString(b).toprettyxml()
-    except:
-        print(b)
-        xml = b
+    if scene == {"nodes": [], "connections": []}:
+        messagebox.showinfo(
+            "Message", "In order to compile to xml you need to first save your project."
+        )
+    else:
+        # print("base scene: " + json.dumps(a, indent = 4))
+        # print(json.dumps(b["nodes"], indent=4))
+        # print("sorted: " + json.dumps(b, indent=4))
+        b = convert_connections(scene["nodes"], scene["connections"])
+        # print("converted connections: " + json.dumps(b, indent=4))
+        b = sort_nodes_based_on_connections(scene["nodes"], scene["connections"])
+        # b = {"nodes": b, "connections": a["connections"]}
+        b = convert_to_xml(b, scene)
+        try:
+            print(parseString(b).toprettyxml())
+            xml = parseString(b).toprettyxml()
+        except:
+            print(b)
+            xml = b
 
-    save_file(xml)
+        save_file(xml)
