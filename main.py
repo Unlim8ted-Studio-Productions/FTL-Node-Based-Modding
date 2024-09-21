@@ -227,8 +227,8 @@ class NodeEditorTab(QtWidgets.QMainWindow):
                     print("file:", file.stem)
                     continue
                 with open(file, "r") as f:
-                   for i in f.readlines():
-                       e.append(i)
+                    for i in f.readlines():
+                        e.append(i)
                 spec = importlib.util.spec_from_file_location(file.stem, file)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
@@ -555,44 +555,243 @@ class Simulator(QtWidgets.QWidget):
         self.layoutt.addWidget(label)
 
         # print(choice_node)
-        for i in range(10):
-            try:
-                text = self.findchoicetext(choice_node, i)
-                if not text:
-                    text = (
-                        f"Choice {i} (No connection)"  # Default text if no connection
-                    )
+        try:
+            text = self.findchoicetext(choice_node, 0)
+            if not text:
+                text = f"Choice {0} (No connection)"  # Default text if no connection
 
-                btn = QtWidgets.QPushButton(text)
-                btn.clicked.connect(
-                    lambda choice=i: self.make_choice(choice_node, choice)
-                )
-                print(self.layoutt.sizeHint().height())
-                btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
-                self.layoutt.addWidget(btn)
-            except:  # Exception as e:
-                None
-                # print("error: " + str(e))
-                # btn = QtWidgets.QPushButton("error: " + str(e))
-                # btn.clicked.connect(
-                #    lambda _, choice=i: self.make_choice(choice_node, choice)
-                # )
-                # self.layoutt.addWidget(btn)
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 0))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+        try:
+            text = self.findchoicetext(choice_node, 1)
+            if not text:
+                text = f"Choice {1} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 1))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+        try:
+            text = self.findchoicetext(choice_node, 2)
+            if not text:
+                text = f"Choice {2} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 2))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+        try:
+            text = self.findchoicetext(choice_node, 3)
+            if not text:
+                text = f"Choice {3} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 3))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 4)
+            if not text:
+                text = f"Choice {4} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 4))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 5)
+            if not text:
+                text = f"Choice {5} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 5))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 6)
+            if not text:
+                text = f"Choice {6} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 6))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 7)
+            if not text:
+                text = f"Choice {7} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 7))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 8)
+            if not text:
+                text = f"Choice {8} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 8))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 9)
+            if not text:
+                text = f"Choice {9} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 9))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+        try:
+            text = self.findchoicetext(choice_node, 10)
+            if not text:
+                text = f"Choice {10} (No connection)"  # Default text if no connection
+
+            btn = QtWidgets.QPushButton(text)
+            btn.clicked.connect(lambda: self.make_choice(choice_node, 10))
+            print(self.layoutt.sizeHint().height())
+            btn.setGeometry(btn.x(), 36, btn.width(), btn.height())
+            self.layoutt.addWidget(btn)
+        except:  # Exception as e:
+            None
+            # print("error: " + str(e))
+            # btn = QtWidgets.QPushButton("error: " + str(e))
+            # btn.clicked.connect(
+            #    lambda _, choice=i: self.make_choice(choice_node, choice)
+            # )
+            # self.layoutt.addWidget(btn)
+
+    def create_continue_button(self, current_node_uuid):
+        btn_continue = QtWidgets.QPushButton("Continue")
+        btn_continue.clicked.connect(
+            lambda: self.continue_to_next_node(current_node_uuid)
+        )
+        self.layoutt.addWidget(btn_continue)
+
+    def continue_to_next_node(self, current_node_uuid):
+        next_node = self.find_next_node(current_node_uuid, "Ex Out")
+        if next_node:
+            self.inspect_node(next_node["uuid"])
+        else:
+            print("No next node found.")
 
     def create_event_ui(self, event_node):
         label = QtWidgets.QLabel(event_node["internal-data"]["text"])
         self.layoutt.addWidget(label)
-        # Add any additional UI elements for event nodes
+        self.create_continue_button(event_node["uuid"])  # Add the continue button
 
     def create_text_ui(self, text_node):
         label = QtWidgets.QLabel(text_node["internal-data"]["text"])
         self.layoutt.addWidget(label)
+        self.create_continue_button(text_node["uuid"])  # Add the continue button
 
     def make_choice(self, choice_node, choice_index):
         # Simplified for demonstration
+        print(choice_index)
         next_node = self.find_next_node(
             choice_node["uuid"], f"Choice Output{choice_index}"
         )
+        print(next_node)
         next_node = self.find_next_node(next_node["uuid"], "Ex Out")
         if next_node:
             self.inspect_node(next_node["uuid"])
