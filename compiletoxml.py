@@ -1,5 +1,7 @@
+import os
 from xml.dom.minidom import parseString
 from tkinter import filedialog, messagebox
+import xml.etree.ElementTree as ET
 
 
 def convert_connections(nodes: list, connections: list):
@@ -157,6 +159,20 @@ def sort_nodes_based_on_connections(nodes, connections):
     return sorted_nodes
 
 
+def get_first_event_name(xml_data):
+    # Parse the XML data
+    root = ET.fromstring(xml_data)
+
+    # Find the first 'event' element
+    first_event = root.find(".//event")
+
+    # Check if an event element was found and get its 'name' attribute
+    if first_event is not None and "name" in first_event.attrib:
+        return first_event.attrib["name"]
+    else:
+        return None
+
+
 def save_file(xml):
     # Open the save as file dialog
     file_path = filedialog.asksaveasfilename(
@@ -169,6 +185,11 @@ def save_file(xml):
         print(f"File will be saved to: {file_path}")
         with open(file_path, "w") as file:
             file.write(xml)
+        directory = os.path.dirname(file_path)
+        with open("directory/sector_data.xml.append", "w") as file:
+            file.write(
+                f'<sectorDescription name="STANDARD_SPACE" minSector="0" unique="false"><startEvent>{get_first_event_name(xml)}</startEvent></sectorDescription>'
+            )
 
 
 def compile(scene):
