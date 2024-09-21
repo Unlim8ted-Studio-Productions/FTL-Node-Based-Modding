@@ -347,3 +347,59 @@ def compile(scene):
 
 if __name__ == "__main__":
     compile(a)
+
+
+# for some reason the code above is outputting:
+#
+# <FTL>
+#        <unknown/>
+#        <event name="example" unique="True">
+#                <text>A zoltan ship hails you</text>
+#                <choice>
+#                        <text>attack!</text>
+#                        <event>
+#                                <playSound/>
+#                                <ship name="enemy-zoltan" auto_blueprint=""/>
+#                                <ship>load='enemy-zoltan' hostile='True'</ship>
+#                        </event>
+#                </choice>
+#        </event>
+#        <choice>
+#                <text>Tell them about your mission and ask for supplies</text>
+#                <event>
+#                        <text>They give you some supplies to help you on your quest</text>
+#                        <item type="scrap" amount="20"/>
+#                </event>
+#        </choice>
+# </FTL>
+#
+#
+# instead of outputting this:
+#
+# <FTL>
+#        <event name="example" unique="True">
+#                <text>A zoltan ship hails you</text>
+#                <choice>
+#                        <text>attack!</text>
+#                        <event>
+#                                <playSound/>
+#                                <ship name="enemy-zoltan" auto_blueprint=""/>
+#                                <ship>load='enemy-zoltan' hostile='True'</ship>
+#                        </event>
+#                </choice>
+#                <choice>
+#                <text>Tell them about your mission and ask for supplies</text>
+#                <event>
+#                        <text>They give you some supplies to help you on your quest</text>
+#                        <item type="scrap" amount="20"/>
+#                </event>
+#                </choice>
+#        </event>
+# </FTL>
+#
+#
+# It seems like this is because it is doing one choice branch and then if that one
+# has the end event node it adds the </event> tag we can fix this by
+# doing the choice branch resulting in the end event last. In order to
+# code this we have to change the sorting function.
+#
