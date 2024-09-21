@@ -87,6 +87,8 @@ def convert_node_to_xml(node, nodes, uuid, scene):
         return "<store></store>"
     elif node_type == "end_of_event_Node":
         return "</event>"
+    elif node_type == "start_Node":
+        return ""
     else:
         # print(node_type)
         return "<unknown></unknown>"
