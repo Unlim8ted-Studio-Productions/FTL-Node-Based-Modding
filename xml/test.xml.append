@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<FTL>
+	<unknown/>
+	<event name="example" unique="True">
+		<text>A zoltan ship hails you</text>
+		<choice>
+			<text>Tell them about your mission and ask for supplies</text>
+			<event>
+				<text>They give you some supplies to help you on your quest</text>
+				<item type="scrap" amount="20"/>
+			</event>
+		</choice>
+		<choice>
+			<text>attack!</text>
+			<event>
+				<playSound/>
+				<ship name="enemy-zoltan" auto_blueprint=""/>
+				<ship load='enemy-zoltan' hostile='True'></ship>
+			</event>
+		</choice>
+	</event>
+</FTL>

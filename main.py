@@ -120,7 +120,7 @@ class NodeEditorTab(QtWidgets.QMainWindow):
         self.selected = None
 
         compilea = QtGui.QAction("Compile to xml format", self)
-        compilea.triggered.connect(xmlcomp)
+        compilea.triggered.connect(lambda: xmlcomp(self.scene))
         file_menu.addAction(compilea)
 
         self.shortcut = QShortcut(QKeySequence("Ctrl+S"), self)

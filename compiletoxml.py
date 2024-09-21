@@ -60,7 +60,7 @@ def convert_node_to_xml(node, nodes, uuid, scene):
         beacon = places[internal_data["index"]]
         return f"<quest beacon='{beacon}' event='{internal_data['text']}'></quest>"
     elif node_type == "loadship_Node":
-        return f"<ship name='{internal_data['text']}' auto_blueprint='{internal_data.get('autoblueprint')}'></ship><ship>load='{internal_data.get('text')}' hostile='{internal_data.get('ishostile')}'</ship>"
+        return f"<ship name='{internal_data['text']}' auto_blueprint='{internal_data.get('autoblueprint')}'></ship><ship load='{internal_data.get('text')}' hostile='{internal_data.get('ishostile')}'></ship>"
     elif node_type == "item_modify_Node":
         return "<item_modify></item_modify>"
     elif node_type == "Reward_Node":
@@ -155,35 +155,34 @@ def sort_nodes_based_on_connections(nodes, connections):
     return sorted_nodes
 
 
-def save_file():
+def save_file(xml):
     # Open the save as file dialog
     file_path = filedialog.asksaveasfilename(
-        defaultextension=".txt",
-        filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
+        defaultextension=".xml.append",
+        filetypes=[("XML files", "*.xml.append;"), ("All files", "*.*")],
         title="Save as",
     )
     # Check if a file path was selected
     if file_path:
         print(f"File will be saved to: {file_path}")
-        # Here you can add the logic to save the actual data to the file at the specified path
-        # Example:
-        # with open(file_path, 'w') as file:
-        #     file.write("Your data here")
+        with open(file_path, "w") as file:
+            file.write(xml)
 
 
 def compile(scene):
-    a = scene
     # print("base scene: " + json.dumps(a, indent = 4))
     # print(json.dumps(b["nodes"], indent=4))
     # print("sorted: " + json.dumps(b, indent=4))
-    b = convert_connections(a["nodes"], a["connections"])
+    b = convert_connections(scene["nodes"], scene["connections"])
     # print("converted connections: " + json.dumps(b, indent=4))
-    b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
+    b = sort_nodes_based_on_connections(scene["nodes"], scene["connections"])
     # b = {"nodes": b, "connections": a["connections"]}
     b = convert_to_xml(b, scene)
     try:
         print(parseString(b).toprettyxml())
-        return parseString(b).toprettyxml()
+        xml = parseString(b).toprettyxml()
     except:
         print(b)
-        return b
+        xml = b
+
+    save_file(xml)
