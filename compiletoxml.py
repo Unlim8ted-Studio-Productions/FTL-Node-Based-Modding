@@ -1,196 +1,5 @@
-import json
 from xml.dom.minidom import parseString
-
-a = {
-    "nodes": [
-        {
-            "type": "end_branch_Node",
-            "x": 5969,
-            "y": 4904,
-            "uuid": "095004db-9151-4375-ac7a-6d2d36c6279f",
-            "internal-data": {},
-        },
-        {
-            "type": "end_branch_Node",
-            "x": 6007,
-            "y": 4674,
-            "uuid": "b1e6bcb1-bc01-440f-bcfb-1c7493944f4f",
-            "internal-data": {},
-        },
-        {
-            "type": "Reward_Node",
-            "x": 5734,
-            "y": 4725,
-            "uuid": "468cf1dc-4d15-46a9-958f-1b27b7353820",
-            "internal-data": {"amount": 20, "index": 0},
-        },
-        {
-            "type": "text_Node",
-            "x": 5551,
-            "y": 4751,
-            "uuid": "4142a167-4f62-469a-967a-6814ca3c4fc3",
-            "internal-data": {
-                "text": "They give you some supplies to help you on your quest"
-            },
-        },
-        {
-            "type": "loadship_Node",
-            "x": 5699,
-            "y": 4947,
-            "uuid": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
-            "internal-data": {
-                "text": "enemy-zoltan",
-                "ishostile": True,
-                "autoblueprint": "",
-            },
-        },
-        {
-            "type": "loadsound_Node",
-            "x": 5348,
-            "y": 5098,
-            "uuid": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
-            "internal-data": {"filepath": ""},
-        },
-        {
-            "type": "playsound_Node",
-            "x": 5514,
-            "y": 4927,
-            "uuid": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "internal-data": {},
-        },
-        {
-            "type": "text_Node",
-            "x": 5353,
-            "y": 4952,
-            "uuid": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "internal-data": {"text": "attack!"},
-        },
-        {
-            "type": "text_Node",
-            "x": 5380,
-            "y": 4778,
-            "uuid": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "internal-data": {
-                "text": "Tell them about your mission and ask for supplies"
-            },
-        },
-        {
-            "type": "text_Node",
-            "x": 4973,
-            "y": 4869,
-            "uuid": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
-            "internal-data": {"text": "A zoltan ship hails you"},
-        },
-        {
-            "type": "event_Node",
-            "x": 4814,
-            "y": 4920,
-            "uuid": "23e4b45c-461f-4a65-a112-5af01b77df81",
-            "internal-data": {"text": "example", "isunique": True},
-        },
-        {
-            "type": "choice_Node",
-            "x": 5155,
-            "y": 4866,
-            "uuid": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "internal-data": {},
-        },
-        {
-            "type": "start_Node",
-            "x": 4571,
-            "y": 4897,
-            "uuid": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
-            "internal-data": {},
-        },
-        {
-            "type": "end_of_event_Node",
-            "x": 6195,
-            "y": 4943,
-            "uuid": "0dba10cf-7f51-42b2-8c1e-3429c92eca2c",
-            "internal-data": {},
-        },
-    ],
-    "connections": [
-        {
-            "start_id": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
-            "end_id": "095004db-9151-4375-ac7a-6d2d36c6279f",
-            "start_pin": "Ex Out",
-            "end_pin": "input",
-        },
-        {
-            "start_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
-            "end_id": "b1e6bcb1-bc01-440f-bcfb-1c7493944f4f",
-            "start_pin": "Output",
-            "end_pin": "input",
-        },
-        {
-            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "end_id": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "start_pin": "Choice Output1",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "end_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "start_pin": "Choice Output0",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
-            "end_id": "2228cbfa-8029-478c-9d62-dc4685a866ae",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "23e4b45c-461f-4a65-a112-5af01b77df81",
-            "end_id": "a0e8222a-ff19-498f-8c29-93e2f4257e2b",
-            "start_pin": "event_contain",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "70ca10c1-dbe8-4673-9e5c-3dce08666aa6",
-            "end_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "11e6b28e-0473-487f-8480-0069fd412c47",
-            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "bf6b87c6-1d23-4a20-b5a8-34ccd36ffdf1",
-            "end_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "start_pin": "Audio",
-            "end_pin": "AudioFile",
-        },
-        {
-            "start_id": "a3e094c7-a188-443e-8a72-b4dd6199f1eb",
-            "end_id": "b73ad069-3b0f-49ee-aca9-9af33beee56c",
-            "start_pin": "Ex Out",
-            "end_pin": "Ex In",
-        },
-        {
-            "start_id": "4142a167-4f62-469a-967a-6814ca3c4fc3",
-            "end_id": "468cf1dc-4d15-46a9-958f-1b27b7353820",
-            "start_pin": "Ex Out",
-            "end_pin": "Input",
-        },
-        {
-            "start_id": "5254dc4a-da3a-4f64-a5d0-f43d57f6e084",
-            "end_id": "23e4b45c-461f-4a65-a112-5af01b77df81",
-            "start_pin": "output",
-            "end_pin": "Start Node Connection",
-        },
-        {
-            "start_id": "095004db-9151-4375-ac7a-6d2d36c6279f",
-            "end_id": "0dba10cf-7f51-42b2-8c1e-3429c92eca2c",
-            "start_pin": "output in case of end of event",
-            "end_pin": "input",
-        },
-    ],
-}
+from tkinter import filedialog
 
 
 def convert_connections(nodes: list, connections: list):
@@ -223,7 +32,7 @@ def find_previous_node(scene, uuid, newscene):
     return None
 
 
-def convert_node_to_xml(node, nodes, uuid):
+def convert_node_to_xml(node, nodes, uuid, scene):
     node_type = node["type"]
     internal_data = node["internal-data"]
 
@@ -232,12 +41,12 @@ def convert_node_to_xml(node, nodes, uuid):
     elif node_type == "event_Node":
         return f"<event name='{internal_data['text']}' unique='{internal_data['isunique']}'>"
     elif node_type == "text_Node":
-        if find_previous_node(a, uuid, nodes)["type"] == "choice_Node":
+        if find_previous_node(scene, uuid, nodes)["type"] == "choice_Node":
             return f"<choice><text>{internal_data['text']}</text><event>"
         return f"<text>{internal_data['text']}</text>"
     elif node_type == "playsound_Node":
         audio = ""
-        for nod in convert_connections(a["nodes"], a["connections"]):
+        for nod in convert_connections(scene["nodes"], scene["connections"]):
             if nod["type"] == "loadsound_Node":
                 if "connections" in nod:
                     for i in nod["connections"]["end_id"]:
@@ -283,14 +92,14 @@ def convert_node_to_xml(node, nodes, uuid):
         return "<unknown></unknown>"
 
 
-def convert_to_xml(nodes):
+def convert_to_xml(nodes, scene):
     xml_output = "<FTL>"
 
     # Iterate through nodes
     # print(json.dumps(nodes,indent=4))
     for node in nodes:
         if node["type"] != "end_branch_Node":
-            xml_output += convert_node_to_xml(node, nodes, node["uuid"])
+            xml_output += convert_node_to_xml(node, nodes, node["uuid"], scene)
         else:
             xml_output += "</event></choice>"
 
@@ -300,29 +109,66 @@ def convert_to_xml(nodes):
 
 
 def sort_nodes_based_on_connections(nodes, connections):
-    # Create a dictionary to store the graph
-    uuidtonode = {node["uuid"]: node for node in nodes}
-    sortednodes = []
+    # Create a dictionary to map UUIDs to node objects
+    uuid_to_node = {node["uuid"]: node for node in nodes}
+    sorted_nodes = []
 
-    def findpreviousenode(uuid):
-        for node in nodes:
-            for id in node["connections"]["end_id"]:
-                if id == uuid:
-                    return node
+    def dfs_sort(node_uuid, visited=set()):
+        if node_uuid in visited:
+            return []
+        visited.add(node_uuid)
+        node = uuid_to_node[node_uuid]
+        results = [node]
 
-    def _sort(node):
-        i = [node]
-        if "connections" in node:
-            for a in node["connections"]["end_id"]:
-                # print(uuidtonode[a]["type"])
-                i.extend(_sort(uuidtonode[a]))
-        return i
+        # Handle choice nodes to prioritize paths ending with end_event_Node
+        if node["type"] == "choice_Node":
+            child_nodes = []
+            end_event_paths = []
 
-    for node in nodes:
-        if node["type"] == "start_Node":
-            print(json.dumps(node, indent=4))
-            sortednodes.extend(_sort(node))
-    return sortednodes
+            # Separate children into normal and end_event paths
+            for end_id in node["connections"]["end_id"]:
+                sub_path = dfs_sort(end_id, visited.copy())
+                if any(n["type"] == "end_of_event_Node" for n in sub_path):
+                    end_event_paths.append(sub_path)
+                else:
+                    child_nodes.append(sub_path)
+
+            # Append non-ending paths followed by paths ending in an event
+            for path in child_nodes:
+                results.extend(path)
+            for path in end_event_paths:
+                results.extend(path)
+        else:
+            if "connections" in node:
+                for end_id in node["connections"]["end_id"]:
+                    results.extend(dfs_sort(end_id, visited))
+
+        return results
+
+    # Start from the start_Node
+    start_node_uuid = next(
+        (node["uuid"] for node in nodes if node["type"] == "start_Node"), None
+    )
+    if start_node_uuid:
+        sorted_nodes = dfs_sort(start_node_uuid)
+
+    return sorted_nodes
+
+
+def save_file():
+    # Open the save as file dialog
+    file_path = filedialog.asksaveasfilename(
+        defaultextension=".txt",
+        filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
+        title="Save as",
+    )
+    # Check if a file path was selected
+    if file_path:
+        print(f"File will be saved to: {file_path}")
+        # Here you can add the logic to save the actual data to the file at the specified path
+        # Example:
+        # with open(file_path, 'w') as file:
+        #     file.write("Your data here")
 
 
 def compile(scene):
@@ -334,72 +180,10 @@ def compile(scene):
     # print("converted connections: " + json.dumps(b, indent=4))
     b = sort_nodes_based_on_connections(a["nodes"], a["connections"])
     # b = {"nodes": b, "connections": a["connections"]}
-    b = convert_to_xml(b)
+    b = convert_to_xml(b, scene)
     try:
-        aaa = "converted to xml: " + parseString(b).toprettyxml()
-        print(aaa)
-        return aaa
+        print(parseString(b).toprettyxml())
+        return parseString(b).toprettyxml()
     except:
-        aaa = "converted to xml: " + b
-        print(aaa)
-        return aaa
-
-
-if __name__ == "__main__":
-    compile(a)
-
-
-# for some reason the code above is outputting:
-#
-# <FTL>
-#        <unknown/>
-#        <event name="example" unique="True">
-#                <text>A zoltan ship hails you</text>
-#                <choice>
-#                        <text>attack!</text>
-#                        <event>
-#                                <playSound/>
-#                                <ship name="enemy-zoltan" auto_blueprint=""/>
-#                                <ship>load='enemy-zoltan' hostile='True'</ship>
-#                        </event>
-#                </choice>
-#        </event>
-#        <choice>
-#                <text>Tell them about your mission and ask for supplies</text>
-#                <event>
-#                        <text>They give you some supplies to help you on your quest</text>
-#                        <item type="scrap" amount="20"/>
-#                </event>
-#        </choice>
-# </FTL>
-#
-#
-# instead of outputting this:
-#
-# <FTL>
-#        <event name="example" unique="True">
-#                <text>A zoltan ship hails you</text>
-#                <choice>
-#                        <text>attack!</text>
-#                        <event>
-#                                <playSound/>
-#                                <ship name="enemy-zoltan" auto_blueprint=""/>
-#                                <ship>load='enemy-zoltan' hostile='True'</ship>
-#                        </event>
-#                </choice>
-#                <choice>
-#                <text>Tell them about your mission and ask for supplies</text>
-#                <event>
-#                        <text>They give you some supplies to help you on your quest</text>
-#                        <item type="scrap" amount="20"/>
-#                </event>
-#                </choice>
-#        </event>
-# </FTL>
-#
-#
-# It seems like this is because it is doing one choice branch and then if that one
-# has the end event node it adds the </event> tag we can fix this by
-# doing the choice branch resulting in the end event last. In order to
-# code this we have to change the sorting function.
-#
+        print(b)
+        return b
